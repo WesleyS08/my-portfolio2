@@ -15,6 +15,11 @@
     <link rel="stylesheet" href="css/vendor.css">
 
     <!-- JS-->
+    <script>
+        const githubToken = "${{ secrets.GITHUB_TOKEN }}";
+    </script>
+    
+    
     <script src="js/modernizr.js"></script>
     <script src="js/pace.min.js"></script>
     <script src="https://unpkg.com/scrollreveal"></script>
@@ -507,7 +512,7 @@
                 // Função para buscar os repositórios do GitHub
                 function fetchReposFromGitHub() {
                     // Token de acesso pessoal do GitHub
-                    var githubToken = 'GITHUB_TOKEN';
+                    var githubToken = "${{ secrets.GITHUB_TOKEN }}";
 
                     // URL da API do GitHub para obter os repositórios de um usuário específico
                     var githubAPIURL = 'https://api.github.com/users/WesleyS08/repos';
@@ -680,7 +685,7 @@
         // Função para buscar e exibir as estatísticas do GitHub
         function updateGitHubStats() {
             // Token de acesso pessoal do GitHub
-            const githubToken = 'GITHUB_TOKEN';
+            const githubToken = "${{ secrets.GITHUB_TOKEN }}";
 
             // URL da API do GitHub para obter os dados do usuário
             const githubAPIURL = 'https://api.github.com/users/WesleyS08';
