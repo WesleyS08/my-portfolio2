@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wesley Silva</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- CSS-->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/vendor.css">
+
+    <!-- JS-->
+    <script src="js/modernizr.js"></script>
+    <script src="js/pace.min.js"></script>
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Inclua o Magnific Popup -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            function animateProgressBars() {
+                var languageColors = {
+                    "HTML": "#E34F26",
+                    "CSS": "#1572B6",
+                    "JavaScript": "#F7DF1E",
+                    "Python": "#3572A5",
+                    "Java": "#007396",
+                    "C++": "#F34B7D",
+                    "Ruby": "#CC342D",
+                    "PHP": "#4F5D95",
+                    "C#": "#178600",
+                    "Swift": "#FFAC45",
+                    "TypeScript": "#2B7489",
+                    "Go": "#00ADD8",
+                    "Kotlin": "#F18E33",
+                    "R": "#276DC3",
+                    "Scala": "#DC322F",
+                    "Perl": "#0298C3",
+                    "Haskell": "#5E5086",
+                    "Lua": "#000080",
+                    "Shell": "#89E051",
+                    "Objective-C": "#438EFF",
+                    "Assembly": "#6E4C13",
+                    "Vim script": "#199F4B",
+                    "TeX": "#3D6117",
+                    "CoffeeScript": "#244776",
+                    "Dart": "#00B4AB",
+                    "Matlab": "#E16737"
+                };
+
+                $.ajax({
+                    url: 'https://api.github.com/users/WesleyS08/repos',
+                    dataType: 'json',
+                    success: function (data) {
+                        var skills = {};
+                        data.forEach(function (repo) {
+                            var language = repo.language;
+                            if (language) {
+                                if (language in skills) {
+                                    skills[language]++;
+                                } else {
+                                    skills[language] = 1;
+                                }
+                            }
+                        });
+
+                        var totalRepos = data.length;
+                        for (var skill in skills) {
+                            var percentage = Math.round((skills[skill] / totalRepos) * 100);
+                            var progress = '<div class="progress" data-width="' + percentage + '" style="background-color: ' + (languageColors[skill] || "#000") + '; width: 0;"><span class="percentage">' + percentage + '%</span></div>';
+                            var listItem = $('<li>').html(progress + '<strong>' + skill + '</strong>');
+                            $('.skill-bars').append(listItem);
+                        }
+
+                        // Waypoint to trigger the animation when entering or leaving
+                        $('.progress').waypoint(function (direction) {
+                            var width = $(this.element).data('width');
+                            $(this.element).css('width', width + '%');
+                            this.destroy(); // Destruir o waypoint para evitar repetições
+                        }, { offset: '98%' });
+
+                        // Adicionando evento de passagem de mouse para mostrar a porcentagem
+                        $('.progress').on('mouseenter', function () {
+                            var percentage = $(this).find('.percentage').text();
+                            $(this).attr('title', percentage);
+                        });
+                    }
+                });
+            }
+
+            // Chamando a função para iniciar a animação
+            animateProgressBars();
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            // Configuração do ScrollReveal para animação de cima para baixo
+            ScrollReveal().reveal('.timeline-block', {
+                delay: 350, // Atraso entre a revelação de cada elemento
+                distance: '25px', // Distância da qual os elementos devem ser revelados
+                duration: 800, // Duração da animação
+                origin: 'bottom', // Origem da animação
+                interval: 350 // Intervalo entre animações consecutivas
+            });
+
+            // Configuração do ScrollReveal para animação de baixo para cima
+            ScrollReveal().reveal('.timeline-block', {
+                delay: 350, // Atraso entre a revelação de cada elemento
+                distance: '25px', // Distância da qual os elementos devem ser revelados
+                duration: 800, // Duração da animação
+                origin: 'top', // Origem da animação
+                interval: 350, // Intervalo entre animações consecutivas
+                viewFactor: 0.2, // Define a porcentagem da altura da janela visível que desencadeará a animação
+                reset: true // Redefine a animação ao rolar para cima
+            });
+        });
+    </script>
+    <!-- Icon-->
+    <link rel="icon" href="image/png" href="favicon.png">
+</head>
+
+<body id="top">
+
+    <!-- header 
+   ================================================== -->
+    <header>
+        <div class="row">
+
+            <div class="top-bar">
+                <a class="menu-toggle" href="#"><span>Menu</span></a>
+
+
+                <div class="logo">
+                    <a href="#">Menu</a>
+                </div>
+
+                <nav id="main-nav-wrap">
+                    <ul class="main-navigation">
+                        <li class="current"><a class="smoothscroll" href="#intro" title="">Home</a></li>
+                        <li><a class="smoothscroll" href="#about" title="">Sobre Mim</a></li>
+                        <li><a class="smoothscroll" href="#resume" title="">Formação</a></li>
+                        <li><a class="smoothscroll" href="#portfolio" title="">Projetos</a></li>
+                        <li><a class="smoothscroll" href="#contact" title="">Contato</a></li>
+                    </ul>
+                </nav>
+            </div> <!-- /top-bar -->
+
+        </div> <!-- /row -->
+    </header> <!-- /header -->
+
+    <!-- intro section
+   ================================================== -->
+    <section id="intro">
+        <div id="particles-js"></div>
+        <div class="intro-overlay"></div>
+        <div class="intro-content">
+            <div class="row">
+                <div class="col-twelve">
+                    <h5>Olá Mundo,</h5>
+                    <h1>Eu sou Wesley Silva.</h1>
+                    <p class="intro-position">
+                        <span></span>
+                        <span>DEV</span>
+                        <span>Estudante</span>
+                    </p>
+                    <a class="button stroke smoothscroll" href="#about" title="">Sobre mim</a>
+                </div>
+            </div>
+        </div>
+
+        <ul class="intro-social">
+            <li><a href="https://www.linkedin.com/in/wesley-silva-33624b17a/" target="_blank"><i
+                        class="fa fa-linkedin"></i></a></li>
+            <li><a href="https://github.com/WesleyS08" target="_blank"><i class="fa fa-github"></i></a></li>
+        </ul>
+
+        <script>
+            particlesJS("particles-js", {
+                "particles": {
+                    "number": {
+                        "value": 218,
+                        "density": {
+                            "enable": true,
+                            "value_area": 1103.7179527608712
+                        }
+                    },
+                    "color": {
+                        "value": "#6a00ff"
+                    },
+                    "shape": {
+                        "type": "circle",
+                        "stroke": {
+                            "width": 0,
+                            "color": "#000000"
+                        },
+                        "polygon": {
+                            "nb_sides": 5
+                        },
+                        "image": {
+                            "src": "img/github.svg",
+                            "width": 100,
+                            "height": 100
+                        }
+                    },
+                    "opacity": {
+                        "value": 0.5,
+                        "random": false,
+                        "anim": {
+                            "enable": false,
+                            "speed": 1,
+                            "opacity_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "size": {
+                        "value": 3,
+                        "random": true,
+                        "anim": {
+                            "enable": false,
+                            "speed": 40,
+                            "size_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "line_linked": {
+                        "enable": true,
+                        "distance": 150,
+                        "color": "#a64aff",
+                        "opacity": 0.4,
+                        "width": 1
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 6,
+                        "direction": "none",
+                        "random": false,
+                        "straight": false,
+                        "out_mode": "out",
+                        "bounce": false,
+                        "attract": {
+                            "enable": false,
+                            "rotateX": 600,
+                            "rotateY": 1200
+                        }
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "window",
+                    "events": {
+                        "onhover": {
+                            "enable": false,
+                            "mode": "repulse"
+                        },
+                        "onclick": {
+                            "enable": true,
+                            "mode": "repulse"
+                        },
+                        "resize": true
+                    },
+                    "modes": {
+                        "grab": {
+                            "distance": 400,
+                            "line_linked": {
+                                "opacity": 1
+                            }
+                        },
+                        "bubble": {
+                            "distance": 400,
+                            "size": 40,
+                            "duration": 2,
+                            "opacity": 8,
+                            "speed": 3
+                        },
+                        "repulse": {
+                            "distance": 200,
+                            "duration": 0.4
+                        },
+                        "push": {
+                            "particles_nb": 4
+                        },
+                        "remove": {
+                            "particles_nb": 2
+                        }
+                    }
+                },
+                "retina_detect": false
+            });
+        </script>
+
+    </section> <!-- /intro -->
+
+
+    <!-- about section
+================================================== -->
+    <section id="about">
+
+        <div class="row section-intro">
+            <div class="col-twelve">
+
+                <h5>Quem sou eu</h5>
+                <h1>Permita-me fazer as honras da apresentação. </h1>
+
+                <div class="intro-info">
+
+                    <img src="img/profile-pic.png" alt="Foto do perfil">
+
+                    <p class="lead">Olá! Eu sou Wesley, um desenvolvedor apaixonado por resolver desafios por meio da
+                        tecnologia. Construindo uma sólida experiência em desenvolvimento full stack, estou sempre em
+                        busca de novas oportunidades para inovar e crescer profissionalmente.</p>
+                </div>
+
+            </div>
+        </div> <!-- /section-intro -->
+
+        <div class="row about-content">
+
+            <div class="col-six tab-full">
+
+                <h3>Perfil</h3>
+                <p>Sou apaixonado por resolver desafios por meio da tecnologia. Da programação backend ao frontend,
+                    tenho uma grande sede por descobrir e aplicar soluções inovadoras e de alta qualidade. Atualmente,
+                    atuo como desenvolvedor full stack júnior, com foco em desenvolvimento web e banco de dados.</p>
+
+                <ul class="info-list">
+                    <li>
+                        <strong>Interesses:</strong>
+                        <span>Coloco depois</span>
+                    </li>
+                    <li>
+                        <strong>Email:</strong>
+                        <span>meu email</span>
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="col-six tab-full">
+
+                <h3>Skills</h3>
+                <p>Tenho habilidades técnicas em várias linguagens de programação e ferramentas, o que me permite
+                    desenvolver soluções robustas e eficientes.</p>
+
+                <ul class="skill-bars">
+                </ul> <!-- /skill-bars -->
+
+            </div>
+
+
+        </div>
+
+        <div class="row button-section">
+            <div class="col-twelve">
+                <a href="#contact" title="Hire Me" class="button stroke smoothscroll">Contrate-me</a>
+                <a href="assets/cv.pdf" title="Download CV" class="button button-primary" download>Download CV</a>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- resume Section
+================================================== -->
+    <section id="resume" class="grey-section">
+
+        <div class="row section-intro">
+            <div class="col-twelve">
+
+                <h5>Experiências</h5>
+                <h1>Explorando o Mundo Acadêmico</h1>
+
+                <p class="lead">Na jornada da vida acadêmica, cada passo é uma descoberta, cada desafio é uma
+                    oportunidade de crescimento. Desde os primeiros dias de aprendizado até os momentos de pesquisa
+                    intensa, mergulhamos em um universo de conhecimento e reflexão. Cada aula, cada debate, cada projeto
+                    molda não apenas nossa compreensão do mundo, mas também nossa própria identidade intelectual. .</p>
+
+            </div>
+        </div> <!-- /section-intro-->
+
+        <div class="row resume-timeline">
+
+            <div class="col-twelve resume-header">
+
+                <h2>Educação</h2>
+
+            </div> <!-- /resume-header -->
+
+            <div class="col-twelve">
+
+                <div class="timeline-wrap">
+
+                    <div class="timeline-block">
+
+                        <div class="timeline-ico">
+                            <i class="fa fa-book"></i>
+                        </div>
+
+                        <div class="timeline-header">
+                            <h3>Superior em Desenvolvimento de Software Multiplataforma</h3>
+                            <p>Agosto 2022 - Presente</p>
+                        </div>
+
+                        <div class="timeline-content">
+                            <h4>Fatec Zona Sul</h4>
+                            <p>O tecnólogo em Desenvolvimento de Software Multiplataforma projeta, desenvolve e testa
+                                software para múltiplas plataformas, aplicações em Nuvem e Internet das Coisas.
+                                Seleciona e aplica conceitos, métodos e tecnologias de Linguagens de Programação, Banco
+                                de Dados, Engenharia de Software, Segurança da Informação e Inteligência Artificial,
+                                propondo soluções tecnológicas. Realiza análise estatística de dados para apoiar a
+                                tomada de decisão. Coordena projetos e equipes de desenvolvimento de software.</p>
+                        </div>
+
+                    </div> <!-- /timeline-block -->
+
+                    <div class="timeline-block">
+
+                        <div class="timeline-ico">
+                            <i class="fa fa-book"></i>
+                        </div>
+
+                        <div class="timeline-header">
+                            <h3>Ensino Técnico em Redes de Computadores </h3>
+                            <p>Agosto 2019 - dezembro 2020</p>
+                        </div>
+
+                        <div class="timeline-content">
+                            <h4>Etec de Embu das Artes </h4>
+                            <p>O TÉCNICO EM REDES DE COMPUTADORES é o profissional que instala, configura, gerencia e
+                                analisa dispositivos de comunicação de dados. Implanta e mantem projetos lógicos,
+                                físicos, segurança e serviços de redes locais e de longa distância. Prepara, instala e
+                                mantém cabeamentos de redes. Configura acessos de usuários em redes de computadores.
+                                Configura serviços de rede, tais como firewall, servidores web, correio eletrônico,
+                                servidores de notícias. Implementa recursos de segurança em redes de computadores.
+                            </p>
+                        </div>
+
+                    </div> <!-- /timeline-block -->
+
+                    <div class="timeline-block">
+
+                        <div class="timeline-ico">
+                            <i class="fa fa-book"></i>
+                        </div>
+
+                        <div class="timeline-header">
+                            <h3>Ensino Médio</h3>
+                            <p>janeiro 2015 - dezembro 2018</p>
+                        </div>
+
+                        <div class="timeline-content">
+                            <h4>E.E Jornalista David Nasser</h4>
+                            <p>No Ensino Médio na E.E Jornalista David Nasser, tive a oportunidade de mergulhar em um
+                                ambiente de aprendizado dinâmico e enriquecedor. Durante esse período, adquiri
+                                conhecimentos essenciais em diversas áreas acadêmicas, desde as disciplinas fundamentais
+                                até aquelas que despertaram minha curiosidade e interesse.
+                            </p>
+                        </div>
+
+                    </div> <!-- /timeline-block -->
+
+                </div> <!-- /timeline-wrap -->
+
+            </div> <!-- /col-twelve -->
+
+        </div> <!-- /resume-timeline -->
+
+    </section> <!-- /features -->
+
+
+    <!-- Portfolio Section
+================================================== -->
+    <section id="portfolio">
+
+        <div class="row section-intro">
+            <div class="col-twelve">
+
+                <h5>Projetos</h5>
+                <h1>Confira alguns dos meus Projetos.</h1>
+
+                <p class="lead">Durante minha jornada acadêmica, tive a oportunidade de trabalhar em diversos projetos
+                    que ampliaram meu conhecimento e
+                    desenvolveram minhas habilidades técnicas e criativas. Abaixo estão alguns dos projetos que
+                    realizei:</p>
+
+            </div>
+        </div> <!-- /section-intro-->
+        <div class="row portfolio-content">
+            <div class="col-twelve">
+                <!-- portfolio-wrapper -->
+                <div id="folio-wrapper" class="block-1-2 block-mob-full stack">
+                    <!-- Conteúdo dinâmico será gerado aqui -->
+                </div> <!-- /portfolio-wrapper -->
+            </div> <!-- /twelve -->
+        </div> <!-- /portfolio-content -->
+
+        <script>
+            $(document).ready(function () {
+                // Função para buscar os repositórios do GitHub
+                function fetchReposFromGitHub() {
+                    // Token de acesso pessoal do GitHub
+                    var githubToken = 'GITHUB_TOKEN';
+
+                    // URL da API do GitHub para obter os repositórios de um usuário específico
+                    var githubAPIURL = 'https://api.github.com/users/WesleyS08/repos';
+
+                    // Configuração para a requisição AJAX com autenticação
+                    $.ajax({
+                        url: githubAPIURL,
+                        method: 'GET',
+                        headers: {
+                            'Authorization': 'token ' + githubToken
+                        },
+                        success: function (repos) {
+                            // Ordenar os repositórios pela data de criação em ordem decrescente
+                            repos.sort(function (a, b) {
+                                return new Date(b.created_at) - new Date(a.created_at);
+                            });
+
+                            // Para cada repositório retornado pela API do GitHub, gere o HTML correspondente
+                            repos.forEach(function (repo, index) {
+                                var imageUrl = `img/portfolio/${repo.name}.jpg`;
+                                var modalImageUrl = `img/portfolio/modals/${repo.name}.jpg`;
+
+                                // Verificar se a imagem existe
+                                $.get(imageUrl).fail(function () {
+                                    // Definindo uma imagem padrão
+                                    imageUrl = 'img/portfolio/default.jpg';
+                                    // Atualizando o atributo src da imagem para a imagem padrão
+                                    $(`img[alt="${repo.name}"]`).attr('src', imageUrl);
+                                });
+
+                                // Verificar se a imagem existe
+                                $.get(modalImageUrl).fail(function () {
+                                    // Definindo uma imagem padrão
+                                    modalImageUrl = 'img/portfolio/modals/default.jpg';
+                                    // Atualizando o atributo src da imagem para a imagem padrão
+                                    $(`img[alt="${repo.name}"]`).attr('src', imageUrl);
+                                });
+
+
+                                var portfolioItemHTML = `
+                <div class="bgrid folio-item">
+                    <div class="item-wrap">
+                        <img src="${imageUrl}" alt="${repo.name}">
+                        <a href="#modal-${index + 1}" class="overlay">
+                            <div class="folio-item-table">
+                                <div class="folio-item-cell">
+                                    <h3 class="folio-title">${repo.name}</h3>
+                                    <span class="folio-types">${repo.language}</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            `;
+                                $('#folio-wrapper').append(portfolioItemHTML);
+
+                                var modalHTML = `
+                <div id="modal-${index + 1}" class="popup-modal slider mfp-hide">
+                    <div class="media">
+                        <img src="${modalImageUrl}" alt="" />
+                    </div>
+                    <div class="description-box">
+                        <h4>${repo.name}</h4>
+                        <p>${repo.description || 'Descrição não fornecida'}</p>
+                        <div class="categories">${repo.language}</div>
+                    </div>
+                    <div class="link-box">
+                        <a href="${repo.html_url}" target="_blank">Repositório</a>
+                        <a href="#" class="popup-modal-dismiss">Close</a>
+                    </div>
+                </div>
+            `;
+                                $('body').append(modalHTML);
+                            });
+
+                            // Inicialize o Magnific Popup após a adição de todos os modais
+                            $('.overlay').magnificPopup({
+                                type: 'inline',
+                                preloader: false,
+                                focus: '#username',
+                                modal: true
+                            });
+
+                            // Dismiss modal handler
+                            $(document).on('click', '.popup-modal-dismiss', function (e) {
+                                e.preventDefault();
+                                $.magnificPopup.close();
+                            });
+                        },
+                        error: function (error) {
+                            console.log('Erro ao buscar repositórios: ', error);
+                        }
+                    });
+                }
+
+                // Chame a função para buscar os repositórios do GitHub
+                fetchReposFromGitHub();
+            });
+        </script>
+    </section> <!-- /portfolio -->
+    <section id="stats" class="count-up">
+        <div class="row">
+            <div class="col-twelve">
+                <div class="block-1-6 block-s-1-3 block-tab-1-2 block-mob-full stats-list">
+                    <div class="bgrid stat" id="repo-stat">
+                        <div class="icon-part">
+                            <i class="icon-pencil-ruler"></i>
+                        </div>
+                        <h3 class="stat-count" id="repo-count">Carregando...</h3>
+                        <h5 class="stat-title">Projetos Realizados</h5>
+                    </div>
+
+                    <div class="bgrid stat" id="followers-stat">
+                        <div class="icon-part">
+                            <i class="icon-users"></i>
+                        </div>
+                        <h3 class="stat-count" id="followers-count">Carregando...</h3>
+                        <h5 class="stat-title">followers</h5>
+                    </div>
+
+                    <div class="bgrid stat" id="following-stat">
+                        <div class="icon-part">
+                            <i class="icon-users"></i>
+                        </div>
+                        <h3 class="stat-count" id="following-count">Carregando...</h3>
+                        <h5 class="stat-title">following</h5>
+                    </div>
+
+                    <div class="bgrid stat" id="cups-stat">
+                        <div class="icon-part">
+                            <i class="icon-cup"></i>
+                        </div>
+                        <h3 class="stat-count" id="cups-count">0</h3>
+                        <h5 class="stat-title">Cafés tomados</h5>
+                    </div>
+
+                    <div class="bgrid stat" id="hours-stat">
+                        <div class="icon-part">
+                            <i class="icon-clock"></i>
+                        </div>
+                        <h3 class="stat-count" id="hours-count">0</h3>
+                        <h5 class="stat-title">Noites acordado</h5>
+                    </div>
+
+                    <div class="bgrid stat" id="avg-contribution-stat">
+                        <div class="icon-part">
+                            <i class="icon-clock"></i>
+                        </div>
+                        <h3 class="stat-count" id="avg-contribution-count">Carregando...</h3>
+                        <h5 class="stat-title">Tempo Médio de Contribuição Diária em minutos</h5>
+                    </div>
+
+                </div> <!-- /stats-list -->
+            </div> <!-- /twelve -->
+        </div> <!-- /row -->
+    </section> <!-- /stats -->
+
+    <script>
+        // Função para atualizar as estatísticas fictícias aleatoriamente
+        function updateFakeStats() {
+            var randomCups = Math.floor(Math.random() * 30); // Gera um número aleatório entre 0 e 29
+            var randomHours = Math.floor(Math.random() * 30); // Gera um número aleatório entre 0 e 29
+
+
+            // Atualiza os elementos HTML com os números aleatórios gerados
+            document.getElementById('cups-count').textContent = randomCups;
+            document.getElementById('hours-count').textContent = randomHours;
+        }
+
+        // Função para buscar e exibir as estatísticas do GitHub
+        function updateGitHubStats() {
+            // Token de acesso pessoal do GitHub
+            const githubToken = 'GITHUB_TOKEN';
+
+            // URL da API do GitHub para obter os dados do usuário
+            const githubAPIURL = 'https://api.github.com/users/WesleyS08';
+
+            // Fazendo requisição à API do GitHub
+            fetch(githubAPIURL, {
+                headers: {
+                    'Authorization': `token ${githubToken}`
+                }
+            })
+                .then(response => response.json())
+                .then(userData => {
+                    // Extraindo os dados de interesse
+                    const repoCount = userData.public_repos;
+                    const followersCount = userData.followers;
+                    const followingCount = userData.following;
+
+                    // Atualizando os elementos HTML com as novas estatísticas
+                    document.getElementById('repo-count').textContent = repoCount;
+                    document.getElementById('followers-count').textContent = followersCount;
+                    document.getElementById('following-count').textContent = followingCount;
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar estatísticas do GitHub:', error);
+                });
+        }
+
+        // Função para calcular e atualizar o Tempo Médio de Contribuição Diária
+        function updateAverageContribution() {
+            // Supondo que você tenha o tempo total de contribuição armazenado em uma variável chamada totalContributionTime
+            var totalContributionTime = Math.floor(Math.random() * 1200); // Gera um número aleatório entre 0 e 1199
+            var numberOfDays = Math.floor(Math.random() * 30); // Gera um número aleatório entre 0 e 29
+
+            // Calcula o Tempo Médio de Contribuição Diária
+            var averageContribution = totalContributionTime / numberOfDays;
+
+            // Atualiza o elemento HTML com o Tempo Médio de Contribuição Diária
+            document.getElementById('avg-contribution-count').textContent = averageContribution;
+        }
+
+
+        // Função para atualizar todas as estatísticas
+        function updateAllStats() {
+            updateGitHubStats();
+            updateFakeStats();
+            updateAverageContribution();
+        }
+
+        // Chama a função inicialmente para exibir as estatísticas ao carregar a página
+        updateAllStats();
+
+        // Define um intervalo de tempo para atualizar as estatísticas periodicamente
+        setInterval(updateAllStats, 60000); // Atualiza a cada 1 minuto
+    </script>
+    <!-- contact
+================================================== -->
+    <section id="contact">
+        <div class="row section-intro">
+            <div class="col-twelve">
+
+                <h5>Entre em Contato</h5>
+                <h1>Estou aqui para ouvir você!</h1>
+
+                <p class="lead">Se você tiver alguma dúvida, ideia emocionante ou simplesmente quiser dizer olá,
+                    não hesite em me enviar um e-mail. Estou ansioso para conversar e colaborar!</p>
+
+            </div>
+        </div>
+
+        </div> <!-- /section-intro -->
+
+      
+        <div class="row contact-info">
+
+            <div class="col-four tab-full">
+
+                <div class="icon">
+                    <i class="icon-pin"></i>
+                </div>
+
+                <h5>Onde me encontro</h5>
+
+                <p>
+                    São Paulo<br>
+                    Sp<br>
+                </p>
+
+            </div>
+
+            <div class="col-four tab-full collapse">
+
+                <div class="icon">
+                    <i class="icon-mail"></i>
+                </div>
+
+                <h5>Envie-me um e-mail para</h5>
+
+                <p>ws78009@gmail.com<br>
+                </p>
+
+            </div>
+
+
+
+        </div> <!-- /contact-info -->
+
+    </section> <!-- /contact -->
+
+
+    <!-- footer
+================================================== -->
+
+    <footer>
+        <div class="row">
+
+            <div class="col-six tab-full pull-right social">
+
+
+
+            </div>
+
+            <div class="col-six tab-full">
+                <div class="copyright">
+                    <span>© Copyright Wesley 2024.</span>
+                </div>
+            </div>
+
+            <div id="go-top">
+                <a class="smoothscroll" title="Back to Top" href="#top"><i class="fa fa-long-arrow-up"></i></a>
+            </div>
+
+        </div> <!-- /row -->
+    </footer>
+
+    <div id="preloader">
+        <div id="loader"></div>
+    </div>
+
+    <!-- Java Script
+================================================== -->
+    <script src="js/jquery-2.1.3.min.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/main.js"></script>
+
+</body>
+
+</html>

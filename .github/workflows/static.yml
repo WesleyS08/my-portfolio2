@@ -1,0 +1,47 @@
+# Fluxo de trabalho simples para testar a sintaxe do HTML e CSS
+name: Teste de Sintaxe do HTML e CSS
+
+on:
+  # Roda em push direcionado para o ramo padrão
+  push:
+    branches: ["main"]
+
+  # Permite que você execute este fluxo de trabalho manualmente na guia Actions
+  workflow_dispatch:
+
+jobs:
+  # Tarefa para testar sintaxe do HTML
+  test-html:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Testar a sintaxe do HTML
+      - name: Testar HTML
+        run: |
+          echo "Executando testes de sintaxe do HTML..."
+          # Comandos simples para verificar a sintaxe do HTML
+          # Aqui você pode usar ferramentas como `htmlhint` ou `tidy`
+          # por exemplo:
+          # htmlhint path/to/your/html/file.html
+          # ou
+          # tidy -q -errors path/to/your/html/file.html
+
+  # Tarefa para testar sintaxe do CSS
+  test-css:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Testar a sintaxe do CSS
+      - name: Testar CSS
+        run: |
+          echo "Executando testes de sintaxe do CSS..."
+          # Comandos simples para verificar a sintaxe do CSS
+          # Aqui você pode executar comandos como `csslint` ou `stylelint`
+          # por exemplo:
+          # csslint path/to/your/css/file.css
+          # ou
+          # stylelint path/to/your/css/file.css
