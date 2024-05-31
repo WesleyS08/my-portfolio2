@@ -16,8 +16,10 @@
 
     <!-- JS-->
     <script>
-        const githubToken = "${{ secrets.GITHUB_TOKEN }}";
+        // Imprimir o valor da variável de ambiente no console do navegador
+        console.log("Valor do MY_CUSTOM_TOKEN:", process.env.MY_CUSTOM_TOKEN);
     </script>
+    
     
     
     <script src="js/modernizr.js"></script>
