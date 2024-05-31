@@ -1,4 +1,4 @@
-name: Get GitHub Token
+name: Get Custom Token
 
 on:
   push:
@@ -9,8 +9,8 @@ jobs:
   get_token:
     runs-on: ubuntu-latest
     steps:
-      - name: Get GitHub Token
-        id: github_token
+      - name: Get Custom Token
+        id: custom_token
         run: |
-          echo "GitHub Token: ${{secrets.GITHUB_TOKEN}}"
-          echo "GITHUB_TOKEN=${{secrets.GITHUB_TOKEN}}" >> $GITHUB_ENV
+          echo "Custom Token: ${{secrets.MY_CUSTOM_TOKEN}}"
+          echo "MY_CUSTOM_TOKEN=${{secrets.MY_CUSTOM_TOKEN}}" >> $GITHUB_ENV
