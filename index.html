@@ -16,8 +16,7 @@
 
     <!-- JS-->
     <script>
-        // Imprimir o valor da variável de ambiente no console do navegador
-        console.log("Valor do MY_CUSTOM_TOKEN:", process.env.MY_CUSTOM_TOKEN);
+        window.MY_CUSTOM_TOKEN = "${{ secrets.MY_CUSTOM_TOKEN }}";
     </script>
     
     
@@ -514,7 +513,7 @@
                 // Função para buscar os repositórios do GitHub
                 function fetchReposFromGitHub() {
                     // Token de acesso pessoal do GitHub
-                    var githubToken = "${{ secrets.GITHUB_TOKEN }}";
+                    var githubToken = window.MY_CUSTOM_TOKEN;
 
                     // URL da API do GitHub para obter os repositórios de um usuário específico
                     var githubAPIURL = 'https://api.github.com/users/WesleyS08/repos';
@@ -687,7 +686,7 @@
         // Função para buscar e exibir as estatísticas do GitHub
         function updateGitHubStats() {
             // Token de acesso pessoal do GitHub
-            const githubToken = "${{ secrets.GITHUB_TOKEN }}";
+            const githubToken = window.MY_CUSTOM_TOKEN;
 
             // URL da API do GitHub para obter os dados do usuário
             const githubAPIURL = 'https://api.github.com/users/WesleyS08';
