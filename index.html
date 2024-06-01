@@ -173,7 +173,6 @@
                         <span></span>
                         <span>DEV</span>
                         <span>Estudante</span>
-                        <p>Token Personalizado: <span id="custom-token">VALOR_DO_TOKEN</span></p>
                     </p>
                     <a class="button stroke smoothscroll" href="#about" title="">Sobre mim</a>
                 </div>
@@ -509,7 +508,7 @@
                 // Função para buscar os repositórios do GitHub
                 function fetchReposFromGitHub() {
                     // Token de acesso pessoal do GitHub
-                    var githubToken = window.MY_CUSTOM_TOKEN;
+                    var githubToken = '{{MY_CUSTOM_TOKEN}}';
         
                     // URL da API do GitHub para obter os repositórios de um usuário específico
                     var githubAPIURL = 'https://api.github.com/users/WesleyS08/repos';
@@ -681,7 +680,7 @@
         // Função para buscar e exibir as estatísticas do GitHub
         function updateGitHubStats() {
             // Token de acesso pessoal do GitHub
-            const githubToken = window.MY_CUSTOM_TOKEN;
+            const githubToken = '{{MY_CUSTOM_TOKEN}}';
 
             // URL da API do GitHub para obter os dados do usuário
             const githubAPIURL = 'https://api.github.com/users/WesleyS08';
