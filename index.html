@@ -126,6 +126,120 @@
             });
         });
     </script>
+    
+    <script>
+        particlesJS("particles-js", {
+            "particles": {
+                "number": {
+                    "value": 218,
+                    "density": {
+                        "enable": true,
+                        "value_area": 1103.7179527608712
+                    }
+                },
+                "color": {
+                    "value": "#6a00ff"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    },
+                    "image": {
+                        "src": "img/github.svg",
+                        "width": 100,
+                        "height": 100
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#a64aff",
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 6,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "window",
+                "events": {
+                    "onhover": {
+                        "enable": false,
+                        "mode": "repulse"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "repulse"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 400,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": false
+        });
+    </script>
+
     <!-- Icon-->
     <link rel="icon" href="image/png" href="favicon.png">
 </head>
@@ -136,15 +250,11 @@
    ================================================== -->
     <header>
         <div class="row">
-
             <div class="top-bar">
                 <a class="menu-toggle" href="#"><span>Menu</span></a>
-
-
                 <div class="logo">
                     <a href="#">Menu</a>
                 </div>
-
                 <nav id="main-nav-wrap">
                     <ul class="main-navigation">
                         <li class="current"><a class="smoothscroll" href="#intro" title="">Home</a></li>
@@ -154,9 +264,8 @@
                         <li><a class="smoothscroll" href="#contact" title="">Contato</a></li>
                     </ul>
                 </nav>
-            </div> <!-- /top-bar -->
-
-        </div> <!-- /row -->
+            </div> <!-- /nav bar -->
+        </div> <!-- /Menu -->
     </header> <!-- /header -->
 
     <!-- intro section
@@ -178,126 +287,11 @@
                 </div>
             </div>
         </div>
-
         <ul class="intro-social">
             <li><a href="https://www.linkedin.com/in/wesley-silva-33624b17a/" target="_blank"><i
                         class="fa fa-linkedin"></i></a></li>
             <li><a href="https://github.com/WesleyS08" target="_blank"><i class="fa fa-github"></i></a></li>
         </ul>
-
-        <script>
-            particlesJS("particles-js", {
-                "particles": {
-                    "number": {
-                        "value": 218,
-                        "density": {
-                            "enable": true,
-                            "value_area": 1103.7179527608712
-                        }
-                    },
-                    "color": {
-                        "value": "#6a00ff"
-                    },
-                    "shape": {
-                        "type": "circle",
-                        "stroke": {
-                            "width": 0,
-                            "color": "#000000"
-                        },
-                        "polygon": {
-                            "nb_sides": 5
-                        },
-                        "image": {
-                            "src": "img/github.svg",
-                            "width": 100,
-                            "height": 100
-                        }
-                    },
-                    "opacity": {
-                        "value": 0.5,
-                        "random": false,
-                        "anim": {
-                            "enable": false,
-                            "speed": 1,
-                            "opacity_min": 0.1,
-                            "sync": false
-                        }
-                    },
-                    "size": {
-                        "value": 3,
-                        "random": true,
-                        "anim": {
-                            "enable": false,
-                            "speed": 40,
-                            "size_min": 0.1,
-                            "sync": false
-                        }
-                    },
-                    "line_linked": {
-                        "enable": true,
-                        "distance": 150,
-                        "color": "#a64aff",
-                        "opacity": 0.4,
-                        "width": 1
-                    },
-                    "move": {
-                        "enable": true,
-                        "speed": 6,
-                        "direction": "none",
-                        "random": false,
-                        "straight": false,
-                        "out_mode": "out",
-                        "bounce": false,
-                        "attract": {
-                            "enable": false,
-                            "rotateX": 600,
-                            "rotateY": 1200
-                        }
-                    }
-                },
-                "interactivity": {
-                    "detect_on": "window",
-                    "events": {
-                        "onhover": {
-                            "enable": false,
-                            "mode": "repulse"
-                        },
-                        "onclick": {
-                            "enable": true,
-                            "mode": "repulse"
-                        },
-                        "resize": true
-                    },
-                    "modes": {
-                        "grab": {
-                            "distance": 400,
-                            "line_linked": {
-                                "opacity": 1
-                            }
-                        },
-                        "bubble": {
-                            "distance": 400,
-                            "size": 40,
-                            "duration": 2,
-                            "opacity": 8,
-                            "speed": 3
-                        },
-                        "repulse": {
-                            "distance": 200,
-                            "duration": 0.4
-                        },
-                        "push": {
-                            "particles_nb": 4
-                        },
-                        "remove": {
-                            "particles_nb": 2
-                        }
-                    }
-                },
-                "retina_detect": false
-            });
-        </script>
-
     </section> <!-- /intro -->
 
 
