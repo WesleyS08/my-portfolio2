@@ -16,7 +16,8 @@
 
     <!-- JS-->
     <script>
-        window.MY_CUSTOM_TOKEN = "${{ secrets.MY_CUSTOM_TOKEN }}";
+        // Definição do token do GitHub como variável global
+        window.GITHUB_TOKEN = "${{ secrets.GITHUB_TOKEN }}";
     </script>
     
     
@@ -514,10 +515,10 @@
                 function fetchReposFromGitHub() {
                     // Token de acesso pessoal do GitHub
                     var githubToken = window.MY_CUSTOM_TOKEN;
-
+        
                     // URL da API do GitHub para obter os repositórios de um usuário específico
                     var githubAPIURL = 'https://api.github.com/users/WesleyS08/repos';
-
+        
                     // Configuração para a requisição AJAX com autenticação
                     $.ajax({
                         url: githubAPIURL,
@@ -530,12 +531,12 @@
                             repos.sort(function (a, b) {
                                 return new Date(b.created_at) - new Date(a.created_at);
                             });
-
+        
                             // Para cada repositório retornado pela API do GitHub, gere o HTML correspondente
                             repos.forEach(function (repo, index) {
                                 var imageUrl = `img/portfolio/${repo.name}.jpg`;
                                 var modalImageUrl = `img/portfolio/modals/${repo.name}.jpg`;
-
+        
                                 // Verificar se a imagem existe
                                 $.get(imageUrl).fail(function () {
                                     // Definindo uma imagem padrão
@@ -543,7 +544,7 @@
                                     // Atualizando o atributo src da imagem para a imagem padrão
                                     $(`img[alt="${repo.name}"]`).attr('src', imageUrl);
                                 });
-
+        
                                 // Verificar se a imagem existe
                                 $.get(modalImageUrl).fail(function () {
                                     // Definindo uma imagem padrão
@@ -551,44 +552,44 @@
                                     // Atualizando o atributo src da imagem para a imagem padrão
                                     $(`img[alt="${repo.name}"]`).attr('src', imageUrl);
                                 });
-
-
+        
+        
                                 var portfolioItemHTML = `
-                <div class="bgrid folio-item">
-                    <div class="item-wrap">
-                        <img src="${imageUrl}" alt="${repo.name}">
-                        <a href="#modal-${index + 1}" class="overlay">
-                            <div class="folio-item-table">
-                                <div class="folio-item-cell">
-                                    <h3 class="folio-title">${repo.name}</h3>
-                                    <span class="folio-types">${repo.language}</span>
-                                </div>
-                            </div>
-                        </a>
+        <div class="bgrid folio-item">
+            <div class="item-wrap">
+                <img src="${imageUrl}" alt="${repo.name}">
+                <a href="#modal-${index + 1}" class="overlay">
+                    <div class="folio-item-table">
+                        <div class="folio-item-cell">
+                            <h3 class="folio-title">${repo.name}</h3>
+                            <span class="folio-types">${repo.language}</span>
+                        </div>
                     </div>
-                </div>
-            `;
+                </a>
+            </div>
+        </div>
+        `;
                                 $('#folio-wrapper').append(portfolioItemHTML);
-
+        
                                 var modalHTML = `
-                <div id="modal-${index + 1}" class="popup-modal slider mfp-hide">
-                    <div class="media">
-                        <img src="${modalImageUrl}" alt="" />
-                    </div>
-                    <div class="description-box">
-                        <h4>${repo.name}</h4>
-                        <p>${repo.description || 'Descrição não fornecida'}</p>
-                        <div class="categories">${repo.language}</div>
-                    </div>
-                    <div class="link-box">
-                        <a href="${repo.html_url}" target="_blank">Repositório</a>
-                        <a href="#" class="popup-modal-dismiss">Close</a>
-                    </div>
-                </div>
-            `;
+        <div id="modal-${index + 1}" class="popup-modal slider mfp-hide">
+            <div class="media">
+                <img src="${modalImageUrl}" alt="" />
+            </div>
+            <div class="description-box">
+                <h4>${repo.name}</h4>
+                <p>${repo.description || 'Descrição não fornecida'}</p>
+                <div class="categories">${repo.language}</div>
+            </div>
+            <div class="link-box">
+                <a href="${repo.html_url}" target="_blank">Repositório</a>
+                <a href="#" class="popup-modal-dismiss">Close</a>
+            </div>
+        </div>
+        `;
                                 $('body').append(modalHTML);
                             });
-
+        
                             // Inicialize o Magnific Popup após a adição de todos os modais
                             $('.overlay').magnificPopup({
                                 type: 'inline',
@@ -596,7 +597,7 @@
                                 focus: '#username',
                                 modal: true
                             });
-
+        
                             // Dismiss modal handler
                             $(document).on('click', '.popup-modal-dismiss', function (e) {
                                 e.preventDefault();
@@ -608,7 +609,7 @@
                         }
                     });
                 }
-
+        
                 // Chame a função para buscar os repositórios do GitHub
                 fetchReposFromGitHub();
             });
@@ -677,7 +678,6 @@
             var randomCups = Math.floor(Math.random() * 30); // Gera um número aleatório entre 0 e 29
             var randomHours = Math.floor(Math.random() * 30); // Gera um número aleatório entre 0 e 29
 
-
             // Atualiza os elementos HTML com os números aleatórios gerados
             document.getElementById('cups-count').textContent = randomCups;
             document.getElementById('hours-count').textContent = randomHours;
@@ -726,7 +726,6 @@
             // Atualiza o elemento HTML com o Tempo Médio de Contribuição Diária
             document.getElementById('avg-contribution-count').textContent = averageContribution;
         }
-
 
         // Função para atualizar todas as estatísticas
         function updateAllStats() {
