@@ -13,4 +13,9 @@ jobs:
         id: custom_token
         run: |
           echo "Custom Token: ${{secrets.MY_CUSTOM_TOKEN}}"
-          echo "MY_CUSTOM_TOKEN=${{secrets.MY_CUSTOM_TOKEN}}" >> $GITHUB_ENV
+          echo "MY_CUSTOM_TOKEN=${{secrets.MY_CUSTOM_TOKEN}}" >> $GITHUB_ENV"
+
+      - name: Inject Custom Token into HTML
+        run: |
+          sed -i "s/{{MY_CUSTOM_TOKEN}}/${{ secrets.MY_CUSTOM_TOKEN }}/g" index.html
+
