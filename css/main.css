@@ -1,35 +1,27 @@
 /**
- * =================================================================== 
- *  TOC:
- *  01. webfonts and iconfonts
- *  02. base style overrides
- *  03. typography & general theme styles
- *  04. preloader
- *  05. forms
- *  06. buttons 
- *  07. other components
- *  08. common styles
- *  09. header styles
- *  10. intro
- *  11. about
- *  12. resume
- *  13. portfolio
- *  14. call-to-action section
- *  15. services
- *  16. stats
- *  17. contact
- *  18. footer
- *
- * =================================================================== 
- */
-
-
-/** 
  * ===================================================================
- * 01. webfonts and iconfonts - (_document-setup.scss)
- *
- * ------------------------------------------------------------------- 
+ *  TOC: (Tabela de Conteúdo)
+ *  02. substituições de estilo de base
+ *  03. tipografia e estilos gerais do tema
+ *  04. pré-carregador
+ *  05. formulários
+ *  06. botões
+ *  07. outros componentes
+ *  08. estilos comuns
+ *  09. estilos de cabeçalho
+ *  10. introdução
+ *  11. sobre
+ *  12. currículo
+ *  13. portfólio
+ *  14. seção de chamada para ação
+ *  15. serviços
+ *  16. estatísticas
+ *  17. contato
+ *  18. rodapé
+ * ===================================================================
  */
+
+
 @import url("fonts.css");
 @import url("font-awesome/css/font-awesome.min.css");
 @import url("micons/micons.css");
@@ -37,9 +29,8 @@
 
 /** 
  * ===================================================================
- * 02. base style overrides - (_document-setup.scss)
- *
- * ------------------------------------------------------------------- 
+ * 02. substituições de estilo base - (_document-setup.scss)
+ * ===================================================================
  */
 html {
 	font-size: 10px;
@@ -77,8 +68,9 @@ body {
 }
 
 /**
- * links - (_document-setup.scss)
- * -------------------------------------------------------------------
+ * ===================================================================
+ * links
+  * ===================================================================
  */
 a,
 a:visited {
@@ -99,9 +91,8 @@ a:active {
 
 /** 
  * ===================================================================
- * 03. typography & general theme styles - (_document-setup.scss)
- *
- * ------------------------------------------------------------------- 
+ * 03. tipografia e estilos gerais do tema 
+  * =================================================================== 
  */
 h1,
 h2,
@@ -339,8 +330,9 @@ hr {
 }
 
 /**
- * Lists - (_document-setup.scss)  
- * -------------------------------------------------------------------
+ * ===================================================================
+ * Listas
+ * ===================================================================
  */
 ol {
 	list-style: decimal;
@@ -400,8 +392,9 @@ dd {
 }
 
 /**
- * tables - (_document-setup.scss)  
- * -------------------------------------------------------------------
+ * ===================================================================
+ * Tabelas 
+* ===================================================================
  */
 table {
 	border-width: 0;
@@ -442,8 +435,10 @@ td:last-child {
 }
 
 /**
- * Spacing - (_document-setup.scss)  
- * -------------------------------------------------------------------
+ * ===================================================================
+ * Espaçamento dos elementos  
+* ===================================================================
+
  */
 button,
 .button {
@@ -472,8 +467,9 @@ form,
 }
 
 /**
- * floated image - (_document-setup.scss)  
- * -------------------------------------------------------------------
+ * ===================================================================
+ *  image
+ * ===================================================================
  */
 img.pull-right {
 	margin: .9rem 0 0 2.4rem;
@@ -484,8 +480,10 @@ img.pull-left {
 }
 
 /**
- * block grid paddings - (_document-setup.scss) 
- * -------------------------------------------------------------------
+ * ===================================================================
+ * Espaçamento e responsividade 
+ * ===================================================================
+
  */
 .bgrid {
 	padding: 0 20px;
@@ -516,8 +514,9 @@ img.pull-left {
 }
 
 /**
- * pace.js styles - minimal  - (_document-setup.scss)
- * -------------------------------------------------------------------
+ * ===================================================================
+ * Estilos do pace.js 
+ * ===================================================================
  */
 .pace {
 	-webkit-pointer-events: none;
@@ -543,9 +542,9 @@ img.pull-left {
 
 /** 
  * ===================================================================
- * 04. preloader - (_preloader-1.scss)
+ * 04. Carreamento da pagina 
  *
- * ------------------------------------------------------------------- 
+ * ===================================================================
  */
 #preloader {
 	position: fixed;
@@ -614,168 +613,19 @@ img.pull-left {
 
 /** 
  * ===================================================================
- * 05. forms - (_forms.scss)
+ * 05. Fontes - (_forms.scss)
  *
- * ------------------------------------------------------------------- 
+ * =================================================================== 
  */
 fieldset {
 	border: none;
 }
 
-input[type="email"],
-input[type="number"],
-input[type="search"],
-input[type="text"],
-input[type="tel"],
-input[type="url"],
-input[type="password"],
-textarea,
-select {
-	display: block;
-	height: 6rem;
-	padding: 1.5rem 0;
-	border: 0;
-	outline: none;
-	vertical-align: middle;
-	color: #313131;
-	font-family: "poppins-regular", sans-serif;
-	font-size: 1.5rem;
-	line-height: 3rem;
-	max-width: 100%;
-	background: transparent;
-	border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-	-moz-transition: all 0.3s ease-in-out;
-	-o-transition: all 0.3s ease-in-out;
-	-webkit-transition: all 0.3s ease-in-out;
-	-ms-transition: all 0.3s ease-in-out;
-	transition: all 0.3s ease-in-out;
-}
-
-.ss-custom-select {
-	position: relative;
-	padding: 0;
-}
-
-.ss-custom-select select {
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	-ms-appearance: none;
-	-o-appearance: none;
-	appearance: none;
-	text-indent: 0.01px;
-	text-overflow: '';
-	margin: 0;
-	line-height: 3rem;
-	vertical-align: middle;
-}
-
-.ss-custom-select select option {
-	padding-left: 2rem;
-	padding-right: 2rem;
-}
-
-.ss-custom-select select::-ms-expand {
-	display: none;
-}
-
-.ss-custom-select::after {
-	content: '\f0d7';
-	font-family: 'FontAwesome';
-	position: absolute;
-	top: 50%;
-	right: 1.5rem;
-	margin-top: -10px;
-	bottom: auto;
-	width: 20px;
-	height: 20px;
-	line-height: 20px;
-	font-size: 18px;
-	text-align: center;
-	pointer-events: none;
-	color: #252525;
-}
-
-/* IE9 and below */
-.oldie .ss-custom-select::after {
-	display: none;
-}
-
-textarea {
-	min-height: 25rem;
-}
-
-input[type="email"]:focus,
-input[type="number"]:focus,
-input[type="search"]:focus,
-input[type="text"]:focus,
-input[type="tel"]:focus,
-input[type="url"]:focus,
-input[type="password"]:focus,
-textarea:focus,
-select:focus {
-	color: #6900fe;
-	border-bottom: 1px solid #6900fe;
-}
-
-label,
-legend {
-	font-family: "poppins-bold", sans-serif;
-	font-size: 1.4rem;
-	margin-bottom: .6rem;
-	color: #3b3b3b;
-	display: block;
-}
-
-input[type="checkbox"],
-input[type="radio"] {
-	display: inline;
-}
-
-label>.label-text {
-	display: inline-block;
-	margin-left: 1rem;
-	font-family: "poppins-regular", sans-serif;
-	line-height: inherit;
-}
-
-label>input[type="checkbox"],
-label>input[type="radio"] {
-	margin: 0;
-	position: relative;
-	top: .15rem;
-}
-
-/**
- * Style Placeholder Text  
- * -
- */
-::-webkit-input-placeholder {
-	color: #a1a1a1;
-}
-
-:-moz-placeholder {
-	color: #a1a1a1;
-	/* Firefox 18- */
-}
-
-::-moz-placeholder {
-	color: #a1a1a1;
-	/* Firefox 19+ */
-}
-
-:-ms-input-placeholder {
-	color: #a1a1a1;
-}
-
-.placeholder {
-	color: #a1a1a1 !important;
-}
-
 /** 
  * ===================================================================
- * 06. buttons - (_button-essentials.scss)
+ * 06. BTNS
  *
- * ------------------------------------------------------------------- 
+ * =================================================================== 
  */
 .button,
 a.button,
@@ -898,58 +748,13 @@ input::-moz-focus-inner {
 
 /** 
  * ===================================================================
- * 07. other components - (_others.scss)
+ * 07. Outros componetes 
  *
  * ------------------------------------------------------------------- 
  */
 
 /**
- * alert box - (_alert-box.scss)
- * -------------------------------------------------------------------
- */
-.alert-box {
-	padding: 2.1rem 4rem 2.1rem 3rem;
-	position: relative;
-	margin-bottom: 3rem;
-	border-radius: 3px;
-	font-family: "poppins-regular", sans-serif;
-	font-size: 1.5rem;
-}
-
-.alert-box .close {
-	position: absolute;
-	right: 1.8rem;
-	top: 1.8rem;
-	cursor: pointer;
-}
-
-.ss-error {
-	background-color: #ffd1d2;
-	color: #e65153;
-}
-
-.ss-success {
-	background-color: #c8e675;
-	color: #758c36;
-}
-
-.ss-info {
-	background-color: #d7ecfb;
-	color: #4a95cc;
-}
-
-.ss-notice {
-	background-color: #fff099;
-	color: #bba31b;
-}
-
-/**
- * additional typo styles - (_additional-typo.scss)
- * -------------------------------------------------------------------
- */
-
-/**
- * drop cap 
+ * Menu descendo  
  */
 .drop-cap:first-letter {
 	float: left;
@@ -964,7 +769,7 @@ input::-moz-focus-inner {
 }
 
 /**
- * line definition style
+ * Estilo da linha 
  */
 .lining dt,
 .lining dd {
@@ -992,7 +797,7 @@ input::-moz-focus-inner {
 }
 
 /**
- * dictionary definition style
+ * Topografia
  */
 .dictionary-style dt {
 	display: inline;
@@ -1013,19 +818,6 @@ input::-moz-focus-inner {
 	content: counter(definitions, decimal) ". ";
 }
 
-/** 
- * Pull Quotes
- * -----------
- * markup:
- *
- * <aside class="pull-quote">
- *		<blockquote>
- *			<p></p>
- *		</blockquote>
- *	</aside>
- *
- * --------------------------------------------------------------------- 
- */
 .pull-quote {
 	position: relative;
 	padding: 2.1rem 3rem 2.1rem 0px;
@@ -1060,19 +852,8 @@ input::-moz-focus-inner {
 	content: none;
 }
 
-/** 
- * Stats Tab
- * ---------
- * markup:
- *
- * <ul class="stats-tabs">
- *		<li><a href="#">[value]<em>[name]</em></a></li>
- *	</ul>
- *
- * Extend this object into your markup.
- *
- * ---------------------------------------------------------------------
- */
+
+
 .stats-tabs {
 	padding: 0;
 	margin: 3rem 0;
@@ -1112,8 +893,10 @@ input::-moz-focus-inner {
 }
 
 /**
- * skillbars - (_skillbars.scss)
- * -------------------------------------------------------------------
+ * ===================================================================
+
+ * skillbars
+ * ===================================================================
  */
 .percentage {
 	opacity: 0;
@@ -1124,7 +907,6 @@ input::-moz-focus-inner {
 	list-style: none;
 	margin: 6rem 0 3rem;
 	padding: 0;
-	/* Adicione padding para alinhar corretamente */
 }
 
 .skill-bars li {
@@ -1153,9 +935,7 @@ input::-moz-focus-inner {
 	position: relative;
 	height: 100%;
 	width: 0;
-	/* Inicialize com largura 0 */
 	transition: width 2s ease-in-out;
-	/* Transição suave para a largura */
 }
 
 .skill-bars li .progress span {
@@ -1267,9 +1047,9 @@ input::-moz-focus-inner {
 
 /** 
  * ===================================================================
- * 08. common styles (_layout.scss)
+ * 08. Estilos comuns
  *
- * ------------------------------------------------------------------- 
+ * ===================================================================
  */
 .grey-section {
 	background: #ebebeb;
@@ -1305,9 +1085,10 @@ input::-moz-focus-inner {
 }
 
 /**
- * responsive:
- * common styles
- * ------------------------------------------------------------------- 
+ * ===================================================================
+
+ * Responsividade  dis eleômetros comuns 
+ * ===================================================================
  */
 @media only screen and (max-width:768px) {
 	.section-intro {
@@ -1339,9 +1120,8 @@ input::-moz-focus-inner {
 
 /** 
  * ===================================================================
- * 09. header styles - (_layout.scss)
- *
- * ------------------------------------------------------------------- 
+ * 09. header
+ * ===================================================================
  */
 header {
 	position: fixed;
@@ -1388,8 +1168,9 @@ header .logo a {
 }
 
 /**
- * menu toggle - (_layout.css)
- * ------------------------------------------------------------------- 
+ * ===================================================================
+ * menu
+  * ===================================================================
  */
 .menu-toggle {
 	float: left;
@@ -1460,7 +1241,7 @@ header .logo a {
 	transition-property: bottom, transform;
 }
 
-/* is clicked */
+
 .menu-toggle.is-clicked span {
 	background-color: rgba(255, 0, 119, 0);
 }
@@ -1489,7 +1270,7 @@ header .logo a {
 	transform: rotate(-45deg);
 }
 
-/* navigation panel */
+
 #main-nav-wrap {
 	display: block;
 	width: 100%;
@@ -1500,7 +1281,7 @@ header .logo a {
 	left: 0;
 }
 
-/* dropdown nav */
+
 .main-navigation {
 	background: #000000;
 	padding: 24px 30px 42px;
@@ -1538,9 +1319,9 @@ header .logo a {
 }
 
 /**
- * responsive:
- * header styles
- * --------------------------------------------------------------- 
+ * ===================================================================
+ * responsividade dos header :
+ * ===================================================================
  */
 
 @media only screen and (max-width:1440px) {
@@ -1576,9 +1357,8 @@ header .logo a {
 
 /** 
  * ===================================================================
- * 10. intro - (_layout.scss) 
- *
- * ------------------------------------------------------------------- 
+ * 10. intro
+ * ===================================================================
  */
 
 #intro {
@@ -1738,9 +1518,9 @@ header .logo a {
 }
 
 /**
- * responsive:
- * Intro
- * --------------------------------------------------------------- 
+ * ===================================================================
+ * Responsividade INtro:
+ * ===================================================================
  */
 @media only screen and (max-width:1024px) {
 	.intro-content h1 {
@@ -1819,9 +1599,8 @@ header .logo a {
 
 /** 
  * ===================================================================
- * 11. about - (_layout.scss)
- *
- * ------------------------------------------------------------------- 
+ * 11. Sobre mim  
+ * ===================================================================
  */
 #about {
 	background: #FFFFFF;
@@ -1910,9 +1689,9 @@ header .logo a {
 }
 
 /**
- * responsive:
- * about
- * ------------------------------------------------------------------- 
+ * ===================================================================
+ * Responsividade sobre mim :
+ * ===================================================================
  */
 @media only screen and (max-width:1024px) {
 	.intro-info {
@@ -1971,9 +1750,8 @@ header .logo a {
 
 /** 
  * ===================================================================
- * 12. resume - (_layout.scss)
- *
- * ------------------------------------------------------------------- 
+ * 12. resume
+ * ===================================================================
  */
 #resume {
 	padding-top: 12rem;
@@ -2073,9 +1851,9 @@ header .logo a {
 }
 
 /**
- * responsive:
- * resume
- * ------------------------------------------------------------------- 
+ * ===================================================================
+ * Responsividade resumo 
+ * ===================================================================
  */
 @media only screen and (max-width:1024px) {
 	#resume .timeline-header {
@@ -2169,9 +1947,8 @@ header .logo a {
 
 /** 
  * ===================================================================
- * 13. portfolio - (_layout.scss)
- *
- * ------------------------------------------------------------------- 
+ * 13. Projetos
+ * ===================================================================
  */
 #portfolio {
 	background: #FFFFFF;
@@ -2217,14 +1994,10 @@ header .logo a {
 
 .item-wrap {
 	display: flex;
-	/* Ativar o layout flexível */
 	justify-content: center;
-	/* Alinhar itens horizontalmente ao centro */
 	align-items: center;
-	/* Alinhar itens verticalmente ao centro */
 	background-color: #ebebeb;
 }
-
 
 .item-wrap img {
 	max-width: 100%;
@@ -2233,7 +2006,6 @@ header .logo a {
 	height: auto;
 	object-fit: contain;
 }
-
 
 #portfolio .folio-item-cell {
 	display: table-cell;
@@ -2280,9 +2052,9 @@ header .logo a {
 }
 
 /**
- * responsive:
- * portfolio
- * ------------------------------------------------------------------- 
+ * ===================================================================
+ * Responsividade Projetos
+ * ===================================================================
  */
 @media only screen and (max-width:1024px) {
 	#portfolio .folio-title {
@@ -2303,8 +2075,9 @@ header .logo a {
 }
 
 /**
- * Popup Modal - (_layout.scss)
- * ------------------------------------------------------------------
+ * ===================================================================
+ * Modal
+ * ===================================================================
  */
 .popup-modal {
 	max-width: 550px;
@@ -2392,8 +2165,9 @@ header .logo a {
 }
 
 /**
- * transition effect for modal popup - (_layout.scss)
- * ------------------------------------------------------------------ 
+ * ===================================================================
+ * mudança 
+  * ===================================================================
  */
 
 /* overlay at start */
@@ -2445,189 +2219,11 @@ header .logo a {
 	transform: translateY(-100%);
 }
 
-/** 
- * ===================================================================
- * 14. call-to-action section - (_layout.scss)
- *
- * ------------------------------------------------------------------- 
- */
-#cta {
-	padding-top: 10.2rem;
-	padding-bottom: 9rem;
-	text-align: center;
-}
-
-#cta p.lead {
-	color: #6e6e6e;
-}
-
-.cta-content {
-	max-width: 640px;
-}
-
-.cta-thumb {
-	display: inline-block;
-	margin-bottom: 1.2rem;
-}
-
-.cta-thumb img {
-	height: 7.8rem;
-	width: 7.8rem;
-	border-radius: 50%;
-}
-
-/**
- * section ads - (_layout.scss)
- * ------------------------------------------------------------------- 
- */
-.section-ads h2 {
-	position: relative;
-	padding-bottom: 2.1rem;
-}
-
-.section-ads h2::after {
-	content: "";
-	display: block;
-	height: 3px;
-	width: 80px;
-	background: rgba(0, 0, 0, 0.2);
-	position: absolute;
-	left: 50%;
-	bottom: 0;
-	margin-left: -40px;
-}
-
-.section-ads h2 a,
-.section-ads h2 a:visited {
-	color: #313131;
-}
-
-.section-ads span {
-	color: #3F0D39;
-}
-
-/**
- * responsive:
- * cta
- * -------------------------------------------------------------------
- */
-@media only screen and (max-width:650px) {
-	.cta-content {
-		max-width: 650px;
-	}
-
-	.cta-content h2 {
-		font-size: 2.4rem;
-	}
-}
-
 
 /** 
  * ===================================================================
- * 15. services - (_layout.scss)
- *
- * ------------------------------------------------------------------- 
- */
-#services {
-	background: #313131 url(../images/bg.jpg) no-repeat center;
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	background-size: cover;
-	padding-top: 12rem;
-	padding-bottom: 12rem;
-	color: white;
-	position: relative;
-}
-
-#services .overlay {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: #151515;
-	opacity: .9;
-}
-
-#services .section-intro {
-	margin-bottom: 1.8rem;
-}
-
-#services .section-intro h1 {
-	color: white;
-}
-
-#services .section-intro h5 {
-	color: #00829c;
-}
-
-#services .section-intro p {
-	color: rgba(255, 255, 255, 0.7);
-}
-
-.services-content {
-	max-width: 1200px;
-}
-
-.services-list {
-	margin-top: 1.2rem;
-	text-align: center;
-}
-
-.services-list .service {
-	margin-bottom: 1.2rem;
-	padding: 0 30px;
-}
-
-.services-list .icon {
-	display: inline-block;
-	margin-bottom: 2.1rem;
-}
-
-.services-list .icon i {
-	font-size: 5.4rem;
-	color: #00829c;
-}
-
-.services-list h3 {
-	color: #FFFFFF;
-}
-
-.services-list .desc {
-	color: rgba(255, 255, 255, 0.6);
-}
-
-/* pagination */
-.owl-pagination {
-	text-align: center;
-	width: 100%;
-	margin: .6rem 0 0;
-}
-
-.owl-theme .owl-controls .owl-page {
-	display: inline-block;
-}
-
-.owl-theme .owl-controls .owl-page span {
-	display: block;
-	width: 1.2rem;
-	height: 1.2rem;
-	margin: 1.2rem .8rem 0 .8rem;
-	border-radius: 50%;
-	display: inline-block;
-	background: #FFFFFF;
-}
-
-.owl-theme .owl-controls .owl-page.active span {
-	background: #00829c;
-}
-
-
-/** 
- * ===================================================================
- * 16. stats - (_layout.scss)
- *
- * ------------------------------------------------------------------- 
+ * 16. Estatistyicas
+  * ===================================================================
  */
 #stats {
 	background: #6900fe;
@@ -2668,9 +2264,9 @@ header .logo a {
 }
 
 /**
- * responsive:
- * stats
- * -------------------------------------------------------------------
+ * ===================================================================
+ * Responsividade estatiscas
+ * ===================================================================
  */
 @media only screen and (max-width:1024px) {
 	#stats .stat:nth-child(n) {
@@ -2702,9 +2298,8 @@ header .logo a {
 
 /** 
  * ===================================================================
- * 17. contact - (_layout.scss)
- *
- * ------------------------------------------------------------------- 
+ * 17. Contato 
+ * ===================================================================
  */
 #contact {
 	background: #151515;
@@ -2796,108 +2391,6 @@ header .logo a {
 	content: "";
 }
 
-#contact input[type="text"],
-#contact input[type="password"],
-#contact input[type="email"],
-#contact textarea {
-	width: 100%;
-	color: rgba(255, 255, 255, 0.7);
-	margin-bottom: 0;
-	border: none;
-	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-#contact input[type="text"],
-#contact input[type="password"],
-#contact input[type="email"] {
-	height: 6.6rem;
-	padding: 1.8rem 2rem;
-}
-
-#contact input[type="text"]:focus,
-#contact input[type="password"]:focus,
-#contact input[type="email"]:focus {
-	border-color: #00829c;
-	color: #FFFFFF;
-}
-
-#contact textarea {
-	min-height: 20rem;
-	padding: 1.8rem 2rem;
-}
-
-#contact textarea:focus {
-	border-color: #00829c;
-	color: #FFFFFF;
-}
-
-#contact button.submitform {
-	font-size: 1.5rem;
-	display: block;
-	letter-spacing: .2rem;
-	height: 6.6rem;
-	line-height: 6.6rem;
-	padding: 0 3rem;
-	margin-top: 4.8rem;
-	width: 100%;
-	background: #00829c;
-	color: #FFFFFF;
-}
-
-#contact button.submitform:hover,
-#contact button.submitform:focus {
-	background: #6900fe;
-}
-
-#message-warning,
-#message-success {
-	display: none;
-	background: #0d0d0d;
-	border-radius: 3px;
-	padding: 3rem;
-	margin-bottom: 3.6rem;
-	width: 100%;
-}
-
-#message-warning {
-	color: #fa0003;
-}
-
-#message-success {
-	color: #00829c;
-}
-
-#message-warning i,
-#message-success i {
-	margin-right: 10px;
-}
-
-/* form loader */
-#submit-loader {
-	display: none;
-	position: relative;
-	left: 0;
-	top: 1.8rem;
-	width: 100%;
-	text-align: center;
-}
-
-#submit-loader .text-loader {
-	display: none;
-	font-family: "poppins-bold", sans-serif;
-	color: #FFFFFF;
-	letter-spacing: .3rem;
-	text-transform: uppercase;
-}
-
-.oldie #submit-loader .s-loader {
-	display: none;
-}
-
-.oldie #submit-loader .text-loader {
-	display: block;
-}
-
 .contact-info {
 	margin: 4.8rem auto 0;
 	font-family: "poppins-regular", sans-serif;
@@ -2922,80 +2415,10 @@ header .logo a {
 	color: #00829c;
 }
 
-/**
- * loader animation - (_layout.scss)
- * --------------------------------------------------------------- 
- */
-.s-loader {
-	margin: 1.2rem auto 3rem;
-	width: 70px;
-	text-align: center;
-	-webkit-transform: translateX(0.45rem);
-	-ms-transform: translateX(0.45rem);
-	transform: translateX(0.45rem);
-}
-
-.s-loader>div {
-	width: 1rem;
-	height: 1rem;
-	background-color: #FFFFFF;
-	border-radius: 100%;
-	display: inline-block;
-	margin-right: .9rem;
-	-webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
-	animation: sk-bouncedelay 1.4s infinite ease-in-out both;
-}
-
-.s-loader .bounce1 {
-	-webkit-animation-delay: -0.32s;
-	animation-delay: -0.32s;
-}
-
-.s-loader .bounce2 {
-	-webkit-animation-delay: -0.16s;
-	animation-delay: -0.16s;
-}
-
-@-webkit-keyframes sk-bouncedelay {
-
-	0%,
-	80%,
-	100% {
-		-webkit-transform: scale(0);
-		-ms-transform: scale(0);
-		transform: scale(0);
-	}
-
-	40% {
-		-webkit-transform: scale(1);
-		-ms-transform: scale(1);
-		transform: scale(1);
-	}
-}
-
-@keyframes sk-bouncedelay {
-
-	0%,
-	80%,
-	100% {
-		-webkit-transform: scale(0);
-		-ms-transform: scale(0);
-		transform: scale(0);
-	}
-
-	40% {
-		-webkit-transform: scale(1);
-		-ms-transform: scale(1);
-		transform: scale(1);
-	}
-}
-
-
 /** 
  * ===================================================================
- * 18. footer - (_layout.scss)
- *
- * ------------------------------------------------------------------- 
+ * 18. footer
+ * ===================================================================
  */
 footer {
 	padding-bottom: 3rem;
@@ -3056,9 +2479,9 @@ footer .copyright span:last-child::after {
 }
 
 /**
- * responsive:
- * footer
- * -------------------------------------------------------------------
+ * ===================================================================
+ * Responsividade footer 
+ * ===================================================================
  */
 @media only screen and (max-width:768px) {
 	footer {
@@ -3082,8 +2505,9 @@ footer .copyright span:last-child::after {
 }
 
 /**
- * go to top - (_layout.scss)
- * ------------------------------------------------------------------- 
+ * ===================================================================
+ * Para cima 
+ * ===================================================================
  */
 #go-top {
 	position: fixed;
@@ -3123,5 +2547,3 @@ footer .copyright span:last-child::after {
 #go-top a:hover {
 	background: #00E5FF;
 }
-
-/*# sourceMappingURL=main.css.map */
