@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="css/vendor.css">
 
     <!-- JS-->
-    
+
     <script src="js/modernizr.js"></script>
     <script src="js/pace.min.js"></script>
     <script src="https://unpkg.com/scrollreveal"></script>
@@ -505,108 +505,81 @@
 
         <script>
             $(document).ready(function () {
-                // Função para buscar os repositórios do GitHub
-                function fetchReposFromGitHub() {
-                    // Token de acesso pessoal do GitHub
-                    var githubToken = '{{MY_CUSTOM_TOKEN}}';
-        
-                    // URL da API do GitHub para obter os repositórios de um usuário específico
-                    var githubAPIURL = 'https://api.github.com/users/WesleyS08/repos';
-        
-                    // Configuração para a requisição AJAX com autenticação
-                    $.ajax({
-                        url: githubAPIURL,
-                        method: 'GET',
-                        headers: {
-                            'Authorization': 'token ' + githubToken
-                        },
-                        success: function (repos) {
-                            // Ordenar os repositórios pela data de criação em ordem decrescente
-                            repos.sort(function (a, b) {
-                                return new Date(b.created_at) - new Date(a.created_at);
-                            });
-        
-                            // Para cada repositório retornado pela API do GitHub, gere o HTML correspondente
-                            repos.forEach(function (repo, index) {
-                                var imageUrl = `img/portfolio/${repo.name}.jpg`;
-                                var modalImageUrl = `img/portfolio/modals/${repo.name}.jpg`;
-        
-                                // Verificar se a imagem existe
-                                $.get(imageUrl).fail(function () {
-                                    // Definindo uma imagem padrão
-                                    imageUrl = 'img/portfolio/default.jpg';
-                                    // Atualizando o atributo src da imagem para a imagem padrão
-                                    $(`img[alt="${repo.name}"]`).attr('src', imageUrl);
-                                });
-        
-                                // Verificar se a imagem existe
-                                $.get(modalImageUrl).fail(function () {
-                                    // Definindo uma imagem padrão
-                                    modalImageUrl = 'img/portfolio/modals/default.jpg';
-                                    // Atualizando o atributo src da imagem para a imagem padrão
-                                    $(`img[alt="${repo.name}"]`).attr('src', imageUrl);
-                                });
-        
-        
-                                var portfolioItemHTML = `
-        <div class="bgrid folio-item">
-            <div class="item-wrap">
-                <img src="${imageUrl}" alt="${repo.name}">
-                <a href="#modal-${index + 1}" class="overlay">
-                    <div class="folio-item-table">
-                        <div class="folio-item-cell">
-                            <h3 class="folio-title">${repo.name}</h3>
-                            <span class="folio-types">${repo.language}</span>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-        `;
-                                $('#folio-wrapper').append(portfolioItemHTML);
-        
-                                var modalHTML = `
-        <div id="modal-${index + 1}" class="popup-modal slider mfp-hide">
-            <div class="media">
-                <img src="${modalImageUrl}" alt="" />
-            </div>
-            <div class="description-box">
-                <h4>${repo.name}</h4>
-                <p>${repo.description || 'Descrição não fornecida'}</p>
-                <div class="categories">${repo.language}</div>
-            </div>
-            <div class="link-box">
-                <a href="${repo.html_url}" target="_blank">Repositório</a>
-                <a href="#" class="popup-modal-dismiss">Close</a>
-            </div>
-        </div>
-        `;
-                                $('body').append(modalHTML);
-                            });
-        
-                            // Inicialize o Magnific Popup após a adição de todos os modais
-                            $('.overlay').magnificPopup({
-                                type: 'inline',
-                                preloader: false,
-                                focus: '#username',
-                                modal: true
-                            });
-        
-                            // Dismiss modal handler
-                            $(document).on('click', '.popup-modal-dismiss', function (e) {
-                                e.preventDefault();
-                                $.magnificPopup.close();
-                            });
-                        },
-                        error: function (error) {
-                            console.log('Erro ao buscar repositórios: ', error);
-                        }
-                    });
-                }
-        
-                // Chame a função para buscar os repositórios do GitHub
-                fetchReposFromGitHub();
+                // Repositórios definidos manualmente
+                var repositorios = [
+
+                    {
+                        name: "Sistema de Emprego",
+                        language: "PHP, HTML, JS, CSS",
+                        description: "Desenvolvimento de um Sistema de Emprego como parte de um projeto acadêmico, não apenas para obter uma boa nota, mas também para aprimorar e aplicar os conhecimentos adquiridos durante o curso..",
+                        html_url: "https://github.com/WesleyS08/Sistema_de_Emprego"
+                    },
+
+                    {
+                        name: "MeuProjeto2",
+                        language: "Python",
+                        description: "Este é o segundo projeto.",
+                        html_url: "https://github.com/seu-usuario/MeuProjeto2"
+                    },
+                    // Adicione mais repositórios conforme necessário
+                ];
+
+                // Chame a função para gerar o HTML do portfólio passando a lista de repositórios manualmente
+                gerarPortfolio(repositorios);
             });
+
+            function gerarPortfolio(repositorios) {
+                repositorios.forEach(function (repo, index) {
+                    var portfolioItemHTML = `
+            <div class="bgrid folio-item">
+                <div class="item-wrap">
+                    <img src="img/portfolio/${repo.name}.jpg" alt="${repo.name}">
+                    <a href="#modal-${index + 1}" class="overlay">
+                        <div class="folio-item-table">
+                            <div class="folio-item-cell">
+                                <h3 class="folio-title">${repo.name}</h3>
+                                <span class="folio-types">${repo.language}</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        `;
+                    $('#folio-wrapper').append(portfolioItemHTML);
+
+                    var modalHTML = `
+            <div id="modal-${index + 1}" class="popup-modal slider mfp-hide">
+                <div class="media">
+                    <img src="img/portfolio/modals/${repo.name}.jpg" alt="" />
+                </div>
+                <div class="description-box">
+                    <h4>${repo.name}</h4>
+                    <p>${repo.description || 'Descrição não fornecida'}</p>
+                    <div class="categories">${repo.language}</div>
+                </div>
+                <div class="link-box">
+                    <a href="${repo.html_url}" target="_blank">Repositório</a>
+                    <a href="#" class="popup-modal-dismiss">Close</a>
+                </div>
+            </div>
+        `;
+                    $('body').append(modalHTML);
+                });
+
+                // Inicialize o Magnific Popup após a adição de todos os modais
+                $('.overlay').magnificPopup({
+                    type: 'inline',
+                    preloader: false,
+                    focus: '#username',
+                    modal: true
+                });
+
+                // Dismiss modal handler
+                $(document).on('click', '.popup-modal-dismiss', function (e) {
+                    e.preventDefault();
+                    $.magnificPopup.close();
+                });
+            }
         </script>
     </section> <!-- /portfolio -->
     <section id="stats" class="count-up">
@@ -617,7 +590,7 @@
                         <div class="icon-part">
                             <i class="icon-pencil-ruler"></i>
                         </div>
-                        <h3 class="stat-count" id="repo-count">Carregando...</h3>
+                        <h3 class="stat-count" id="repo-count">43</h3>
                         <h5 class="stat-title">Projetos Realizados</h5>
                     </div>
 
@@ -625,7 +598,7 @@
                         <div class="icon-part">
                             <i class="icon-users"></i>
                         </div>
-                        <h3 class="stat-count" id="followers-count">Carregando...</h3>
+                        <h3 class="stat-count" id="followers-count">9</h3>
                         <h5 class="stat-title">followers</h5>
                     </div>
 
@@ -633,7 +606,7 @@
                         <div class="icon-part">
                             <i class="icon-users"></i>
                         </div>
-                        <h3 class="stat-count" id="following-count">Carregando...</h3>
+                        <h3 class="stat-count" id="following-count">7</h3>
                         <h5 class="stat-title">following</h5>
                     </div>
 
@@ -677,37 +650,6 @@
             document.getElementById('hours-count').textContent = randomHours;
         }
 
-        // Função para buscar e exibir as estatísticas do GitHub
-        function updateGitHubStats() {
-            // Token de acesso pessoal do GitHub
-            const githubToken = '{{MY_CUSTOM_TOKEN}}';
-
-            // URL da API do GitHub para obter os dados do usuário
-            const githubAPIURL = 'https://api.github.com/users/WesleyS08';
-
-            // Fazendo requisição à API do GitHub
-            fetch(githubAPIURL, {
-                headers: {
-                    'Authorization': `token ${githubToken}`
-                }
-            })
-                .then(response => response.json())
-                .then(userData => {
-                    // Extraindo os dados de interesse
-                    const repoCount = userData.public_repos;
-                    const followersCount = userData.followers;
-                    const followingCount = userData.following;
-
-                    // Atualizando os elementos HTML com as novas estatísticas
-                    document.getElementById('repo-count').textContent = repoCount;
-                    document.getElementById('followers-count').textContent = followersCount;
-                    document.getElementById('following-count').textContent = followingCount;
-                })
-                .catch(error => {
-                    console.error('Erro ao buscar estatísticas do GitHub:', error);
-                });
-        }
-
         // Função para calcular e atualizar o Tempo Médio de Contribuição Diária
         function updateAverageContribution() {
             // Supondo que você tenha o tempo total de contribuição armazenado em uma variável chamada totalContributionTime
@@ -719,12 +661,10 @@
 
             // Atualiza o elemento HTML com o Tempo Médio de Contribuição Diária
             document.getElementById('avg-contribution-count').textContent = averageContribution.toFixed(2);
-
         }
 
         // Função para atualizar todas as estatísticas
         function updateAllStats() {
-            updateGitHubStats();
             updateFakeStats();
             updateAverageContribution();
         }
@@ -752,7 +692,7 @@
 
         </div> <!-- /section-intro -->
 
-      
+
         <div class="row contact-info">
 
             <div class="col-four tab-full">
