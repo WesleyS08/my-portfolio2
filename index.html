@@ -718,7 +718,8 @@
             var averageContribution = totalContributionTime / numberOfDays;
 
             // Atualiza o elemento HTML com o Tempo Médio de Contribuição Diária
-            document.getElementById('avg-contribution-count').textContent = averageContribution;
+            document.getElementById('avg-contribution-count').textContent = averageContribution.toFixed(2);
+
         }
 
         // Função para atualizar todas as estatísticas
