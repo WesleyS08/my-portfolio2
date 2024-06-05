@@ -20,3 +20,6 @@ Se você tiver alguma dúvida, sugestão ou simplesmente quiser entrar em contat
 Gostaria de expressar minha gratidão a todos os mentores, colegas de equipe e comunidade de desenvolvimento de software que me apoiaram e inspiraram ao longo da minha jornada de programação.
 
 Obrigado por visitar meu portfólio!
+
+
+![frame](https://github.com/WesleyS08/my-portfolio2/assets/113936684/45d4c115-987d-4f10-91fa-32a3452e814b)
