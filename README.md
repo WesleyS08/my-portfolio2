@@ -21,5 +21,4 @@ Gostaria de expressar minha gratidão a todos os mentores, colegas de equipe e c
 
 Obrigado por visitar meu portfólio!
 
-
-![frame](https://github.com/WesleyS08/my-portfolio2/assets/113936684/45d4c115-987d-4f10-91fa-32a3452e814b)
+![adobe-express-qr-code](https://github.com/WesleyS08/my-portfolio2/assets/113936684/3a1fb469-7ee5-4044-b9b7-176ee66d1f5d)
