@@ -9,13 +9,19 @@
     <meta name="author" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
+
+    <!-- Meta tags para a pré-visualização -->
+    <meta property="og:title" content="Portfólio Wesley">
+    <meta property="og:description" content="portfólio desenvolvido.">
+    <meta property="og:image" content="https://wesleys08.github.io/my-portfolio2/img/previo.png">
+    <meta property="og:url" content="https://wesleys08.github.io/my-portfolio2/">
+
     <!-- CSS-->
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/vendor.css">
 
     <!-- JS-->
-
     <script src="js/modernizr.js"></script>
     <script src="js/pace.min.js"></script>
     <script src="https://unpkg.com/scrollreveal"></script>
@@ -23,7 +29,6 @@
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- Inclua o Magnific Popup -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
     <script>
@@ -127,121 +132,8 @@
         });
     </script>
 
-    <script>
-        particlesJS("particles-js", {
-            "particles": {
-                "number": {
-                    "value": 218,
-                    "density": {
-                        "enable": true,
-                        "value_area": 1103.7179527608712
-                    }
-                },
-                "color": {
-                    "value": "#6a00ff"
-                },
-                "shape": {
-                    "type": "circle",
-                    "stroke": {
-                        "width": 0,
-                        "color": "#000000"
-                    },
-                    "polygon": {
-                        "nb_sides": 5
-                    },
-                    "image": {
-                        "src": "img/github.svg",
-                        "width": 100,
-                        "height": 100
-                    }
-                },
-                "opacity": {
-                    "value": 0.5,
-                    "random": false,
-                    "anim": {
-                        "enable": false,
-                        "speed": 1,
-                        "opacity_min": 0.1,
-                        "sync": false
-                    }
-                },
-                "size": {
-                    "value": 3,
-                    "random": true,
-                    "anim": {
-                        "enable": false,
-                        "speed": 40,
-                        "size_min": 0.1,
-                        "sync": false
-                    }
-                },
-                "line_linked": {
-                    "enable": true,
-                    "distance": 150,
-                    "color": "#a64aff",
-                    "opacity": 0.4,
-                    "width": 1
-                },
-                "move": {
-                    "enable": true,
-                    "speed": 6,
-                    "direction": "none",
-                    "random": false,
-                    "straight": false,
-                    "out_mode": "out",
-                    "bounce": false,
-                    "attract": {
-                        "enable": false,
-                        "rotateX": 600,
-                        "rotateY": 1200
-                    }
-                }
-            },
-            "interactivity": {
-                "detect_on": "window",
-                "events": {
-                    "onhover": {
-                        "enable": false,
-                        "mode": "repulse"
-                    },
-                    "onclick": {
-                        "enable": true,
-                        "mode": "repulse"
-                    },
-                    "resize": true
-                },
-                "modes": {
-                    "grab": {
-                        "distance": 400,
-                        "line_linked": {
-                            "opacity": 1
-                        }
-                    },
-                    "bubble": {
-                        "distance": 400,
-                        "size": 40,
-                        "duration": 2,
-                        "opacity": 8,
-                        "speed": 3
-                    },
-                    "repulse": {
-                        "distance": 200,
-                        "duration": 0.4
-                    },
-                    "push": {
-                        "particles_nb": 4
-                    },
-                    "remove": {
-                        "particles_nb": 2
-                    }
-                }
-            },
-            "retina_detect": false
-        });
-    </script>
-
     <!-- Icon-->
-    <link rel="icon" href="image/png" href="favicon.png">
+    <link rel="icon" href="img/Ícone.png" href="favicon.png">
 </head>
 
 <body id="top">
@@ -268,8 +160,7 @@
         </div> <!-- /Menu -->
     </header> <!-- /header -->
 
-    <!-- intro section
-   ================================================== -->
+    <!-- intro section================================================== -->
     <section id="intro">
         <div id="particles-js"></div>
         <div class="intro-overlay"></div>
@@ -719,7 +610,7 @@
             } catch (error) {
                 console.error('Erro ao obter dados do CodeTime:', error);
             }
-        }   
+        }
 
         // Função para atualizar todas as estatísticas
         function updateAllStats() {
@@ -791,7 +682,7 @@
                 <p>WesleyS08</p>
                 <p>Wesley Silva</p>
             </div>
-            
+
         </div> <!-- /contact-info -->
     </section> <!-- /contact -->
 
@@ -827,6 +718,119 @@
     <script src="js/jquery-2.1.3.min.js"></script>
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
+     <!-- ==== Partículas ======= -->
+     <script>
+        particlesJS("particles-js", {
+            "particles": {
+                "number": {
+                    "value": 218,
+                    "density": {
+                        "enable": true,
+                        "value_area": 1103.7179527608712
+                    }
+                },
+                "color": {
+                    "value": "#6a00ff"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    },
+                    "image": {
+                        "src": "img/github.svg",
+                        "width": 100,
+                        "height": 100
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#a64aff",
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 6,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "window",
+                "events": {
+                    "onhover": {
+                        "enable": false,
+                        "mode": "repulse"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "repulse"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 400,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": false
+        });
+    </script>
 
 </body>
 
