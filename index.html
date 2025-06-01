@@ -1,13 +1,10 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wesley Silva</title>
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Portfolio - Wesley</title>
 
 
     <!-- Meta tags para a pré-visualização -->
@@ -15,22 +12,31 @@
     <meta property="og:description" content="portfólio desenvolvido.">
     <meta property="og:image" content="https://wesleys08.github.io/my-portfolio2/img/previo.png">
     <meta property="og:url" content="https://wesleys08.github.io/my-portfolio2/">
+  <link rel="shortcut icon"
+        href="src/assets/icon/logo.png" />
 
-    <!-- CSS-->
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/vendor.css">
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="src/styles/style.css">
+    <link rel="stylesheet" href="src/styles/theme.css">
+    <link rel="stylesheet" href="src/styles/base.css">
 
-    <!-- JS-->
-    <script src="js/modernizr.js"></script>
-    <script src="js/pace.min.js"></script>
+
+    <!-- Estilos de bibliotecas -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css"
+        integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Bibliotecas de terceiros -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha384-..."
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js" integrity="sha512-..."
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://unpkg.com/scrollreveal"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"
+        integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
     <script>
         $(document).ready(function () {
             function animateProgressBars() {
@@ -82,19 +88,19 @@
                         var totalRepos = data.length;
                         for (var skill in skills) {
                             var percentage = Math.round((skills[skill] / totalRepos) * 100);
-                            var progress = '<div class="progress" data-width="' + percentage + '" style="background-color: ' + (languageColors[skill] || "#000") + '; width: 0;"><span class="percentage">' + percentage + '%</span></div>';
-                            var listItem = $('<li>').html(progress + '<strong>' + skill + '</strong>');
+                            var progress = '<div class="progress" data-width="' + percentage + '" style="background-color: ' + (languageColors[skill] || "#000") + '; width: 0;">' + skill + ' <span class="percentage">' + percentage + '%</span></div>';
+                            var listItem = $('<li>').html(progress);
                             $('.skill-bars').append(listItem);
                         }
 
-                        // Waypoint to trigger the animation when entering or leaving
+                        // Waypoint para animar a barra ao entrar na viewport
                         $('.progress').waypoint(function (direction) {
                             var width = $(this.element).data('width');
                             $(this.element).css('width', width + '%');
-                            this.destroy(); // Destruir o waypoint para evitar repetições
+                            this.destroy();
                         }, { offset: '98%' });
 
-                        // Adicionando evento de passagem de mouse para mostrar a porcentagem
+                        // Tooltip mostrando a porcentagem no hover
                         $('.progress').on('mouseenter', function () {
                             var percentage = $(this).find('.percentage').text();
                             $(this).attr('title', percentage);
@@ -103,64 +109,64 @@
                 });
             }
 
-            // Chamando a função para iniciar a animação
             animateProgressBars();
         });
     </script>
-
     <script>
         $(document).ready(function () {
-            // Configuração do ScrollReveal para animação de cima para baixo
             ScrollReveal().reveal('.timeline-block', {
-                delay: 350, // Atraso entre a revelação de cada elemento
-                distance: '25px', // Distância da qual os elementos devem ser revelados
-                duration: 800, // Duração da animação
-                origin: 'bottom', // Origem da animação
-                interval: 350 // Intervalo entre animações consecutivas
-            });
-
-            // Configuração do ScrollReveal para animação de baixo para cima
-            ScrollReveal().reveal('.timeline-block', {
-                delay: 350, // Atraso entre a revelação de cada elemento
-                distance: '25px', // Distância da qual os elementos devem ser revelados
-                duration: 800, // Duração da animação
-                origin: 'top', // Origem da animação
-                interval: 350, // Intervalo entre animações consecutivas
-                viewFactor: 0.2, // Define a porcentagem da altura da janela visível que desencadeará a animação
-                reset: true // Redefine a animação ao rolar para cima
+                delay: 200,
+                distance: '30px',
+                duration: 1000,
+                origin: 'bottom',
+                interval: 200,
+                viewFactor: 0.15,
+                reset: false
             });
         });
     </script>
-
-    <!-- Icon-->
-    <link rel="icon" href="img/Ícone.png" href="favicon.png">
 </head>
 
-<body id="top">
-
-    <!-- header 
-   ================================================== -->
+<body>
     <header>
-        <div class="row">
-            <div class="top-bar">
-                <a class="menu-toggle" href="#"><span>Menu</span></a>
-                <div class="logo">
-                    <a href="#">Menu</a>
-                </div>
-                <nav id="main-nav-wrap">
-                    <ul class="main-navigation">
-                        <li class="current"><a class="smoothscroll" href="#intro" title="">Home</a></li>
-                        <li><a class="smoothscroll" href="#about" title="">Sobre Mim</a></li>
-                        <li><a class="smoothscroll" href="#resume" title="">Formação</a></li>
-                        <li><a class="smoothscroll" href="#portfolio" title="">Projetos</a></li>
-                        <li><a class="smoothscroll" href="#contact" title="">Contato</a></li>
-                    </ul>
-                </nav>
-            </div> <!-- /nav bar -->
-        </div> <!-- /Menu -->
-    </header> <!-- /header -->
-
-    <!-- intro section================================================== -->
+        <nav class="nav-bar">
+            
+            <label class="switch">
+                <input checked="true" id="checkbox" type="checkbox" />
+                <span class="slider">
+                    <div class="star star_1"></div>
+                    <div class="star star_2"></div>
+                    <div class="star star_3"></div>
+                    <svg viewBox="0 0 16 16" class="cloud_1 cloud">
+                        <path transform="matrix(.77976 0 0 .78395-299.99-418.63)" fill="#fff"
+                            d="m391.84 540.91c-.421-.329-.949-.524-1.523-.524-1.351 0-2.451 1.084-2.485 2.435-1.395.526-2.388 1.88-2.388 3.466 0 1.874 1.385 3.423 3.182 3.667v.034h12.73v-.006c1.775-.104 3.182-1.584 3.182-3.395 0-1.747-1.309-3.186-2.994-3.379.007-.106.011-.214.011-.322 0-2.707-2.271-4.901-5.072-4.901-2.073 0-3.856 1.202-4.643 2.925">
+                        </path>
+                    </svg>
+                </span>
+            </label>
+            <div class="nav-list">
+                <ul>
+                    <li class="nav-item"><a href="#intro" class="nav-link"> Inicio</a></li>
+                    <li class="nav-item"><a href="#about" class="nav-link"> Sobre</a></li>
+                    <li class="nav-item"><a href="#resume" class="nav-link"> Formação</a></li>
+                    <li class="nav-item"><a href="#portfolio" class="nav-link"> Projetos</a></li>
+                </ul>
+            </div>
+            <div class="mobile-menu-icon">
+                <button onclick="menuShow()"><img class="icon" src="src/assets/icon/menu_white_36dp.svg"
+                        alt=""></button>
+            </div>
+        </nav>
+        <div class="mobile-menu">
+            <ul>
+                <li class="nav-item"><a href="#intro" class="nav-link">Início</a></li>
+                <li class="nav-item"><a href="#about" class="nav-link">Sobre</a></li>
+                <li class="nav-item"><a href="#resume" class="nav-link">Formação</a></li>
+                <li class="nav-item"><a href="#portfolio" class="nav-link">Projetos</a></li>
+                
+            </ul>
+        </div>
+    </header>
     <section id="intro">
         <div id="particles-js"></div>
         <div class="intro-overlay"></div>
@@ -170,39 +176,37 @@
                     <h5>Olá Mundo,</h5>
                     <h1>Eu sou Wesley Silva.</h1>
                     <p class="intro-position">
-                        <span></span>
-                        <span>DEV</span>
-                        <span>Estudante</span>
+                        <span id="typed"></span>
                     </p>
+
                     <a class="button stroke smoothscroll" href="#about" title="">Sobre mim</a>
                 </div>
             </div>
         </div>
         <ul class="intro-social">
-            <li><a href="https://www.linkedin.com/in/wesley-silva-33624b17a/" target="_blank"><i
-                        class="fa fa-linkedin"></i></a></li>
-            <li><a href="https://github.com/WesleyS08" target="_blank"><i class="fa fa-github"></i></a></li>
+            <li><a href="https://www.linkedin.com/in/wesley-silva-dos-santos-33624b17a/" target="_blank"><i
+                        class="fab fa-linkedin"></i></a></li>
+            <li><a href="https://github.com/WesleyS08" target="_blank"><i class="fab fa-github"></i></a></li>
         </ul>
-    </section> <!-- /intro -->
-
-
-    <!-- about section
-================================================== -->
+    </section>
     <section id="about">
 
         <div class="row section-intro">
             <div class="col-twelve">
 
                 <h5>Quem sou eu</h5>
-                <h1>Permita-me fazer as honras da apresentação. </h1>
+                <h1>Deixe-me contar um pouco sobre mim... </h1>
 
                 <div class="intro-info">
 
-                    <img src="img/profile-pic.png" alt="Foto do perfil">
+                    <img src="https://github.com/WesleyS08.png" alt="Foto do perfil do GitHub">
 
-                    <p class="lead">Olá! Eu sou Wesley, um desenvolvedor apaixonado por resolver desafios por meio da
-                        tecnologia. Construindo uma sólida experiência em desenvolvimento full stack, estou sempre em
-                        busca de novas oportunidades para inovar e crescer profissionalmente.</p>
+                    <p class="lead">
+                        Olá! Sou Wesley, desenvolvedor com paixão por tecnologia e resolução de problemas. Tenho
+                        experiência em desenvolvimento full stack e estou em constante evolução, sempre em busca de
+                        desafios que impulsionem meu crescimento profissional e contribuam com soluções inovadoras.
+                    </p>
+
                 </div>
 
             </div>
@@ -213,14 +217,15 @@
             <div class="col-six tab-full">
 
                 <h3>Perfil</h3>
-                <p>Sou apaixonado por resolver desafios por meio da tecnologia. Da programação backend ao frontend,
+                <p class="lead">Sou apaixonado por resolver desafios por meio da tecnologia. Da programação backend ao
+                    frontend,
                     tenho uma grande sede por descobrir e aplicar soluções inovadoras e de alta qualidade. Atualmente,
                     atuo como desenvolvedor full stack júnior, com foco em desenvolvimento web e banco de dados.</p>
 
                 <ul class="info-list">
                     <li>
-                        <strong>Interesses:</strong>
-                        <span>Desenvolvimento Web, Back end, Documentação, Automação e etc</span>
+                        <strong>experiência:</strong>
+                        <span>Estagiário do Tribunal de Justiça Militar do Estado de São Paulo</span>
                     </li>
 
                 </ul>
@@ -229,8 +234,12 @@
             <div class="col-six tab-full">
 
                 <h3>Skills</h3>
-                <p>Tenho habilidades técnicas em várias linguagens de programação e ferramentas, o que me permite
-                    desenvolver soluções robustas e eficientes.</p>
+                <p class="lead">
+                    Domino diversas linguagens de programação, frameworks e ferramentas que me permitem criar soluções
+                    eficientes, escaláveis e com foco na melhor experiência do usuário. Estou em constante
+                    aprimoramento, sempre buscando novas tecnologias para agregar valor aos projetos em que atuo.
+                </p>
+
 
                 <ul class="skill-bars">
                 </ul> <!-- /skill-bars -->
@@ -242,16 +251,17 @@
 
         <div class="row button-section">
             <div class="col-twelve">
-                <a href="#contact" title="Hire Me" class="button stroke smoothscroll">Contrate-me</a>
-                <a href="assets/cv.pdf" title="Download CV" class="button button-primary" download>Download CV</a>
-
+                <a href="src/doc/Currículo - Wesley Silva  dos Santos.pdf" download class="Download-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="16" width="20" viewBox="0 0 640 512">
+                        <path
+                            d="M144 480C64.5 480 0 415.5 0 336c0-62.8 40.2-116.2 96.2-135.9c-.1-2.7-.2-5.4-.2-8.1c0-88.4 71.6-160 160-160c59.3 0 111 32.2 138.7 80.2C409.9 102 428.3 96 448 96c53 0 96 43 96 96c0 12.2-2.3 23.8-6.4 34.6C596 238.4 640 290.1 640 352c0 70.7-57.3 128-128 128H144zm79-167l80 80c9.4 9.4 24.6 9.4 33.9 0l80-80c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-39 39V184c0-13.3-10.7-24-24-24s-24 10.7-24 24V318.1l-39-39c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9z"
+                            fill="white"></path>
+                    </svg>
+                    <span>Download CV</span>
+                </a>
             </div>
         </div>
     </section>
-
-
-    <!-- resume Section
-================================================== -->
     <section id="resume" class="grey-section">
 
         <div class="row section-intro">
@@ -346,204 +356,62 @@
                                 até aquelas que despertaram minha curiosidade e interesse.
                             </p>
                         </div>
-
                     </div> <!-- /timeline-block -->
-
                 </div> <!-- /timeline-wrap -->
-
             </div> <!-- /col-twelve -->
-
         </div> <!-- /resume-timeline -->
-
     </section> <!-- /features -->
-
-
-    <!-- Portfolio Section
-================================================== -->
     <section id="portfolio">
-
         <div class="row section-intro">
             <div class="col-twelve">
-
                 <h5>Projetos</h5>
                 <h1>Confira alguns dos meus Projetos.</h1>
-
-                <p class="lead">Durante minha jornada acadêmica, tive a oportunidade de trabalhar em diversos projetos
+                <p class="lead" style="font-size: 15px; margin-bottom: 4%;">
+                    Durante minha jornada acadêmica, tive a oportunidade de trabalhar em diversos projetos
                     que ampliaram meu conhecimento e
                     desenvolveram minhas habilidades técnicas e criativas. Abaixo estão alguns dos projetos que
                     realizei:</p>
-
             </div>
-        </div> <!-- /section-intro-->
+        </div>
+
         <div class="row portfolio-content">
             <div class="col-twelve">
-                <!-- portfolio-wrapper -->
-                <div id="folio-wrapper" class="block-1-2 block-mob-full stack">
-                    <!-- Conteúdo dinâmico será gerado aqui -->
-                </div> <!-- /portfolio-wrapper -->
-            </div> <!-- /twelve -->
-        </div> <!-- /portfolio-content -->
-
-        <script>
-            $(document).ready(function () {
-                // Repositórios definidos manualmente
-                var repositorios = [
-
-                    {
-                        name: "Sistema de Emprego",
-                        language: "PHP, HTML, JS, CSS",
-                        description: "Desenvolvimento de um Sistema de Emprego como parte de um projeto acadêmico, não apenas para obter uma boa nota, mas também para aprimorar e aplicar os conhecimentos adquiridos durante o curso..",
-                        html_url: "https://github.com/WesleyS08/Sistema_de_Emprego"
-                    },
-
-                    {
-                        name: "BioLink Hub",
-                        language: "CSS, JS, HTML",
-                        description: "O BioLinkHub é uma ferramenta criada para simplificar e centralizar a gestão de links bio. Com o aumento da importância das redes sociais e da presença online, é fundamental ter uma forma eficiente de compartilhar várias informações e recursos em um único local acessível.",
-                        html_url: "https://github.com/WesleyS08/BioLinkHub"
-                    },
-                    {
-                        name: "Abas-interativas",
-                        language: "CSS, JS, HTML",
-                        description: "Um projeto web de qualidade requer a consideração de inúmeras questões para desenvolver um layout eficiente. Diante desse desafio, surgiu a ideia de abordar o desenvolvimento de elementos individuais de forma isolada. Essa abordagem visa facilitar a aprendizagem e abordar outras questões relevantes, permitindo uma compreensão aprofundada e aprimoramento em diversos aspectos do design e desenvolvimento web.",
-                        html_url: "https://github.com/WesleyS08/Abas-interativas"
-                    },
-                    {
-                        name: "EcoSocket",
-                        language: "C++",
-                        description: "O EcoSocket: automação para internet ininterrupta. Utilize tomadas e ESP32 para reiniciar o modem em falhas. Estabilidade e confiança na sua",
-                        html_url: "https://github.com/WesleyS08/EcoSocket"
-                    },
-                    {
-                        name: "MQTT",
-                        language: "Java",
-                        description: "Este projeto demonstra como criar uma conta no HiveMQ e como desenvolver um aplicativo Android para troca de mensagens entre dois serviços através do protocolo MQTT",
-                        html_url: "https://github.com/WesleyS08/MQTT"
-                    },
-
-                    {
-                        name: "API_previsao_do_tempo",
-                        language: "CSS, JS, HTML",
-                        description: "Um projeto web de qualidade requer a consideração de inúmeras questões para desenvolver um layout eficiente. Diante desse desafio, surgiu a ideia de abordar o desenvolvimento de elementos individuais de forma isolada. Essa abordagem visa facilitar a aprendizagem e abordar outras questões relevantes, permitindo uma compreensão aprofundada e aprimoramento em diversos aspectos do design e desenvolvimento web.",
-                        html_url: "https://github.com/WesleyS08/API_previsao_do_tempo"
-                    },
-                    {
-                        name: "Remote-Weather-Monito",
-                        language: "C++",
-                        description: "Este projeto é uma estação meteorológica inteligente que utiliza ESP32 para monitorar temperatura e umidade em tempo real. Com um sensor DHT22 e um display LCD para exibição local",
-                        html_url: "https://github.com/WesleyS08/Remote-Weather-Monito"
-                    },
-                    {
-                        name: "Ligacao_com_banco",
-                        language: "PHP, HTML",
-                        description: "Não definido",
-                        html_url: "https://github.com/WesleyS08/Ligacao_com_banco"
-                    },
-
-                    {
-                        name: "SensorSync",
-                        language: "C++, Java",
-                        description: "O SensorSync é uma solução completa para o monitoramento de presença, utilizando uma interface de visualização. O dispositivo principal é um ESP32, que se conecta a um servidor MQTT para receber informações em tempo real sobre uma presença simulada.",
-                        html_url: "https://github.com/WesleyS08/SensorSync"
-                    },
-
-                    {
-                        name: "CICD-Lab",
-                        language: "JAVA",
-                        description: "Este repositório foi criado para explorar e praticar conceitos de CI/CD (Integração Contínua e Entrega Contínua) usando um projeto anterior como base. Durante esse processo, compartilhamos conhecimentos básicos sobre CI/CD para ajudar quem está interessado nesse assunto.",
-                        html_url: "https://github.com/WesleyS08/CICD-Lab"
-                    },
-                ];
-
-                // Chame a função para gerar o HTML do portfólio passando a lista de repositórios manualmente
-                gerarPortfolio(repositorios);
-            });
-
-            function gerarPortfolio(repositorios) {
-                repositorios.forEach(function (repo, index) {
-                    var portfolioItemHTML = `
-            <div class="bgrid folio-item">
-                <div class="item-wrap">
-                    <img src="img/portfolio/${repo.name}.jpg" alt="${repo.name}">
-                    <a href="#modal-${index + 1}" class="overlay">
-                        <div class="folio-item-table">
-                            <div class="folio-item-cell">
-                                <h3 class="folio-title">${repo.name}</h3>
-                                <span class="folio-types">${repo.language}</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                <!-- Aplicar grid container com CSS para efeito masonry -->
+                <div id="folio-wrapper" class="masonry-grid"></div>
             </div>
-        `;
-                    $('#folio-wrapper').append(portfolioItemHTML);
-
-                    var modalHTML = `
-            <div id="modal-${index + 1}" class="popup-modal slider mfp-hide">
-                <div class="media">
-                    <img src="img/portfolio/modals/${repo.name}.jpg" alt="" />
-                </div>
-                <div class="description-box">
-                    <h4>${repo.name}</h4>
-                    <p>${repo.description || 'Descrição não fornecida'}</p>
-                    <div class="categories">${repo.language}</div>
-                </div>
-                <div class="link-box">
-                    <a href="${repo.html_url}" target="_blank">Repositório</a>
-                    <a href="#" class="popup-modal-dismiss">Close</a>
-                </div>
-            </div>
-        `;
-                    $('body').append(modalHTML);
-                });
-
-                // Inicialize o Magnific Popup após a adição de todos os modais
-                $('.overlay').magnificPopup({
-                    type: 'inline',
-                    preloader: false,
-                    focus: '#username',
-                    modal: true
-                });
-
-                // Dismiss modal handler
-                $(document).on('click', '.popup-modal-dismiss', function (e) {
-                    e.preventDefault();
-                    $.magnificPopup.close();
-                });
-            }
-        </script>
-    </section> <!-- /portfolio -->
+        </div>
+    </section>
     <section id="stats" class="count-up">
         <div class="row">
             <div class="col-twelve">
                 <div class="block-1-6 block-s-1-3 block-tab-1-2 block-mob-full stats-list">
                     <div class="bgrid stat" id="repo-stat">
                         <div class="icon-part">
-                            <i class="icon-pencil-ruler"></i>
+                            <i class="fa-solid fa-folder-open"></i>
                         </div>
-                        <h3 class="stat-count" id="repo-count">43</h3>
+                        <h3 class="stat-count" id="repo-count">61</h3>
                         <h5 class="stat-title">Projetos Realizados</h5>
                     </div>
 
                     <div class="bgrid stat" id="followers-stat">
                         <div class="icon-part">
-                            <i class="icon-users"></i>
+                            <i class="fa-solid fa-user"></i>
                         </div>
-                        <h3 class="stat-count" id="followers-count">10</h3>
+                        <h3 class="stat-count" id="followers-count">16</h3>
                         <h5 class="stat-title">followers</h5>
                     </div>
 
                     <div class="bgrid stat" id="following-stat">
                         <div class="icon-part">
-                            <i class="icon-users"></i>
+                            <i class="fa-solid fa-user"></i>
                         </div>
-                        <h3 class="stat-count" id="following-count">9</h3>
+                        <h3 class="stat-count" id="following-count">14</h3>
                         <h5 class="stat-title">following</h5>
                     </div>
 
                     <div class="bgrid stat" id="cups-stat">
                         <div class="icon-part">
-                            <i class="icon-cup"></i>
+                            <i class="fa-solid fa-whiskey-glass"></i>
                         </div>
                         <h3 class="stat-count" id="cups-count">0</h3>
                         <h5 class="stat-title">Cafés tomados</h5>
@@ -551,14 +419,14 @@
 
                     <div class="bgrid stat" id="hours-stat">
                         <div class="icon-part">
-                            <i class="icon-clock"></i>
+                            <i class="fa-solid fa-star-and-crescent"></i>
                         </div>
                         <h3 class="stat-count" id="hours-count">0</h3>
                         <h5 class="stat-title">Noites acordado</h5>
                     </div>
                     <div class="bgrid stat" id="avg-contribution-stat">
                         <div class="icon-part">
-                            <i class="icon-clock"></i>
+                            <i class="fa-solid fa-stopwatch"></i>
                         </div>
                         <h3 class="stat-title" style="
                             color: #FFFFFF;
@@ -569,73 +437,55 @@
                         " id="avg-contribution-count">Carregando...</h3>
                         <h5 class="stat-title">Horas no VsCode</h5>
                     </div>
-                </div> <!-- /stats-list -->
-            </div> <!-- /twelve -->
-        </div> <!-- /row -->
-    </section> <!-- /stats -->
+                </div> 
+            </div> 
+        </div> 
+    </section> 
 
     <script>
-        // Função para atualizar as estatísticas fictícias aleatoriamente
         function updateFakeStats() {
-            var randomCups = Math.floor(Math.random() * 30); // Gera um número aleatório entre 0 e 29
-            var randomHours = Math.floor(Math.random() * 30); // Gera um número aleatório entre 0 e 29
+            var randomCups = Math.floor(Math.random() * 30); 
+            var randomHours = Math.floor(Math.random() * 30);
 
-            // Atualiza os elementos HTML com os números aleatórios gerados
             document.getElementById('cups-count').textContent = randomCups;
             document.getElementById('hours-count').textContent = randomHours;
         }
 
-        // Função para calcular e atualizar o Tempo Médio de Contribuição Diária
         async function updateAverageContribution() {
             try {
-                // URL da API do CodeTime
+                
                 const url = 'https://api.codetime.dev/shield?id=25789&project=&in=0';
 
-                // Faz a requisição à API para obter os dados
+            
                 const response = await fetch(url);
                 const data = await response.json();
 
-                // Verifica a estrutura do JSON retornado no console
                 console.log(data);
 
-                // Extrai a mensagem de tempo do campo 'message'
-                const contributionMessage = data.message; // Ex: "10hrs 57mins"
+                const contributionMessage = data.message; 
 
                 if (!contributionMessage) {
                     throw new Error('Não foi possível obter a mensagem de tempo de contribuição.');
                 }
-
-                // Atualiza o elemento HTML com a mensagem de tempo de contribuição
                 document.getElementById('avg-contribution-count').textContent = contributionMessage;
             } catch (error) {
                 console.error('Erro ao obter dados do CodeTime:', error);
             }
         }
-
-        // Função para atualizar todas as estatísticas
         function updateAllStats() {
             updateFakeStats();
             updateAverageContribution();
         }
 
-        // Chama a função inicialmente para exibir as estatísticas ao carregar a página
         updateAllStats();
-
-        // Define um intervalo de tempo para atualizar as estatísticas periodicamente
-        setInterval(updateAllStats, 60000); // Atualiza a cada 1 minuto
+        setInterval(updateAllStats, 60000); 
     </script>
-    <!-- contact
-================================================== -->
     <section id="contact">
         <div class="row section-intro">
             <div class="col-twelve">
 
                 <h5>Entre em Contato</h5>
                 <h1>Estou aqui para ouvir você!</h1>
-
-                <p class="lead">Se você tiver alguma dúvida, ideia emocionante ou simplesmente quiser dizer olá,
-                    não hesite em me enviar um e-mail. Estou ansioso para conversar e colaborar!</p>
-
             </div>
         </div>
 
@@ -672,12 +522,6 @@
 
             </div>
             <div class="col-four tab-full">
-                <div class="icon">
-                    <i class="fa fa-github" style="margin-right: 10px;"></i>
-                    <a href="https://www.linkedin.com/in/wesley-silva-33624b17a/" target="_blank">
-                        <i class="fa fa-linkedin" style="margin-right: 10px;"></i>
-                    </a>
-                </div>
                 <h5>Conecte-se comigo</h5>
                 <p>WesleyS08</p>
                 <p>Wesley Silva</p>
@@ -698,28 +542,167 @@
 
             <div class="col-six tab-full">
                 <div class="copyright">
-                    <span>© Copyright Wesley 2024.</span>
+                    <span>© Copyright Wesley 2025.</span>
                 </div>
             </div>
-
-            <div id="go-top">
-                <a class="smoothscroll" title="Back to Top" href="#top"><i class="fa fa-long-arrow-up"></i></a>
-            </div>
-
-        </div> <!-- /row -->
+        </div> 
     </footer>
 
-    <div id="preloader">
-        <div id="loader"></div>
-    </div>
 
-    <!-- Java Script
-================================================== -->
-    <script src="js/jquery-2.1.3.min.js"></script>
-    <script src="js/plugins.js"></script>
-    <script src="js/main.js"></script>
-     <!-- ==== Partículas ======= -->
-     <script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var repositorios = [
+                {
+                    name: "Sistema de Emprego",
+                    language: "PHP, HTML, JS, CSS",
+                    description: "Desenvolvimento de um Sistema de Emprego como parte de um projeto acadêmico, não apenas para obter uma boa nota, mas também para aprimorar e aplicar os conhecimentos adquiridos durante o curso..",
+                    html_url: "https://github.com/WesleyS08/Sistema_de_Emprego"
+                },
+                {
+                    name: "BioLink Hub",
+                    language: "CSS, JS, HTML",
+                    description: "O BioLinkHub é uma ferramenta criada para simplificar e centralizar a gestão de links bio. Com o aumento da importância das redes sociais e da presença online, é fundamental ter uma forma eficiente de compartilhar várias informações e recursos em um único local acessível.",
+                    html_url: "https://github.com/WesleyS08/BioLinkHub"
+                },
+                {
+                    name: "Abas-interativas",
+                    language: "CSS, JS, HTML",
+                    description: "Um projeto web de qualidade requer a consideração de inúmeras questões para desenvolver um layout eficiente. Diante desse desafio, surgiu a ideia de abordar o desenvolvimento de elementos individuais de forma isolada. Essa abordagem visa facilitar a aprendizagem e abordar outras questões relevantes, permitindo uma compreensão aprofundada e aprimoramento em diversos aspectos do design e desenvolvimento web.",
+                    html_url: "https://github.com/WesleyS08/Abas-interativas"
+                },
+                {
+                    name: "EcoSocket",
+                    language: "C++",
+                    description: "O EcoSocket: automação para internet ininterrupta. Utilize tomadas e ESP32 para reiniciar o modem em falhas. Estabilidade e confiança na sua",
+                    html_url: "https://github.com/WesleyS08/EcoSocket"
+                },
+                {
+                    name: "RemotePC Power Control",
+                    language: "C++",
+                    description: "O RemotePC-Power-Control é um projeto que utiliza um ESP32 para controlar remotamente o acionamento de um PC via Wake-on-LAN (WOL) e MQTT. Através desse sistema, é possível enviar comandos para ligar o PC remotamente a partir de qualquer dispositivo que tenha acesso ao servidor MQTT configurado.",
+                    html_url: "https://github.com/WesleyS08/RemotePC-Power-Control"
+                },
+                {
+                    name: "API_previsao_do_tempo",
+                    language: "CSS, JS, HTML",
+                    description: "Um projeto web de qualidade requer a consideração de inúmeras questões para desenvolver um layout eficiente. Diante desse desafio, surgiu a ideia de abordar o desenvolvimento de elementos individuais de forma isolada. Essa abordagem visa facilitar a aprendizagem e abordar outras questões relevantes, permitindo uma compreensão aprofundada e aprimoramento em diversos aspectos do design e desenvolvimento web.",
+                    html_url: "https://github.com/WesleyS08/API_previsao_do_tempo"
+                },
+                {
+                    name: "Remote-Weather-Monito",
+                    language: "C++",
+                    description: "Este projeto é uma estação meteorológica inteligente que utiliza ESP32 para monitorar temperatura e umidade em tempo real. Com um sensor DHT22 e um display LCD para exibição local",
+                    html_url: "https://github.com/WesleyS08/Remote-Weather-Monito"
+                },
+                {
+                    name: "Ligacao_com_banco",
+                    language: "PHP, HTML",
+                    description: "Não definido",
+                    html_url: "https://github.com/WesleyS08/Ligacao_com_banco"
+                },
+                {
+                    name: "SensorSync",
+                    language: "C++, Java",
+                    description: "O SensorSync é uma solução completa para o monitoramento de presença, utilizando uma interface de visualização. O dispositivo principal é um ESP32, que se conecta a um servidor MQTT para receber informações em tempo real sobre uma presença simulada.",
+                    html_url: "https://github.com/WesleyS08/SensorSync"
+                },
+                {
+                    name: "Controle de Despesas Pessoais ",
+                    language: "Typescript, JavaScript",
+                    description: " Crontole de Despeesas Pessoais é uma um Aplicativo móvel, desenvolvido em React Native com Expo que permite ao usuário registrar, categorizar e monitorar suas despesas de forma simples e eficiente. Ele interga-se com um Bot do Telegram e Supabase, oferecendo um sistema automatizado para registrar despesas a parti de mensagens enviadas em um Bot. Além disso, o app fornece uma visão clara sobre os gastos.",
+                    html_url: "https://github.com/WesleyS08/DespesasApp"
+                },
+                {
+                    name: "Roteiro de Viagem Automático ",
+                    language: "JavaScript",
+                    description: "Este projeto é uma aplicação mobile desenvolvida com React Native que permite ao usuário gerar um roteiro detalhado de viagem para qualquer cidade escolhida. Utilizando a API do Google Generative AI (Gemini), a aplicação gera informações úteis como eventos, valores de passagens, pratos típicos e mais, dependendo da cidade e do período selecionados.",
+                    html_url: "https://github.com/WesleyS08/App-de-Viagem"
+                },
+            ];
+            gerarPortfolio(repositorios);
+        });
+        function gerarPortfolio(repositorios) {
+            repositorios.forEach(function (repo, index) {
+                var portfolioItemHTML = `
+                <div class="folio-item">
+                    <div class="item-wrap">
+                        <img src="src/assets/portfolio/${repo.name}.jpg" alt="${repo.name}" onerror="this.onerror=null;this.src='src/assets/portfolio/default.jpg';">
+                        <a href="#modal-${index + 1}" class="overlay">
+                            <div class="folio-item-info">
+                                <h3 class="folio-title">${repo.name}</h3>
+                                <span class="folio-types">${repo.language}</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            `;
+                $('#folio-wrapper').append(portfolioItemHTML);
+                var modalHTML = `
+                <div id="modal-${index + 1}" class="popup-modal mfp-hide">
+                    <div class="media">
+                    <img src="src/assets/portfolio/modals/${repo.name}.jpg" alt="${repo.name}"  onerror="this.onerror=null;this.src='src/assets/portfolio/modals/default.jpg';">/>
+                    </div>
+                    <div class="description-box">
+                        <h4>${repo.name}</h4>
+                        <p>${repo.description || 'Descrição não fornecida'}</p>
+                        <div class="categories">${repo.language}</div>
+                    </div>
+                    <div class="link-box">
+                        <a href="${repo.html_url}" target="_blank">Repositório</a>
+                        <a href="#" class="popup-modal-dismiss">Fechar</a>
+                    </div>
+                </div>
+            `;
+                $('body').append(modalHTML);
+            });
+            $('.overlay').magnificPopup({
+                type: 'inline',
+                preloader: false,
+                modal: true,
+                callbacks: {
+                    beforeOpen: function () {
+                        this.st.mainClass = 'mfp-fade';
+                    }
+                }
+            });
+            $(document).on('click', '.popup-modal-dismiss', function (e) {
+                e.preventDefault();
+                $.magnificPopup.close();
+            });
+        }
+    </script>
+    <script>
+        function resizeAllGridItems() {
+            const grid = document.querySelector('#folio-wrapper');
+            const rowHeight = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-auto-rows'));
+            const rowGap = parseInt(window.getComputedStyle(grid).getPropertyValue('gap'));
+            grid.querySelectorAll('.folio-item').forEach(item => {
+                const contentHeight = item.querySelector('img').getBoundingClientRect().height;
+                const rowSpan = Math.ceil((contentHeight + rowGap) / (rowHeight + rowGap));
+                item.style.setProperty('--span', rowSpan);
+            });
+        }
+        window.addEventListener('load', resizeAllGridItems);
+        window.addEventListener('resize', resizeAllGridItems);
+    </script>
+    <script>
+        function menuShow() {
+            let menuMobile = document.querySelector('.mobile-menu');
+            if (menuMobile.classList.contains('open')) {
+                menuMobile.classList.remove('open');
+                document.querySelector('.icon').src = "src/assets/icon/menu_white_36dp.svg";
+            } else {
+                menuMobile.classList.add('open');
+                document.querySelector('.icon').src = "src/assets/icon/close_white_36dp.svg";
+            }
+        }
+    </script>
+    <script src="src/js/MudancadeTema.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="src/js/EfeitodeDigitacao.js"></script>
+    <script>
         particlesJS("particles-js", {
             "particles": {
                 "number": {
@@ -831,7 +814,6 @@
             "retina_detect": false
         });
     </script>
-
 </body>
 
 </html>
