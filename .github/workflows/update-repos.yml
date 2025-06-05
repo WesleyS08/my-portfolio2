@@ -30,7 +30,7 @@ jobs:
                > repos.json
 
           # Listar nomes no log
-          cat repos.json | jq -r '.[].name'
+          jq -r '.[].name' repos.json
 
       - name: Calcular porcentagem de linguagens em todos os repositórios
         run: |
@@ -38,11 +38,13 @@ jobs:
           IFS=$'\n\t'
 
           repos=$(jq -r '.[].name' repos.json)
-          declare -A lang_bytes
+          declare -A lang_bytes=()
 
           for repo in $repos; do
             echo "Processando repo: $repo"
-            langs=$(curl -s -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" "https://api.github.com/repos/WesleyS08/$repo/languages" | jq -r 'to_entries|map("\(.key) \(.value)")|.[]')
+            langs=$(curl -s -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" \
+                     "https://api.github.com/repos/WesleyS08/$repo/languages" | \
+                     jq -r 'to_entries|map("\(.key) \(.value)")|.[]')
 
             if [[ -z "$langs" ]]; then
               echo "Nenhuma linguagem encontrada para $repo"
@@ -61,12 +63,16 @@ jobs:
             total=$(( total + v ))
           done
 
-          echo "Porcentagem geral de linguagens:" > languages.json
+          if [ "$total" -eq 0 ]; then
+            echo "Nenhuma linguagem encontrada em todos os repositórios"
+            exit 0
+          fi
+
+          echo "Porcentagem geral de linguagens:"
           for lang in "${!lang_bytes[@]}"; do
             percent=$(echo "scale=2; ${lang_bytes[$lang]} * 100 / $total" | bc)
-            echo "$lang: $percent%" >> languages.json
             echo "$lang: $percent%"
-          done
+          done > languages.json
 
       - name: Configurar Git para push
         run: |
