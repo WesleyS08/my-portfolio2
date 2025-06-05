@@ -13,148 +13,113 @@ jobs:
       contents: write
 
     steps:
-      - name: Checkout do repositório
+      - name: Checkout repository
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
 
-      - name: Verificar se token está definido
+      - name: Setup environment
         run: |
-          if [ -z "${{ secrets.PERSONAL_TOKEN }}" ]; then
-            echo "::error::O token PERSONAL_TOKEN não está definido!"
-            exit 1
-          else
-            echo "Token PERSONAL_TOKEN está configurado"
-          fi
+          # Install jq if not already available
+          sudo apt-get update && sudo apt-get install -y jq bc
 
-      - name: Buscar repositórios via API GitHub
+      - name: Fetch repositories
         run: |
-          echo "Obtendo lista de repositórios..."
+          echo "Fetching repositories..."
           curl -s -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" \
                -H "Accept: application/vnd.github.v3+json" \
-               "https://api.github.com/users/WesleyS08/repos?per_page=100&sort=updated" \
+               "https://api.github.com/users/WesleyS08/repos?per_page=100" \
                > repos.json
           
-          # Verificar se a API retornou dados
-          if [ ! -s repos.json ]; then
-            echo "::error::Falha ao obter repositórios da API"
-            exit 1
+          echo "First 3 repositories:"
+          jq -r '.[0:3] | .[].name' repos.json
+          echo "Total repositories: $(jq -r 'length' repos.json)"
+
+      - name: Process languages
+        id: languages
+        run: |
+          echo "Starting language processing..."
+          
+          # Create empty array if file doesn't exist
+          if [ ! -f repos.json ]; then
+            echo "[]" > repos.json
           fi
 
-          # Listar nomes dos repositórios para log
-          echo "Repositórios encontrados:"
-          jq -r '.[].name' repos.json
-
-      - name: Calcular porcentagem de linguagens
-        run: |
-          set -euo pipefail
-          IFS=$'\n\t'
-
-          echo "Processando linguagens dos repositórios..."
           repos=$(jq -r '.[].name' repos.json)
           declare -A lang_bytes=()
-          total_repos=0
-          processed_repos=0
+          total_bytes=0
+          processed=0
+          skipped=0
+
+          echo "Found $(echo "$repos" | wc -l) repositories to process"
 
           for repo in $repos; do
-            # Ignorar repositórios inválidos
+            # Skip invalid or empty repo names
             if [[ -z "$repo" || "$repo" == "WesleyS08" ]]; then
-              echo "Pulando repositório inválido: $repo"
+              echo "Skipping invalid repository: $repo"
+              ((skipped++))
               continue
             fi
 
-            ((total_repos++))
-            echo "Processando: $repo ($total_repos/${#repos[@]})"
+            echo "Processing $repo..."
             
-            # Adicionar delay para evitar rate limiting
-            sleep 1
-
-            langs=$(curl -s -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" \
-                     -H "Accept: application/vnd.github.v3+json" \
-                     "https://api.github.com/repos/WesleyS08/$repo/languages" | \
-                     jq -r 'to_entries|map("\(.key) \(.value)")|.[]')
-
-            if [[ -z "$langs" ]]; then
-              echo "  Nenhuma linguagem detectada"
+            # Get languages with error handling
+            lang_data=$(curl -s -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" \
+                           -H "Accept: application/vnd.github.v3+json" \
+                           "https://api.github.com/repos/WesleyS08/$repo/languages" || echo "{}")
+            
+            # Skip if no language data
+            if [ "$(echo "$lang_data" | jq -r 'length')" -eq 0 ]; then
+              echo "  No language data found"
+              ((skipped++))
               continue
             fi
 
-            ((processed_repos++))
+            ((processed++))
+            
+            # Process each language
             while read -r lang bytes; do
-              if [[ -n "$lang" ]]; then
-                lang_bytes[$lang]=$(( ${lang_bytes[$lang]:-0} + bytes ))
+              if [[ -n "$lang" && "$bytes" -gt 0 ]]; then
+                current=${lang_bytes[$lang]:-0}
+                lang_bytes[$lang]=$((current + bytes))
+                total_bytes=$((total_bytes + bytes))
               fi
-            done <<< "$langs"
+            done < <(echo "$lang_data" | jq -r 'to_entries[] | "\(.key) \(.value)"')
           done
 
-          echo "--------------------------------------------------"
-          echo "Resumo:"
-          echo "Total de repositórios: $total_repos"
-          echo "Repositórios com linguagens detectadas: $processed_repos"
+          echo "Processing complete:"
+          echo "- Processed: $processed repositories"
+          echo "- Skipped: $skipped repositories"
+          echo "- Total bytes: $total_bytes"
+          echo "- Languages found: ${#lang_bytes[@]}"
 
+          # Generate JSON output
           if [ ${#lang_bytes[@]} -eq 0 ]; then
-            echo "Nenhuma linguagem encontrada em todos os repositórios"
             echo "{}" > languages.json
+            echo "No language data to output"
             exit 0
           fi
 
-          # Calcular totais
-          total_bytes=0
-          for bytes in "${lang_bytes[@]}"; do
-            total_bytes=$(( total_bytes + bytes ))
-          done
-
-          if [ $total_bytes -eq 0 ]; then
-            echo "Total de bytes é zero, não é possível calcular porcentagens"
-            echo "{}" > languages.json
-            exit 0
-          fi
-
-          # Gerar saída formatada
-          echo "Distribuição de linguagens:"
           echo "{" > languages.json
           first=true
-          for lang in $(for k in "${!lang_bytes[@]}"; do echo "$k"; done | sort); do
-            bytes=${lang_bytes[$lang]}
-            percent=$(awk "BEGIN {printf \"%.2f\", $bytes*100/$total_bytes}")
-            
-            # Log formatado
-            printf "%-15s %10d bytes %6.2f%%\n" "$lang" "$bytes" "$percent"
-            
-            # JSON output
-            if [ "$first" = true ]; then
-              first=false
-            else
+          for lang in $(printf '%s\n' "${!lang_bytes[@]}" | sort); do
+            percent=$(echo "scale=2; ${lang_bytes[$lang]} * 100 / $total_bytes" | bc)
+            if [ "$first" = false ]; then
               echo "," >> languages.json
             fi
             echo -n "\"$lang\": $percent" >> languages.json
+            first=false
           done
           echo -e "\n}" >> languages.json
 
-      - name: Configurar Git
+          echo "Language percentages:"
+          cat languages.json
+
+      - name: Commit changes
+        if: always()
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-          git remote set-url origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git"
-
-      - name: Commit e push das alterações
-        run: |
-          # Verificar se houve mudanças
-          if git diff --quiet --exit-code; then
-            echo "Nenhuma mudança detectada para commitar"
-          else
-            echo "Preparando commit..."
-            git add repos.json languages.json
-            git commit -m "📊 Atualização automática: dados de repositórios e linguagens"
-            git pull --rebase
-            git push origin main
-            echo "Alterações enviadas com sucesso"
-          fi
-
-      - name: Exibir resultados
-        run: |
-          echo "=== Arquivo repos.json ==="
-          head -n 10 repos.json
-          echo "..."
-          echo -e "\n=== Arquivo languages.json ==="
-          cat languages.json
+          
+          git add repos.json languages.json || echo "No files to add"
+          git diff --quiet && git diff --staged --quiet || \
+            git commit -m "Update repository data [skip ci]" && \
+            git push
