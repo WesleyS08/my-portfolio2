@@ -1,0 +1,27 @@
+name: Update Repos JSON
+
+on:
+  schedule:
+    - cron: '0 * * * *' # roda a cada hora
+  workflow_dispatch:     # permite executar manualmente
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v3
+
+      - name: Buscar repositórios via API GitHub
+        run: |
+          curl -H "Authorization: token ${{ secrets.GH_TOKEN }}" \
+               https://api.github.com/users/WesleyS08/repos?per_page=100 \
+               | jq '.' > repos.json
+
+      - name: Commit e push do arquivo JSON
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add repos.json
+          git commit -m "Atualiza lista de repositórios" || echo "Nenhuma mudança"
+          git push
