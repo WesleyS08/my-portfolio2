@@ -12,8 +12,7 @@
     <meta property="og:description" content="portfólio desenvolvido.">
     <meta property="og:image" content="https://wesleys08.github.io/my-portfolio2/img/previo.png">
     <meta property="og:url" content="https://wesleys08.github.io/my-portfolio2/">
-  <link rel="shortcut icon"
-        href="src/assets/icon/logo.png" />
+    <link rel="shortcut icon" href="src/assets/icon/logo.png" />
 
     <!-- Estilos personalizados -->
     <link rel="stylesheet" href="src/styles/style.css">
@@ -41,77 +40,43 @@
         $(document).ready(function () {
             function animateProgressBars() {
                 var languageColors = {
-                    "HTML": "#E34F26",
-                    "CSS": "#1572B6",
-                    "JavaScript": "#F7DF1E",
-                    "Python": "#3572A5",
-                    "Java": "#007396",
-                    "C++": "#F34B7D",
-                    "Ruby": "#CC342D",
-                    "PHP": "#4F5D95",
-                    "C#": "#178600",
-                    "Swift": "#FFAC45",
-                    "TypeScript": "#2B7489",
-                    "Go": "#00ADD8",
-                    "Kotlin": "#F18E33",
-                    "R": "#276DC3",
-                    "Scala": "#DC322F",
-                    "Perl": "#0298C3",
-                    "Haskell": "#5E5086",
-                    "Lua": "#000080",
-                    "Shell": "#89E051",
-                    "Objective-C": "#438EFF",
-                    "Assembly": "#6E4C13",
-                    "Vim script": "#199F4B",
-                    "TeX": "#3D6117",
-                    "CoffeeScript": "#244776",
-                    "Dart": "#00B4AB",
-                    "Matlab": "#E16737"
+                    "HTML": "#E34F26", "CSS": "#1572B6", "JavaScript": "#F7DF1E", "Python": "#3572A5",
+                    "Java": "#007396", "C++": "#F34B7D", "Ruby": "#CC342D", "PHP": "#4F5D95",
+                    "C#": "#178600", "Swift": "#FFAC45", "TypeScript": "#2B7489", "Go": "#00ADD8",
+                    "Kotlin": "#F18E33", "R": "#276DC3", "Scala": "#DC322F", "Perl": "#0298C3",
+                    "Haskell": "#5E5086", "Lua": "#000080", "Shell": "#89E051", "Objective-C": "#438EFF",
+                    "Assembly": "#6E4C13", "Vim script": "#199F4B", "TeX": "#3D6117", "CoffeeScript": "#244776",
+                    "Dart": "#00B4AB", "Matlab": "#E16737"
                 };
 
-                $.ajax({
-                    url: 'https://api.github.com/users/WesleyS08/repos',
-                    dataType: 'json',
-                    success: function (data) {
-                        var skills = {};
-                        data.forEach(function (repo) {
-                            var language = repo.language;
-                            if (language) {
-                                if (language in skills) {
-                                    skills[language]++;
-                                } else {
-                                    skills[language] = 1;
-                                }
-                            }
-                        });
+                $.getJSON('languages.json', function (data) {
+                    var skills = data.languages;
 
-                        var totalRepos = data.length;
-                        for (var skill in skills) {
-                            var percentage = Math.round((skills[skill] / totalRepos) * 100);
-                            var progress = '<div class="progress" data-width="' + percentage + '" style="background-color: ' + (languageColors[skill] || "#000") + '; width: 0;">' + skill + ' <span class="percentage">' + percentage + '%</span></div>';
-                            var listItem = $('<li>').html(progress);
-                            $('.skill-bars').append(listItem);
-                        }
-
-                        // Waypoint para animar a barra ao entrar na viewport
-                        $('.progress').waypoint(function (direction) {
-                            var width = $(this.element).data('width');
-                            $(this.element).css('width', width + '%');
-                            this.destroy();
-                        }, { offset: '98%' });
-
-                        // Tooltip mostrando a porcentagem no hover
-                        $('.progress').on('mouseenter', function () {
-                            var percentage = $(this).find('.percentage').text();
-                            $(this).attr('title', percentage);
-                        });
+                    for (var skill in skills) {
+                        var percentage = skills[skill];
+                        var progress = '<div class="progress" data-width="' + percentage + '" style="background-color: ' + (languageColors[skill] || "#000") + '; width: 0;">' + skill + ' <span class="percentage">' + percentage + '%</span></div>';
+                        var listItem = $('<li>').html(progress);
+                        $('.skill-bars').append(listItem);
                     }
+
+                    // Waypoint para animar a barra ao entrar na viewport
+                    $('.progress').waypoint(function () {
+                        var width = $(this.element).data('width');
+                        $(this.element).css('width', width + '%');
+                        this.destroy();
+                    }, { offset: '98%' });
+
+                    $('.progress').on('mouseenter', function () {
+                        var percentage = $(this).find('.percentage').text();
+                        $(this).attr('title', percentage);
+                    });
                 });
             }
 
             animateProgressBars();
         });
     </script>
+
     <script>
         $(document).ready(function () {
             ScrollReveal().reveal('.timeline-block', {
@@ -130,7 +95,7 @@
 <body>
     <header>
         <nav class="nav-bar">
-            
+
             <label class="switch">
                 <input checked="true" id="checkbox" type="checkbox" />
                 <span class="slider">
@@ -163,7 +128,7 @@
                 <li class="nav-item"><a href="#about" class="nav-link">Sobre</a></li>
                 <li class="nav-item"><a href="#resume" class="nav-link">Formação</a></li>
                 <li class="nav-item"><a href="#portfolio" class="nav-link">Projetos</a></li>
-                
+
             </ul>
         </div>
     </header>
@@ -389,7 +354,7 @@
                         <div class="icon-part">
                             <i class="fa-solid fa-folder-open"></i>
                         </div>
-                        <h3 class="stat-count" id="repo-count">61</h3>
+                        <h3 class="stat-count" id="repo-count">...</h3>
                         <h5 class="stat-title">Projetos Realizados</h5>
                     </div>
 
@@ -437,14 +402,14 @@
                         " id="avg-contribution-count">Carregando...</h3>
                         <h5 class="stat-title">Horas no VsCode</h5>
                     </div>
-                </div> 
-            </div> 
-        </div> 
-    </section> 
+                </div>
+            </div>
+        </div>
+    </section>
 
     <script>
         function updateFakeStats() {
-            var randomCups = Math.floor(Math.random() * 30); 
+            var randomCups = Math.floor(Math.random() * 30);
             var randomHours = Math.floor(Math.random() * 30);
 
             document.getElementById('cups-count').textContent = randomCups;
@@ -453,16 +418,16 @@
 
         async function updateAverageContribution() {
             try {
-                
+
                 const url = 'https://api.codetime.dev/shield?id=25789&project=&in=0';
 
-            
+
                 const response = await fetch(url);
                 const data = await response.json();
 
                 console.log(data);
 
-                const contributionMessage = data.message; 
+                const contributionMessage = data.message;
 
                 if (!contributionMessage) {
                     throw new Error('Não foi possível obter a mensagem de tempo de contribuição.');
@@ -545,7 +510,7 @@
                     <span>© Copyright Wesley 2025.</span>
                 </div>
             </div>
-        </div> 
+        </div>
     </footer>
 
 
@@ -814,6 +779,16 @@
             "retina_detect": false
         });
     </script>
+    <script>
+    $(document).ready(function () {
+        $.getJSON('languages.json', function (data) {
+            if (data.total_repositories !== undefined) {
+                $('#repo-count').text(data.total_repositories);
+            }
+        });
+    });
+</script>
+
 </body>
 
 </html>
