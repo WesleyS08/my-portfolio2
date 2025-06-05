@@ -32,39 +32,36 @@ jobs:
       - name: Processar linguagens
         run: |
           echo "Iniciando processamento de linguagens..."
-          
-          # Variáveis
+
           declare -A lang_bytes=()
           total_bytes=0
           processed=0
           errors=0
 
-          # Ler nomes dos repositórios
           repos=$(jq -r '.[].name' repos.json)
           echo "Repositórios para processar: $(echo "$repos" | wc -l)"
 
           for repo in $repos; do
-            # Pular nomes inválidos
             if [[ -z "$repo" || "$repo" == "WesleyS08" ]]; then
               echo "Pulando repositório inválido: $repo"
               continue
             fi
 
             echo "Processando $repo..."
-            
-            # Obter dados de linguagem
-            lang_data=$(curl -s -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" \
+
+            lang_data=$(curl -f -s -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" \
                              -H "Accept: application/vnd.github.v3+json" \
                              "https://api.github.com/repos/WesleyS08/$repo/languages" || echo "{}")
-            
-            # Verificar JSON válido
-            if ! jq -e . >/dev/null 2>&1 <<<"$lang_data"; then
-              echo "  JSON inválido para $repo"
+
+            echo "Resposta de linguagem para $repo:"
+            echo "$lang_data"
+
+            if [[ -z "$lang_data" || "$lang_data" == "{}" ]] || ! jq -e . >/dev/null 2>&1 <<<"$lang_data"; then
+              echo "  JSON inválido ou vazio para $repo"
               ((errors++))
               continue
             fi
 
-            # Verificar se há dados de linguagem
             lang_count=$(jq -r 'length' <<< "$lang_data")
             if [ "$lang_count" -eq 0 ]; then
               echo "  Sem dados de linguagem"
@@ -72,8 +69,7 @@ jobs:
             fi
 
             ((processed++))
-            
-            # Processar linguagens
+
             while IFS=" " read -r lang bytes; do
               if [[ -n "$lang" && "$bytes" =~ ^[0-9]+$ ]]; then
                 lang_bytes[$lang]=$((${lang_bytes[$lang]:-0} + bytes))
@@ -82,14 +78,12 @@ jobs:
             done < <(jq -r 'to_entries[] | "\(.key) \(.value)"' <<< "$lang_data")
           done
 
-          # Resultados finais
           echo "Processamento completo:"
           echo "- Repositórios processados: $processed"
           echo "- Erros encontrados: $errors"
           echo "- Bytes totais: $total_bytes"
           echo "- Linguagens únicas: ${#lang_bytes[@]}"
 
-          # Gerar arquivo de saída
           if [ ${#lang_bytes[@]} -eq 0 ]; then
             echo "{}" > languages.json
             echo "Aviso: Nenhum dado de linguagem coletado"
@@ -114,8 +108,7 @@ jobs:
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-          
-          # Commitar apenas se houver mudanças
+
           git add repos.json languages.json
           if ! git diff --quiet --exit-code --staged; then
             git commit -m "Atualizar dados de repositórios [skip ci]"
