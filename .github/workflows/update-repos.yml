@@ -27,7 +27,8 @@ jobs:
                "https://api.github.com/users/WesleyS08/repos?per_page=100" \
                > repos.json
           
-          echo "Total de repositórios: $(jq -r 'length' repos.json)"
+          total_repos=$(jq -r 'length' repos.json)
+          echo "Total de repositórios: $total_repos"
 
       - name: Processar linguagens
         run: |
@@ -38,10 +39,11 @@ jobs:
           total_bytes=0
           processed=0
           errors=0
+          total_repos=$(jq -r 'length' repos.json)
 
           # Ler nomes dos repositórios
           repos=$(jq -r '.[].name' repos.json)
-          echo "Repositórios para processar: $(echo "$repos" | wc -l)"
+          echo "Repositórios para processar: $total_repos"
 
           for repo in $repos; do
             if [[ -z "$repo" || "$repo" == "WesleyS08" ]]; then
@@ -81,23 +83,41 @@ jobs:
           done
 
           echo "Processamento completo:"
+          echo "- Total de repositórios: $total_repos"
           echo "- Repositórios processados: $processed"
           echo "- Erros encontrados: $errors"
           echo "- Bytes totais: $total_bytes"
           echo "- Linguagens únicas: ${#lang_bytes[@]}"
 
-          # Gerar JSON corretamente com jq
+          # Gerar JSON final com todas as informações
           if [ ${#lang_bytes[@]} -eq 0 ]; then
-            echo "{}" > languages.json
+            jq -n --arg total_repos "$total_repos" \
+               --arg processed "$processed" \
+               --arg errors "$errors" \
+               '{total_repositories: ($total_repos | tonumber), 
+                 processed_repositories: ($processed | tonumber),
+                 errors: ($errors | tonumber),
+                 languages: {}}' > languages.json
             echo "Aviso: Nenhum dado de linguagem coletado"
           else
-            for lang in "${!lang_bytes[@]}"; do
+            # Gerar objeto de linguagens
+            lang_json=$(for lang in "${!lang_bytes[@]}"; do
               percent=$(echo "scale=2; ${lang_bytes[$lang]} * 100 / $total_bytes" | bc)
               echo "$lang:$percent"
-            done | jq -Rn 'reduce inputs as $i ({}; . + ($i | split(":") | { (.[0]): (.[1] | tonumber) }) )' > languages.json
+            done | jq -Rn 'reduce inputs as $i ({}; . + ($i | split(":") | { (.[0]): (.[1] | tonumber) })')
+            
+            # Criar JSON completo
+            jq -n --arg total_repos "$total_repos" \
+                 --arg processed "$processed" \
+                 --arg errors "$errors" \
+                 --argjson lang_json "$lang_json" \
+                 '{total_repositories: ($total_repos | tonumber), 
+                   processed_repositories: ($processed | tonumber),
+                   errors: ($errors | tonumber),
+                   languages: $lang_json}' > languages.json
           fi
 
-          echo "Distribuição final de linguagens:"
+          echo "Dados finais:"
           cat languages.json
 
       - name: Commitar alterações
