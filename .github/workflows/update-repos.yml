@@ -138,9 +138,9 @@ jobs:
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-          git add repos.json languages.json
+          git add languages.json
           if ! git diff --quiet --exit-code --staged; then
-            git commit -m "Atualizar dados de repositórios [skip ci]"
+            git commit -m ""Atualização automática dos dados de linguagens dos repositórios [skip ci]"
             git push
           else
             echo "Nenhuma mudança para commitar"
