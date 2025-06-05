@@ -144,3 +144,5 @@ jobs:
             git push
           else
             echo "Nenhuma mudança para commitar"
+          fi
+
