@@ -29,5 +29,47 @@ jobs:
                "https://api.github.com/users/WesleyS08/repos?per_page=100" \
                > repos.json
 
-          # Extrair e imprimir no log os nomes dos repositórios
           cat repos.json | jq -r '.[].name'
+
+      - name: Calcular porcentagem de linguagens em todos os repositórios
+        run: |
+          repos=$(jq -r '.[].name' repos.json)
+
+          declare -A lang_bytes
+
+          for repo in $repos; do
+            echo "Processando repo: $repo"
+            langs=$(curl -s -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" "https://api.github.com/repos/WesleyS08/$repo/languages" | jq -r 'to_entries|map("\(.key) \(.value)")|.[]')
+            while read -r lang bytes; do
+              lang_bytes[$lang]=$(( ${lang_bytes[$lang]:-0} + bytes ))
+            done <<< "$langs"
+          done
+
+          total=0
+          for v in "${lang_bytes[@]}"; do
+            total=$(( total + v ))
+          done
+
+          # Criar JSON com as porcentagens
+          echo "{" > languages.json
+          first=true
+          for lang in "${!lang_bytes[@]}"; do
+            percent=$(echo "scale=2; ${lang_bytes[$lang]} * 100 / $total" | bc)
+            if [ "$first" = true ]; then
+              first=false
+            else
+              echo "," >> languages.json
+            fi
+            echo "  \"$lang\": $percent" >> languages.json
+          done
+          echo "}" >> languages.json
+
+          cat languages.json
+
+      - name: Commit e push do arquivo JSON
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add languages.json
+          git commit -m "Atualiza porcentagem de linguagens" || echo "Sem alterações para commitar"
+          git push origin main
