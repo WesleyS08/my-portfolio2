@@ -16,10 +16,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Setup environment
-        run: |
-          # Install jq if not already available
-          sudo apt-get update && sudo apt-get install -y jq bc
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y jq bc
 
       - name: Fetch repositories
         run: |
@@ -29,97 +27,98 @@ jobs:
                "https://api.github.com/users/WesleyS08/repos?per_page=100" \
                > repos.json
           
-          echo "First 3 repositories:"
-          jq -r '.[0:3] | .[].name' repos.json
-          echo "Total repositories: $(jq -r 'length' repos.json)"
+          echo "Repository count: $(jq -r 'length' repos.json)"
 
-      - name: Process languages
-        id: languages
+      - name: Process languages (with debug)
         run: |
+          set -x  # Enable debug output
           echo "Starting language processing..."
           
-          # Create empty array if file doesn't exist
-          if [ ! -f repos.json ]; then
-            echo "[]" > repos.json
-          fi
-
-          repos=$(jq -r '.[].name' repos.json)
+          # Initialize variables
           declare -A lang_bytes=()
           total_bytes=0
           processed=0
-          skipped=0
+          errors=0
 
-          echo "Found $(echo "$repos" | wc -l) repositories to process"
+          # Read repository names
+          repos=$(jq -r '.[].name' repos.json)
+          echo "Total repositories to process: $(echo "$repos" | wc -l)"
 
           for repo in $repos; do
-            # Skip invalid or empty repo names
+            # Skip invalid names
             if [[ -z "$repo" || "$repo" == "WesleyS08" ]]; then
               echo "Skipping invalid repository: $repo"
-              ((skipped++))
               continue
             fi
 
             echo "Processing $repo..."
             
-            # Get languages with error handling
-            lang_data=$(curl -s -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" \
+            # Get language data with error handling
+            lang_data=$(curl -f -s -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" \
                            -H "Accept: application/vnd.github.v3+json" \
                            "https://api.github.com/repos/WesleyS08/$repo/languages" || echo "{}")
             
-            # Skip if no language data
+            # Check if we got valid JSON
+            if ! jq -e . >/dev/null 2>&1 <<<"$lang_data"; then
+              echo "  Invalid JSON response for $repo"
+              ((errors++))
+              continue
+            fi
+
+            # Skip if no languages
             if [ "$(echo "$lang_data" | jq -r 'length')" -eq 0 ]; then
-              echo "  No language data found"
-              ((skipped++))
+              echo "  No language data"
               continue
             fi
 
             ((processed++))
             
-            # Process each language
+            # Process languages
             while read -r lang bytes; do
-              if [[ -n "$lang" && "$bytes" -gt 0 ]]; then
-                current=${lang_bytes[$lang]:-0}
-                lang_bytes[$lang]=$((current + bytes))
+              if [[ -n "$lang" && "$bytes" =~ ^[0-9]+$ && "$bytes" -gt 0 ]]; then
+                lang_bytes[$lang]=$((${lang_bytes[$lang]:-0} + bytes))
                 total_bytes=$((total_bytes + bytes))
               fi
             done < <(echo "$lang_data" | jq -r 'to_entries[] | "\(.key) \(.value)"')
           done
 
           echo "Processing complete:"
-          echo "- Processed: $processed repositories"
-          echo "- Skipped: $skipped repositories"
+          echo "- Successfully processed: $processed repositories"
+          echo "- Errors encountered: $errors"
           echo "- Total bytes: $total_bytes"
-          echo "- Languages found: ${#lang_bytes[@]}"
+          echo "- Unique languages: ${#lang_bytes[@]}"
 
-          # Generate JSON output
+          # Generate output
           if [ ${#lang_bytes[@]} -eq 0 ]; then
             echo "{}" > languages.json
-            echo "No language data to output"
-            exit 0
+            echo "Warning: No language data collected"
+          else
+            echo "{" > languages.json
+            first=true
+            for lang in $(printf '%s\n' "${!lang_bytes[@]}" | sort); do
+              percent=$(echo "scale=2; ${lang_bytes[$lang]} * 100 / $total_bytes" | bc)
+              if [ "$first" = false ]; then
+                echo "," >> languages.json
+              fi
+              echo -n "\"$lang\": $percent" >> languages.json
+              first=false
+            done
+            echo -e "\n}" >> languages.json
           fi
 
-          echo "{" > languages.json
-          first=true
-          for lang in $(printf '%s\n' "${!lang_bytes[@]}" | sort); do
-            percent=$(echo "scale=2; ${lang_bytes[$lang]} * 100 / $total_bytes" | bc)
-            if [ "$first" = false ]; then
-              echo "," >> languages.json
-            fi
-            echo -n "\"$lang\": $percent" >> languages.json
-            first=false
-          done
-          echo -e "\n}" >> languages.json
-
-          echo "Language percentages:"
+          echo "Final language distribution:"
           cat languages.json
 
       - name: Commit changes
-        if: always()
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
           
-          git add repos.json languages.json || echo "No files to add"
-          git diff --quiet && git diff --staged --quiet || \
-            git commit -m "Update repository data [skip ci]" && \
+          # Only commit if there are changes
+          git add repos.json languages.json
+          if ! git diff --quiet --exit-code --staged; then
+            git commit -m "Update repository data [skip ci]"
             git push
+          else
+            echo "No changes to commit"
+          fi
