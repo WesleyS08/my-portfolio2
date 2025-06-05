@@ -9,54 +9,77 @@ on:
 jobs:
   update:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout do repositório
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Verificar se token está definido
         run: |
           if [ -z "${{ secrets.PERSONAL_TOKEN }}" ]; then
-            echo "O token NÃO está definido!"
+            echo "::error::O token PERSONAL_TOKEN não está definido!"
             exit 1
           else
-            echo "O token está definido."
+            echo "Token PERSONAL_TOKEN está configurado"
           fi
 
-      - name: Buscar repositórios via API GitHub e salvar JSON
+      - name: Buscar repositórios via API GitHub
         run: |
-          curl -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" \
-               "https://api.github.com/users/WesleyS08/repos?per_page=100" \
+          echo "Obtendo lista de repositórios..."
+          curl -s -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" \
+               -H "Accept: application/vnd.github.v3+json" \
+               "https://api.github.com/users/WesleyS08/repos?per_page=100&sort=updated" \
                > repos.json
+          
+          # Verificar se a API retornou dados
+          if [ ! -s repos.json ]; then
+            echo "::error::Falha ao obter repositórios da API"
+            exit 1
+          fi
 
-          # Listar nomes no log
-          cat repos.json | jq -r '.[].name'
+          # Listar nomes dos repositórios para log
+          echo "Repositórios encontrados:"
+          jq -r '.[].name' repos.json
 
-      - name: Calcular porcentagem de linguagens em todos os repositórios
+      - name: Calcular porcentagem de linguagens
         run: |
           set -euo pipefail
           IFS=$'\n\t'
 
+          echo "Processando linguagens dos repositórios..."
           repos=$(jq -r '.[].name' repos.json)
           declare -A lang_bytes=()
+          total_repos=0
+          processed_repos=0
 
           for repo in $repos; do
-            # Ignorar nomes inválidos ou igual ao usuário
+            # Ignorar repositórios inválidos
             if [[ -z "$repo" || "$repo" == "WesleyS08" ]]; then
               echo "Pulando repositório inválido: $repo"
               continue
             fi
 
-            echo "Processando repo: $repo"
+            ((total_repos++))
+            echo "Processando: $repo ($total_repos/${#repos[@]})"
+            
+            # Adicionar delay para evitar rate limiting
+            sleep 1
+
             langs=$(curl -s -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" \
+                     -H "Accept: application/vnd.github.v3+json" \
                      "https://api.github.com/repos/WesleyS08/$repo/languages" | \
                      jq -r 'to_entries|map("\(.key) \(.value)")|.[]')
 
             if [[ -z "$langs" ]]; then
-              echo "Nenhuma linguagem encontrada para $repo"
+              echo "  Nenhuma linguagem detectada"
               continue
             fi
 
+            ((processed_repos++))
             while read -r lang bytes; do
               if [[ -n "$lang" ]]; then
                 lang_bytes[$lang]=$(( ${lang_bytes[$lang]:-0} + bytes ))
@@ -64,45 +87,74 @@ jobs:
             done <<< "$langs"
           done
 
+          echo "--------------------------------------------------"
+          echo "Resumo:"
+          echo "Total de repositórios: $total_repos"
+          echo "Repositórios com linguagens detectadas: $processed_repos"
+
           if [ ${#lang_bytes[@]} -eq 0 ]; then
             echo "Nenhuma linguagem encontrada em todos os repositórios"
+            echo "{}" > languages.json
             exit 0
           fi
 
-          total=0
-          for v in "${lang_bytes[@]}"; do
-            total=$(( total + v ))
+          # Calcular totais
+          total_bytes=0
+          for bytes in "${lang_bytes[@]}"; do
+            total_bytes=$(( total_bytes + bytes ))
           done
 
-          echo "Porcentagem geral de linguagens:"
-          for lang in "${!lang_bytes[@]}"; do
-            percent=$(echo "scale=2; ${lang_bytes[$lang]} * 100 / $total" | bc)
-            echo "$lang: $percent%"
-          done
+          if [ $total_bytes -eq 0 ]; then
+            echo "Total de bytes é zero, não é possível calcular porcentagens"
+            echo "{}" > languages.json
+            exit 0
+          fi
 
-          # Salvar resultado em arquivo JSON para commit
+          # Gerar saída formatada
+          echo "Distribuição de linguagens:"
           echo "{" > languages.json
           first=true
-          for lang in "${!lang_bytes[@]}"; do
-            percent=$(echo "scale=2; ${lang_bytes[$lang]} * 100 / $total" | bc)
+          for lang in $(for k in "${!lang_bytes[@]}"; do echo "$k"; done | sort); do
+            bytes=${lang_bytes[$lang]}
+            percent=$(awk "BEGIN {printf \"%.2f\", $bytes*100/$total_bytes}")
+            
+            # Log formatado
+            printf "%-15s %10d bytes %6.2f%%\n" "$lang" "$bytes" "$percent"
+            
+            # JSON output
             if [ "$first" = true ]; then
               first=false
             else
               echo "," >> languages.json
             fi
-            echo "\"$lang\": $percent" >> languages.json
+            echo -n "\"$lang\": $percent" >> languages.json
           done
-          echo "}" >> languages.json
+          echo -e "\n}" >> languages.json
 
-      - name: Configurar Git para push
+      - name: Configurar Git
         run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/WesleyS08/my-portfolio2.git
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git remote set-url origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git"
 
-
-      - name: Commit e push dos arquivos JSON
+      - name: Commit e push das alterações
         run: |
-          git add repos.json languages.json
-          git commit -m "Atualiza lista de repositórios e porcentagem de linguagens" || echo "Sem alterações para commitar"
-          git push origin main
+          # Verificar se houve mudanças
+          if git diff --quiet --exit-code; then
+            echo "Nenhuma mudança detectada para commitar"
+          else
+            echo "Preparando commit..."
+            git add repos.json languages.json
+            git commit -m "📊 Atualização automática: dados de repositórios e linguagens"
+            git pull --rebase
+            git push origin main
+            echo "Alterações enviadas com sucesso"
+          fi
+
+      - name: Exibir resultados
+        run: |
+          echo "=== Arquivo repos.json ==="
+          head -n 10 repos.json
+          echo "..."
+          echo -e "\n=== Arquivo languages.json ==="
+          cat languages.json
