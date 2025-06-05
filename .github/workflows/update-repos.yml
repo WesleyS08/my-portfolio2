@@ -34,7 +34,7 @@ jobs:
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
           git remote set-url origin https://x-access-token:${{ secrets.MY_CUSTOM_TOKEN }}@github.com/WesleyS08/my-portfolio2.git
-          git remote -v
+
 
       - name: Commit e push do arquivo JSON
         run: |
