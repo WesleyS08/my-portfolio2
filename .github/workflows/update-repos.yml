@@ -30,7 +30,7 @@ jobs:
                > repos.json
 
           # Listar nomes no log
-          jq -r '.[].name' repos.json
+          cat repos.json | jq -r '.[].name'
 
       - name: Calcular porcentagem de linguagens em todos os repositórios
         run: |
@@ -41,6 +41,12 @@ jobs:
           declare -A lang_bytes=()
 
           for repo in $repos; do
+            # Ignorar nomes inválidos ou igual ao usuário
+            if [[ -z "$repo" || "$repo" == "WesleyS08" ]]; then
+              echo "Pulando repositório inválido: $repo"
+              continue
+            fi
+
             echo "Processando repo: $repo"
             langs=$(curl -s -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" \
                      "https://api.github.com/repos/WesleyS08/$repo/languages" | \
@@ -58,21 +64,35 @@ jobs:
             done <<< "$langs"
           done
 
+          if [ ${#lang_bytes[@]} -eq 0 ]; then
+            echo "Nenhuma linguagem encontrada em todos os repositórios"
+            exit 0
+          fi
+
           total=0
           for v in "${lang_bytes[@]}"; do
             total=$(( total + v ))
           done
 
-          if [ "$total" -eq 0 ]; then
-            echo "Nenhuma linguagem encontrada em todos os repositórios"
-            exit 0
-          fi
-
           echo "Porcentagem geral de linguagens:"
           for lang in "${!lang_bytes[@]}"; do
             percent=$(echo "scale=2; ${lang_bytes[$lang]} * 100 / $total" | bc)
             echo "$lang: $percent%"
-          done > languages.json
+          done
+
+          # Salvar resultado em arquivo JSON para commit
+          echo "{" > languages.json
+          first=true
+          for lang in "${!lang_bytes[@]}"; do
+            percent=$(echo "scale=2; ${lang_bytes[$lang]} * 100 / $total" | bc)
+            if [ "$first" = true ]; then
+              first=false
+            else
+              echo "," >> languages.json
+            fi
+            echo "\"$lang\": $percent" >> languages.json
+          done
+          echo "}" >> languages.json
 
       - name: Configurar Git para push
         run: |
@@ -80,7 +100,7 @@ jobs:
           git config --global user.email "github-actions@github.com"
           git remote set-url origin https://x-access-token:${{ secrets.PERSONAL_TOKEN }}@github.com/WesleyS08/my-portfolio2.git
 
-      - name: Commit e push do arquivo JSON
+      - name: Commit e push dos arquivos JSON
         run: |
           git add repos.json languages.json
           git commit -m "Atualiza lista de repositórios e porcentagem de linguagens" || echo "Sem alterações para commitar"
