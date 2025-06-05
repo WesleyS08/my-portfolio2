@@ -31,8 +31,6 @@ jobs:
 
       - name: Processar linguagens
         run: |
-          # Modo debug desligado inicialmente
-          set +x
           echo "Iniciando processamento de linguagens..."
           
           # Variáveis
@@ -45,8 +43,6 @@ jobs:
           repos=$(jq -r '.[].name' repos.json)
           echo "Repositórios para processar: $(echo "$repos" | wc -l)"
 
-          # Ativar debug apenas para o loop principal
-          set -x
           for repo in $repos; do
             # Pular nomes inválidos
             if [[ -z "$repo" || "$repo" == "WesleyS08" ]]; then
@@ -61,37 +57,32 @@ jobs:
                            -H "Accept: application/vnd.github.v3+json" \
                            "https://api.github.com/repos/WesleyS08/$repo/languages" || echo "{}")
             
-            # Verificar JSON válido (com debug desligado temporariamente)
-            set +x
+            # Verificar JSON válido
             if ! jq -e . >/dev/null 2>&1 <<<"$lang_data"; then
               echo "  JSON inválido para $repo"
               ((errors++))
-              set -x
               continue
             fi
 
             # Verificar se há dados de linguagem
-            lang_count=$(echo "$lang_data" | jq -r 'length')
+            lang_count=$(jq -r 'length' <<< "$lang_data")
             if [ "$lang_count" -eq 0 ]; then
               echo "  Sem dados de linguagem"
-              set -x
               continue
             fi
 
             ((processed++))
             
             # Processar linguagens
-            while read -r lang bytes; do
-              if [[ -n "$lang" && "$bytes" =~ ^[0-9]+$ && "$bytes" -gt 0 ]]; then
+            while IFS=" " read -r lang bytes; do
+              if [[ -n "$lang" && "$bytes" =~ ^[0-9]+$ ]]; then
                 lang_bytes[$lang]=$((${lang_bytes[$lang]:-0} + bytes))
                 total_bytes=$((total_bytes + bytes))
               fi
-            done < <(echo "$lang_data" | jq -r 'to_entries[] | "\(.key) \(.value)"')
-            set -x
+            done < <(jq -r 'to_entries[] | "\(.key) \(.value)"' <<< "$lang_data")
           done
 
           # Resultados finais
-          set +x
           echo "Processamento completo:"
           echo "- Repositórios processados: $processed"
           echo "- Erros encontrados: $errors"
@@ -103,17 +94,10 @@ jobs:
             echo "{}" > languages.json
             echo "Aviso: Nenhum dado de linguagem coletado"
           else
-            echo "{" > languages.json
-            first=true
-            for lang in $(printf '%s\n' "${!lang_bytes[@]}" | sort); do
-              percent=$(echo "scale=2; ${lang_bytes[$lang]} * 100 / $total_bytes" | bc)
-              if [ "$first" = false ]; then
-                echo "," >> languages.json
-              fi
-              echo -n "\"$lang\": $percent" >> languages.json
-              first=false
-            done
-            echo -e "\n}" >> languages.json
+            jq -n --argjson bytes "$(declare -p lang_bytes | jq -R 'fromjson? | capture("declare -A lang_bytes=(?<json>.*)") | .json | fromjson')" \
+               --argjson total "$total_bytes" \
+               'reduce ($bytes | to_entries[]) as $item ({}; .[$item.key] = ($item.value * 100 / $total | floor / 1))' \
+               > languages.json
           fi
 
           echo "Distribuição final de linguagens:"
