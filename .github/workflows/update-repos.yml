@@ -53,9 +53,9 @@ jobs:
             echo "Processando $repo..."
             
             # Obter dados de linguagem
-            lang_data=$(curl -f -s -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" \
-                           -H "Accept: application/vnd.github.v3+json" \
-                           "https://api.github.com/repos/WesleyS08/$repo/languages" || echo "{}")
+            lang_data=$(curl -s -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" \
+                             -H "Accept: application/vnd.github.v3+json" \
+                             "https://api.github.com/repos/WesleyS08/$repo/languages" || echo "{}")
             
             # Verificar JSON válido
             if ! jq -e . >/dev/null 2>&1 <<<"$lang_data"; then
@@ -94,10 +94,17 @@ jobs:
             echo "{}" > languages.json
             echo "Aviso: Nenhum dado de linguagem coletado"
           else
-            jq -n --argjson bytes "$(declare -p lang_bytes | jq -R 'fromjson? | capture("declare -A lang_bytes=(?<json>.*)") | .json | fromjson')" \
-               --argjson total "$total_bytes" \
-               'reduce ($bytes | to_entries[]) as $item ({}; .[$item.key] = ($item.value * 100 / $total | floor / 1))' \
-               > languages.json
+            echo "{" > languages.json
+            first=true
+            for lang in "${!lang_bytes[@]}"; do
+              percent=$(echo "scale=2; ${lang_bytes[$lang]} * 100 / $total_bytes" | bc)
+              if [ "$first" = false ]; then
+                echo "," >> languages.json
+              fi
+              echo -n "\"$lang\": $percent" >> languages.json
+              first=false
+            done
+            echo -e "\n}" >> languages.json
           fi
 
           echo "Distribuição final de linguagens:"
@@ -115,4 +122,3 @@ jobs:
             git push
           else
             echo "Nenhuma mudança para commitar"
-          fi
