@@ -95,7 +95,8 @@ jobs:
           echo "- Bytes totais contabilizados: $total_bytes"
           echo "- Linguagens únicas identificadas: ${#lang_bytes[@]}"
 
-          if [ ${#lang_bytes[@]} -eq 0 ]; then
+          # Geração do JSON final com porcentagens
+          if [ ${#lang_bytes[@]} -eq 0 ] || [ $total_bytes -eq 0 ]; then
             jq -n --argjson total_repos "$total_repos" \
                --argjson processed "$processed" \
                --argjson errors "$errors" \
@@ -105,19 +106,27 @@ jobs:
                  languages: {}}' > languages.json
             echo "Aviso: Nenhum dado de linguagem coletado"
           else
-            lang_json=$(for lang in "${!lang_bytes[@]}"; do
-              percent=$(echo "scale=2; ${lang_bytes[$lang]} * 100 / $total_bytes" | bc)
-              echo "$lang:$percent"
-            done | jq -Rn 'reduce inputs as $i ({}; . + ($i | split(":") | { (.[0]): (.[1] | tonumber) }) )')
+            printf '{' > temp_lang.json
+            first=1
+            for lang in "${!lang_bytes[@]}"; do
+              percent=$(echo "scale=2; ${lang_bytes[$lang]} * 100 / $total_bytes" | LC_NUMERIC=C bc)
+              if [ $first -eq 0 ]; then
+                printf ',' >> temp_lang.json
+              fi
+              first=0
+              printf '"%s": %.2f' "$lang" "$percent" >> temp_lang.json
+            done
+            printf '}\n' >> temp_lang.json
 
             jq -n --argjson total_repos "$total_repos" \
                  --argjson processed "$processed" \
                  --argjson errors "$errors" \
-                 --argjson lang_json "$lang_json" \
+                 --slurpfile lang_json temp_lang.json \
                  '{total_repositories: $total_repos, 
                    processed_repositories: $processed,
                    errors: $errors,
-                   languages: $lang_json}' > languages.json
+                   languages: $lang_json[0]}' > languages.json
+            rm temp_lang.json
           fi
 
           echo "Dados finais:"
@@ -133,4 +142,3 @@ jobs:
             git push
           else
             echo "Nenhuma mudança para commitar"
-          fi
