@@ -32,12 +32,14 @@ jobs:
       - name: Processar linguagens
         run: |
           echo "Iniciando processamento de linguagens..."
-
+          
+          # Variáveis
           declare -A lang_bytes=()
           total_bytes=0
           processed=0
           errors=0
 
+          # Ler nomes dos repositórios
           repos=$(jq -r '.[].name' repos.json)
           echo "Repositórios para processar: $(echo "$repos" | wc -l)"
 
@@ -48,16 +50,14 @@ jobs:
             fi
 
             echo "Processando $repo..."
-
-            lang_data=$(curl -f -s -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" \
+            
+            lang_data=$(curl -s -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" \
                              -H "Accept: application/vnd.github.v3+json" \
                              "https://api.github.com/repos/WesleyS08/$repo/languages" || echo "{}")
 
-            echo "Resposta de linguagem para $repo:"
-            echo "$lang_data"
-
-            if [[ -z "$lang_data" || "$lang_data" == "{}" ]] || ! jq -e . >/dev/null 2>&1 <<<"$lang_data"; then
-              echo "  JSON inválido ou vazio para $repo"
+            # Verificar JSON válido
+            if ! jq -e . >/dev/null 2>&1 <<<"$lang_data"; then
+              echo "  JSON inválido para $repo"
               ((errors++))
               continue
             fi
@@ -70,12 +70,12 @@ jobs:
 
             ((processed++))
 
-            while IFS=" " read -r lang bytes; do
+            while IFS=$'\t' read -r lang bytes; do
               if [[ -n "$lang" && "$bytes" =~ ^[0-9]+$ ]]; then
                 lang_bytes[$lang]=$((${lang_bytes[$lang]:-0} + bytes))
                 total_bytes=$((total_bytes + bytes))
               fi
-            done < <(jq -r 'to_entries[] | "\(.key) \(.value)"' <<< "$lang_data")
+            done < <(jq -r 'to_entries[] | "\(.key)\t\(.value)"' <<< "$lang_data")
           done
 
           echo "Processamento completo:"
@@ -108,7 +108,6 @@ jobs:
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-
           git add repos.json languages.json
           if ! git diff --quiet --exit-code --staged; then
             git commit -m "Atualizar dados de repositórios [skip ci]"
