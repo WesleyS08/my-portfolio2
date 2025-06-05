@@ -23,16 +23,19 @@ jobs:
             echo "O token está definido."
           fi
 
-      - name: Buscar repositórios via API GitHub e listar nomes
+      - name: Buscar repositórios via API GitHub e salvar JSON
         run: |
           curl -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" \
                "https://api.github.com/users/WesleyS08/repos?per_page=100" \
                > repos.json
 
+          # Listar nomes no log
           cat repos.json | jq -r '.[].name'
 
       - name: Calcular porcentagem de linguagens em todos os repositórios
+        shell: bash
         run: |
+          #!/bin/bash
           repos=$(jq -r '.[].name' repos.json)
 
           declare -A lang_bytes
@@ -50,7 +53,6 @@ jobs:
             total=$(( total + v ))
           done
 
-          # Criar JSON com as porcentagens
           echo "{" > languages.json
           first=true
           for lang in "${!lang_bytes[@]}"; do
@@ -66,10 +68,14 @@ jobs:
 
           cat languages.json
 
-      - name: Commit e push do arquivo JSON
+      - name: Configurar Git para push
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
-          git add languages.json
-          git commit -m "Atualiza porcentagem de linguagens" || echo "Sem alterações para commitar"
+          git remote set-url origin https://x-access-token:${{ secrets.PERSONAL_TOKEN }}@github.com/WesleyS08/my-portfolio2.git
+
+      - name: Commit e push do arquivo JSON
+        run: |
+          git add repos.json languages.json
+          git commit -m "Atualiza lista de repositórios e porcentagem de linguagens" || echo "Sem alterações para commitar"
           git push origin main
