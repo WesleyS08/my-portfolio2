@@ -26,9 +26,9 @@ jobs:
                -H "Accept: application/vnd.github.v3+json" \
                "https://api.github.com/users/WesleyS08/repos?per_page=100" \
                > repos.json
-
+          
           total_repos=$(jq -r 'length' repos.json)
-          echo "Total de repositórios encontrados: $total_repos"
+          echo "Total de repositórios: $total_repos"
 
       - name: Processar linguagens
         run: |
@@ -52,16 +52,20 @@ jobs:
 
             echo "Processando repositório: $repo"
 
-            # Buscar dados de linguagens com timeout e verificar sucesso
             lang_data=$(curl --max-time 10 -s -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" \
                               -H "Accept: application/vnd.github.v3+json" \
                               "https://api.github.com/repos/WesleyS08/$repo/languages") || {
-              echo "Erro ao buscar dados para $repo. Pulando..."
+              echo "Erro ao buscar dados para $repo. Tentando novamente..."
               ((errors++))
-              continue
+              lang_data=$(curl --max-time 10 -s -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" \
+                                -H "Accept: application/vnd.github.v3+json" \
+                                "https://api.github.com/repos/WesleyS08/$repo/languages") || {
+                echo "Erro persistente ao buscar dados para $repo. Pulando..."
+                ((errors++))
+                continue
+              }
             }
 
-            # Validar JSON
             if ! jq -e . >/dev/null 2>&1 <<<"$lang_data"; then
               echo "JSON inválido recebido para $repo. Pulando..."
               ((errors++))
@@ -76,7 +80,6 @@ jobs:
 
             ((processed++))
 
-            # Somar bytes das linguagens
             while IFS=$'\t' read -r lang bytes; do
               if [[ -n "$lang" && "$bytes" =~ ^[0-9]+$ ]]; then
                 lang_bytes[$lang]=$(( ${lang_bytes[$lang]:-0} + bytes ))
@@ -93,31 +96,31 @@ jobs:
           echo "- Linguagens únicas identificadas: ${#lang_bytes[@]}"
 
           if [ ${#lang_bytes[@]} -eq 0 ]; then
-            jq -n --arg total_repos "$total_repos" \
-               --arg processed "$processed" \
-               --arg errors "$errors" \
-               '{total_repositories: ($total_repos | tonumber),
-                 processed_repositories: ($processed | tonumber),
-                 errors: ($errors | tonumber),
+            jq -n --argjson total_repos "$total_repos" \
+               --argjson processed "$processed" \
+               --argjson errors "$errors" \
+               '{total_repositories: $total_repos, 
+                 processed_repositories: $processed,
+                 errors: $errors,
                  languages: {}}' > languages.json
-            echo "Aviso: Nenhum dado de linguagem coletado."
+            echo "Aviso: Nenhum dado de linguagem coletado"
           else
             lang_json=$(for lang in "${!lang_bytes[@]}"; do
               percent=$(echo "scale=2; ${lang_bytes[$lang]} * 100 / $total_bytes" | bc)
               echo "$lang:$percent"
             done | jq -Rn 'reduce inputs as $i ({}; . + ($i | split(":") | { (.[0]): (.[1] | tonumber) }) )')
 
-            jq -n --arg total_repos "$total_repos" \
-                 --arg processed "$processed" \
-                 --arg errors "$errors" \
+            jq -n --argjson total_repos "$total_repos" \
+                 --argjson processed "$processed" \
+                 --argjson errors "$errors" \
                  --argjson lang_json "$lang_json" \
-                 '{total_repositories: ($total_repos | tonumber),
-                   processed_repositories: ($processed | tonumber),
-                   errors: ($errors | tonumber),
+                 '{total_repositories: $total_repos, 
+                   processed_repositories: $processed,
+                   errors: $errors,
                    languages: $lang_json}' > languages.json
           fi
 
-          echo "Dados finais gerados em languages.json:"
+          echo "Dados finais:"
           cat languages.json
 
       - name: Commitar alterações
@@ -129,5 +132,5 @@ jobs:
             git commit -m "Atualizar dados de repositórios [skip ci]"
             git push
           else
-            echo "Nenhuma mudança para commitar."
+            echo "Nenhuma mudança para commitar"
           fi
