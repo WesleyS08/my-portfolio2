@@ -1,0 +1,17 @@
+{
+  "total_repositories": 41,
+  "processed_repositories": 40,
+  "errors": 0,
+  "languages": {
+    "Python": 25.58,
+    "TypeScript": 10.92,
+    "JavaScript": 3.47,
+    "Java": 29.01,
+    "CSS": 2.76,
+    "C++": 0.73,
+    "PHP": 23.73,
+    "PLpgSQL": 0.00,
+    "Kotlin": 0.08,
+    "HTML": 3.66
+  }
+}
