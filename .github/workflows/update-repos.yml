@@ -65,8 +65,9 @@ jobs:
               continue
             fi
 
-            # Skip if no languages
-            if [ "$(echo "$lang_data" | jq -r 'length')" -eq 0 ]; then
+            # Skip if no languages (using temp variable to avoid debug issues)
+            lang_count=$(echo "$lang_data" | jq -r 'length')
+            if [ "$lang_count" -eq 0 ]; then
               echo "  No language data"
               continue
             fi
