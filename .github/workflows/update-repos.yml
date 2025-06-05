@@ -16,28 +16,18 @@ jobs:
 
       - name: Verificar se token está definido
         run: |
-          if [ -z "${{ secrets.MY_CUSTOM_TOKEN }}" ]; then
+          if [ -z "${{ secrets.PERSONAL_TOKEN }}" ]; then
             echo "O token NÃO está definido!"
             exit 1
           else
             echo "O token está definido."
           fi
 
-      - name: Buscar repositórios via API GitHub
+      - name: Buscar repositórios via API GitHub e listar nomes
         run: |
-          curl -H "Authorization: token ${{ secrets.MY_CUSTOM_TOKEN }}" \
+          curl -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" \
                "https://api.github.com/users/WesleyS08/repos?per_page=100" \
                > repos.json
 
-      - name: Configurar Git para push
-        run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
-          git remote set-url origin https://x-access-token:${{ secrets.MY_CUSTOM_TOKEN }}@github.com/WesleyS08/my-portfolio2.git
-
-
-      - name: Commit e push do arquivo JSON
-        run: |
-          git add repos.json
-          git commit -m "Atualiza lista de repositórios" || echo "Sem alterações para commitar"
-          git push origin main
+          # Extrair e imprimir no log os nomes dos repositórios
+          cat repos.json | jq -r '.[].name'
