@@ -31,9 +31,7 @@ jobs:
           echo "Total de repositórios: $total_repos"
 
       - name: Debug - Mostrar conteúdo de repos.json
-        run: |
-          echo "Conteúdo de repos.json para debug:"
-          cat repos.json
+        run: cat repos.json
 
       - name: Processar linguagens
         run: |
@@ -50,8 +48,8 @@ jobs:
           echo "Repositórios para processar: $total_repos"
 
           for repo in $repos; do
-            if [[ -z "$repo" || "$repo" == "WesleyS08" ]]; then
-              echo "Pulando repositório inválido ou reservado: $repo"
+            if [[ -z "$repo" ]]; then
+              echo "Pulando repositório inválido: $repo"
               continue
             fi
 
@@ -72,9 +70,9 @@ jobs:
             done
 
             if [[ $success -eq 0 ]]; then
-              echo "Falha crítica ao consultar a API para $repo. Resposta da API:"
-              echo "$lang_data"
-              exit 1
+              echo "Falha crítica ao consultar a API para $repo."
+              errors=$((errors + 1))
+              continue
             fi
 
             lang_count=$(jq -r 'length' <<< "$lang_data")
@@ -83,7 +81,7 @@ jobs:
               continue
             fi
 
-            ((processed++))
+            processed=$((processed + 1))
 
             while IFS=$'\t' read -r lang bytes; do
               if [[ -n "$lang" && "$bytes" =~ ^[0-9]+$ ]]; then
@@ -100,7 +98,6 @@ jobs:
           echo "- Bytes totais contabilizados: $total_bytes"
           echo "- Linguagens únicas identificadas: ${#lang_bytes[@]}"
 
-          # Geração do JSON final com porcentagens
           if [ ${#lang_bytes[@]} -eq 0 ] || [ $total_bytes -eq 0 ]; then
             jq -n --argjson total_repos "$total_repos" \
                --argjson processed "$processed" \
@@ -114,7 +111,7 @@ jobs:
             printf '{' > temp_lang.json
             first=1
             for lang in "${!lang_bytes[@]}"; do
-              percent=$(echo "scale=2; ${lang_bytes[$lang]} * 100 / $total_bytes" | LC_NUMERIC=C bc)
+              percent=$(echo "scale=2; ${lang_bytes[$lang]} * 100 / $total_bytes" | bc -l)
               if [ $first -eq 0 ]; then
                 printf ',' >> temp_lang.json
               fi
