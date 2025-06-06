@@ -36,46 +36,53 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"
         integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            function animateProgressBars() {
-                var languageColors = {
-                    "HTML": "#E34F26", "CSS": "#1572B6", "JavaScript": "#F7DF1E", "Python": "#3572A5",
-                    "Java": "#007396", "C++": "#F34B7D", "Ruby": "#CC342D", "PHP": "#4F5D95",
-                    "C#": "#178600", "Swift": "#FFAC45", "TypeScript": "#2B7489", "Go": "#00ADD8",
-                    "Kotlin": "#F18E33", "R": "#276DC3", "Scala": "#DC322F", "Perl": "#0298C3",
-                    "Haskell": "#5E5086", "Lua": "#000080", "Shell": "#89E051", "Objective-C": "#438EFF",
-                    "Assembly": "#6E4C13", "Vim script": "#199F4B", "TeX": "#3D6117", "CoffeeScript": "#244776",
-                    "Dart": "#00B4AB", "Matlab": "#E16737"
-                };
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
 
-                $.getJSON('languages.json', function (data) {
-                    var skills = data.languages;
+<script>
+    $(document).ready(function () {
+        function animateProgressBars() {
+            var languageColors = {
+                "HTML": "#E34F26", "CSS": "#1572B6", "JavaScript": "#F7DF1E", "Python": "#3572A5",
+                "Java": "#007396", "C++": "#F34B7D", "Ruby": "#CC342D", "PHP": "#4F5D95",
+                "C#": "#178600", "Swift": "#FFAC45", "TypeScript": "#2B7489", "Go": "#00ADD8",
+                "Kotlin": "#F18E33", "R": "#276DC3", "Scala": "#DC322F", "Perl": "#0298C3",
+                "Haskell": "#5E5086", "Lua": "#000080", "Shell": "#89E051", "Objective-C": "#438EFF",
+                "Assembly": "#6E4C13", "Vim script": "#199F4B", "TeX": "#3D6117", "CoffeeScript": "#244776",
+                "Dart": "#00B4AB", "Matlab": "#E16737"
+            };
 
-                    for (var skill in skills) {
-                        var percentage = skills[skill];
-                        var progress = '<div class="progress" data-width="' + percentage + '" style="background-color: ' + (languageColors[skill] || "#000") + '; width: 0;">' + skill + ' <span class="percentage">' + percentage + '%</span></div>';
-                        var listItem = $('<li>').html(progress);
-                        $('.skill-bars').append(listItem);
-                    }
+            $.getJSON('languages.json', function (data) {
+                var skills = data.languages;
 
-                    // Waypoint para animar a barra ao entrar na viewport
-                    $('.progress').waypoint(function () {
-                        var width = $(this.element).data('width');
-                        $(this.element).css('width', width + '%');
-                        this.destroy();
-                    }, { offset: '98%' });
-
-                    $('.progress').on('mouseenter', function () {
-                        var percentage = $(this).find('.percentage').text();
-                        $(this).attr('title', percentage);
-                    });
+                $.each(skills, function (skill, percentage) {
+                    var color = languageColors[skill] || "#444";
+                    var progress = `
+                        <div class="progress" data-width="${percentage}" style="background-color: ${color}; width: 0;">
+                            ${skill} <span class="percentage">${percentage}%</span>
+                        </div>`;
+                    $('.skill-bars').append($('<li>').html(progress));
                 });
-            }
 
-            animateProgressBars();
-        });
-    </script>
+                // Waypoint para animar ao entrar na viewport
+                $('.progress').waypoint(function () {
+                    var width = $(this.element).data('width');
+                    $(this.element).css('width', width + '%');
+                    this.destroy(); // Impede que reanime ao rolar novamente
+                }, { offset: '90%' });
+
+                // Tooltip ao passar o mouse
+                $('.progress').on('mouseenter', function () {
+                    var percentage = $(this).find('.percentage').text();
+                    $(this).attr('title', percentage);
+                });
+            });
+        }
+
+        animateProgressBars();
+    });
+</script>
+
 
     <script>
         $(document).ready(function () {
@@ -343,6 +350,7 @@
             <div class="col-twelve">
                 <!-- Aplicar grid container com CSS para efeito masonry -->
                 <div id="folio-wrapper" class="masonry-grid"></div>
+
             </div>
         </div>
     </section>
@@ -516,84 +524,99 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+<script src="path/to/jquery.waypoints.min.js"></script>
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+
     <script>
         $(document).ready(function () {
             var repositorios = [
                 {
                     name: "Sistema de Emprego",
+                    image: "Sistema de Emprego.jpg",
                     language: "PHP, HTML, JS, CSS",
-                    description: "Desenvolvimento de um Sistema de Emprego como parte de um projeto acadêmico, não apenas para obter uma boa nota, mas também para aprimorar e aplicar os conhecimentos adquiridos durante o curso..",
+                    description: "Desenvolvimento de um Sistema de Emprego como parte de um projeto acadêmico...",
                     html_url: "https://github.com/WesleyS08/Sistema_de_Emprego"
                 },
                 {
                     name: "BioLink Hub",
+                    image: "BioLink Hub.jpg",
                     language: "CSS, JS, HTML",
-                    description: "O BioLinkHub é uma ferramenta criada para simplificar e centralizar a gestão de links bio. Com o aumento da importância das redes sociais e da presença online, é fundamental ter uma forma eficiente de compartilhar várias informações e recursos em um único local acessível.",
+                    description: "O BioLinkHub é uma ferramenta criada para simplificar...",
                     html_url: "https://github.com/WesleyS08/BioLinkHub"
                 },
                 {
                     name: "Abas-interativas",
+                    image: "Abas-interativas.jpg",
                     language: "CSS, JS, HTML",
-                    description: "Um projeto web de qualidade requer a consideração de inúmeras questões para desenvolver um layout eficiente. Diante desse desafio, surgiu a ideia de abordar o desenvolvimento de elementos individuais de forma isolada. Essa abordagem visa facilitar a aprendizagem e abordar outras questões relevantes, permitindo uma compreensão aprofundada e aprimoramento em diversos aspectos do design e desenvolvimento web.",
+                    description: "Um projeto web de qualidade requer a consideração...",
                     html_url: "https://github.com/WesleyS08/Abas-interativas"
                 },
                 {
                     name: "EcoSocket",
+                    image: "EcoSocket.jpg",
                     language: "C++",
-                    description: "O EcoSocket: automação para internet ininterrupta. Utilize tomadas e ESP32 para reiniciar o modem em falhas. Estabilidade e confiança na sua",
+                    description: "O EcoSocket: automação para internet ininterrupta...",
                     html_url: "https://github.com/WesleyS08/EcoSocket"
                 },
                 {
                     name: "RemotePC Power Control",
+                    image: "RemotePC_Power_Control.jpg",
                     language: "C++",
-                    description: "O RemotePC-Power-Control é um projeto que utiliza um ESP32 para controlar remotamente o acionamento de um PC via Wake-on-LAN (WOL) e MQTT. Através desse sistema, é possível enviar comandos para ligar o PC remotamente a partir de qualquer dispositivo que tenha acesso ao servidor MQTT configurado.",
+                    description: "Controle remoto de PC via Wake-on-LAN com ESP32...",
                     html_url: "https://github.com/WesleyS08/RemotePC-Power-Control"
                 },
                 {
                     name: "API_previsao_do_tempo",
+                    image: "API_previsao_do_tempo.jpg",
                     language: "CSS, JS, HTML",
-                    description: "Um projeto web de qualidade requer a consideração de inúmeras questões para desenvolver um layout eficiente. Diante desse desafio, surgiu a ideia de abordar o desenvolvimento de elementos individuais de forma isolada. Essa abordagem visa facilitar a aprendizagem e abordar outras questões relevantes, permitindo uma compreensão aprofundada e aprimoramento em diversos aspectos do design e desenvolvimento web.",
+                    description: "Projeto web com API de previsão do tempo...",
                     html_url: "https://github.com/WesleyS08/API_previsao_do_tempo"
                 },
                 {
                     name: "Remote-Weather-Monito",
+                    image: "Remote-Weather-Monito.jpg",
                     language: "C++",
-                    description: "Este projeto é uma estação meteorológica inteligente que utiliza ESP32 para monitorar temperatura e umidade em tempo real. Com um sensor DHT22 e um display LCD para exibição local",
+                    description: "Estação meteorológica com ESP32 e sensor DHT22...",
                     html_url: "https://github.com/WesleyS08/Remote-Weather-Monito"
                 },
                 {
                     name: "Ligacao_com_banco",
+                    image: "Ligacao_com_banco.jpg",
                     language: "PHP, HTML",
                     description: "Não definido",
                     html_url: "https://github.com/WesleyS08/Ligacao_com_banco"
                 },
                 {
                     name: "SensorSync",
+                    image: "SensorSync.jpg",
                     language: "C++, Java",
-                    description: "O SensorSync é uma solução completa para o monitoramento de presença, utilizando uma interface de visualização. O dispositivo principal é um ESP32, que se conecta a um servidor MQTT para receber informações em tempo real sobre uma presença simulada.",
+                    description: "Monitoramento de presença via ESP32 e MQTT...",
                     html_url: "https://github.com/WesleyS08/SensorSync"
                 },
                 {
-                    name: "Controle de Despesas Pessoais ",
+                    name: "Controle de Despesas Pessoais",
+                    image: "DespesasApp.jpg",
                     language: "Typescript, JavaScript",
-                    description: " Crontole de Despeesas Pessoais é uma um Aplicativo móvel, desenvolvido em React Native com Expo que permite ao usuário registrar, categorizar e monitorar suas despesas de forma simples e eficiente. Ele interga-se com um Bot do Telegram e Supabase, oferecendo um sistema automatizado para registrar despesas a parti de mensagens enviadas em um Bot. Além disso, o app fornece uma visão clara sobre os gastos.",
+                    description: "App móvel com integração Telegram e Supabase...",
                     html_url: "https://github.com/WesleyS08/DespesasApp"
                 },
                 {
-                    name: "Roteiro de Viagem Automático ",
+                    name: "Roteiro de Viagem Automático",
+                    image: "App-de-Viagem.jpg",
                     language: "JavaScript",
-                    description: "Este projeto é uma aplicação mobile desenvolvida com React Native que permite ao usuário gerar um roteiro detalhado de viagem para qualquer cidade escolhida. Utilizando a API do Google Generative AI (Gemini), a aplicação gera informações úteis como eventos, valores de passagens, pratos típicos e mais, dependendo da cidade e do período selecionados.",
+                    description: "Geração automática de roteiros turísticos com IA...",
                     html_url: "https://github.com/WesleyS08/App-de-Viagem"
-                },
+                }
             ];
             gerarPortfolio(repositorios);
         });
+
         function gerarPortfolio(repositorios) {
             repositorios.forEach(function (repo, index) {
                 var portfolioItemHTML = `
                 <div class="folio-item">
                     <div class="item-wrap">
-                        <img src="src/assets/portfolio/${repo.name}.jpg" alt="${repo.name}" onerror="this.onerror=null;this.src='src/assets/portfolio/default.jpg';">
+                        <img src="src/assets/portfolio/modals/${repo.image}" alt="${repo.name}" onerror="this.onerror=null;this.src='src/assets/portfolio/default.jpg';">
                         <a href="#modal-${index + 1}" class="overlay">
                             <div class="folio-item-info">
                                 <h3 class="folio-title">${repo.name}</h3>
@@ -604,10 +627,11 @@
                 </div>
             `;
                 $('#folio-wrapper').append(portfolioItemHTML);
+
                 var modalHTML = `
                 <div id="modal-${index + 1}" class="popup-modal mfp-hide">
                     <div class="media">
-                    <img src="src/assets/portfolio/modals/${repo.name}.jpg" alt="${repo.name}"  onerror="this.onerror=null;this.src='src/assets/portfolio/modals/default.jpg';">/>
+                        <img src="src/assets/portfolio/modals/${repo.image}" alt="${repo.name}" onerror="this.onerror=null;this.src='src/assets/portfolio/default.jpg';">
                     </div>
                     <div class="description-box">
                         <h4>${repo.name}</h4>
@@ -622,6 +646,7 @@
             `;
                 $('body').append(modalHTML);
             });
+
             $('.overlay').magnificPopup({
                 type: 'inline',
                 preloader: false,
@@ -632,12 +657,14 @@
                     }
                 }
             });
+
             $(document).on('click', '.popup-modal-dismiss', function (e) {
                 e.preventDefault();
                 $.magnificPopup.close();
             });
         }
     </script>
+
     <script>
         function resizeAllGridItems() {
             const grid = document.querySelector('#folio-wrapper');
@@ -780,14 +807,42 @@
         });
     </script>
     <script>
-    $(document).ready(function () {
-        $.getJSON('languages.json', function (data) {
-            if (data.total_repositories !== undefined) {
-                $('#repo-count').text(data.total_repositories);
-            }
+        $(document).ready(function () {
+            $.getJSON('languages.json', function (data) {
+                if (data.total_repositories !== undefined) {
+                    $('#repo-count').text(data.total_repositories);
+                }
+            });
         });
+    </script>
+    <script>
+      function resizeMasonryItems() {
+    const grid = document.getElementById("folio-wrapper");
+    if (!grid) return;
+    
+    const rowHeight = 4; // Deve corresponder ao grid-auto-rows do CSS
+    const rowGap = 2;   // Deve corresponder ao row-gap do CSS
+    
+    const items = grid.querySelectorAll(".folio-item");
+    items.forEach(item => {
+        const img = item.querySelector("img");
+        if (img) {
+            const contentHeight = img.getBoundingClientRect().height;
+            const span = Math.ceil((contentHeight + rowGap) / (rowHeight + rowGap));
+            item.style.setProperty("--span", span);
+        }
     });
-</script>
+}
+
+// Atualiza no load e no resize
+window.addEventListener("load", resizeMasonryItems);
+window.addEventListener("resize", resizeMasonryItems);
+
+// Atualiza também quando todas as imagens carregarem
+document.querySelectorAll('#folio-wrapper img').forEach(img => {
+    img.addEventListener('load', resizeMasonryItems);
+});
+    </script>
 
 </body>
 
