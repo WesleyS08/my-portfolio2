@@ -6,12 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio - Wesley</title>
 
-
-    <!-- Meta tags para a pré-visualização -->
+    <!-- Meta tags para preview -->
     <meta property="og:title" content="Portfólio Wesley">
     <meta property="og:description" content="portfólio desenvolvido.">
     <meta property="og:image" content="https://wesleys08.github.io/my-portfolio2/img/previo.png">
     <meta property="og:url" content="https://wesleys08.github.io/my-portfolio2/">
+
+    <!-- Favicon -->
     <link rel="shortcut icon" href="src/assets/icon/logo.png" />
 
     <!-- Estilos personalizados -->
@@ -19,73 +20,66 @@
     <link rel="stylesheet" href="src/styles/theme.css">
     <link rel="stylesheet" href="src/styles/base.css">
 
-
     <!-- Estilos de bibliotecas -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-        integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css"
-        integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <!-- Bibliotecas de terceiros -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha384-..."
+    <!-- Bibliotecas JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"
+        referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js" integrity="sha512-..."
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js" crossorigin="anonymous"
+        referrerpolicy="no-referrer"></script>
     <script src="https://unpkg.com/scrollreveal"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"
-        integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
 
-<script>
-    $(document).ready(function () {
-        function animateProgressBars() {
-            var languageColors = {
-                "HTML": "#E34F26", "CSS": "#1572B6", "JavaScript": "#F7DF1E", "Python": "#3572A5",
-                "Java": "#007396", "C++": "#F34B7D", "Ruby": "#CC342D", "PHP": "#4F5D95",
-                "C#": "#178600", "Swift": "#FFAC45", "TypeScript": "#2B7489", "Go": "#00ADD8",
-                "Kotlin": "#F18E33", "R": "#276DC3", "Scala": "#DC322F", "Perl": "#0298C3",
-                "Haskell": "#5E5086", "Lua": "#000080", "Shell": "#89E051", "Objective-C": "#438EFF",
-                "Assembly": "#6E4C13", "Vim script": "#199F4B", "TeX": "#3D6117", "CoffeeScript": "#244776",
-                "Dart": "#00B4AB", "Matlab": "#E16737"
-            };
-
-            $.getJSON('languages.json', function (data) {
-                var skills = data.languages;
-
-                $.each(skills, function (skill, percentage) {
-                    var color = languageColors[skill] || "#444";
-                    var progress = `
-                        <div class="progress" data-width="${percentage}" style="background-color: ${color}; width: 0;">
-                            ${skill} <span class="percentage">${percentage}%</span>
-                        </div>`;
-                    $('.skill-bars').append($('<li>').html(progress));
-                });
-
-                // Waypoint para animar ao entrar na viewport
-                $('.progress').waypoint(function () {
-                    var width = $(this.element).data('width');
-                    $(this.element).css('width', width + '%');
-                    this.destroy(); // Impede que reanime ao rolar novamente
-                }, { offset: '90%' });
-
-                // Tooltip ao passar o mouse
-                $('.progress').on('mouseenter', function () {
-                    var percentage = $(this).find('.percentage').text();
-                    $(this).attr('title', percentage);
-                });
-            });
-        }
-
-        animateProgressBars();
-    });
-</script>
-
-
+    <!-- Scripts personalizados -->
     <script>
         $(document).ready(function () {
+            // Animação de barras de habilidades
+            function animateProgressBars() {
+                const languageColors = {
+                    "HTML": "#E34F26", "CSS": "#1572B6", "JavaScript": "#F7DF1E", "Python": "#3572A5",
+                    "Java": "#007396", "C++": "#F34B7D", "Ruby": "#CC342D", "PHP": "#4F5D95",
+                    "C#": "#178600", "Swift": "#FFAC45", "TypeScript": "#2B7489", "Go": "#00ADD8",
+                    "Kotlin": "#F18E33", "R": "#276DC3", "Scala": "#DC322F", "Perl": "#0298C3",
+                    "Haskell": "#5E5086", "Lua": "#000080", "Shell": "#89E051", "Objective-C": "#438EFF",
+                    "Assembly": "#6E4C13", "Vim script": "#199F4B", "TeX": "#3D6117", "CoffeeScript": "#244776",
+                    "Dart": "#00B4AB", "Matlab": "#E16737"
+                };
+
+                $.getJSON('languages.json', function (data) {
+                    const skills = data.languages;
+
+                    $.each(skills, function (skill, percentage) {
+                        const color = languageColors[skill] || "#444";
+                        const progress = `
+              <div class="progress" data-width="${percentage}" style="background-color: ${color}; width: 0;">
+                ${skill} <span class="percentage">${percentage}%</span>
+              </div>`;
+                        $('.skill-bars').append($('<li>').html(progress));
+                    });
+
+                    $('.progress').waypoint(function () {
+                        const width = $(this.element).data('width');
+                        $(this.element).css('width', width + '%');
+                        this.destroy();
+                    }, { offset: '90%' });
+
+                    $('.progress').on('mouseenter', function () {
+                        const percentage = $(this).find('.percentage').text();
+                        $(this).attr('title', percentage);
+                    });
+                });
+            }
+
+            animateProgressBars();
+
+            // Animação da linha do tempo com ScrollReveal
             ScrollReveal().reveal('.timeline-block', {
                 delay: 200,
                 distance: '30px',
@@ -97,6 +91,10 @@
             });
         });
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js" crossorigin="anonymous"
+        referrerpolicy="no-referrer"></script>
 </head>
 
 <body>
@@ -349,7 +347,346 @@
         <div class="row portfolio-content">
             <div class="col-twelve">
                 <!-- Aplicar grid container com CSS para efeito masonry -->
-                <div id="folio-wrapper" class="masonry-grid"></div>
+                <div id="folio-wrapper">
+
+                    <!-- Projeto 1 -->
+                    <div class="folio-item">
+                        <div class="item-wrap">
+                            <img src="src/assets/portfolio/modals/Sistema de Emprego.jpg" alt="Sistema de Emprego"
+                                onerror="this.onerror=null;this.src='src/assets/portfolio/default.jpg';">
+                            <a href="#modal-1" class="overlay">
+                                <div class="folio-item-info">
+                                    <h3 class="folio-title">Sistema de Emprego</h3>
+                                    <span class="folio-types">PHP, HTML, JS, CSS</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Projeto 2 -->
+                    <div class="folio-item">
+                        <div class="item-wrap">
+                            <img src="src/assets/portfolio/modals/BioLink Hub.jpg" alt="BioLink Hub"
+                                onerror="this.onerror=null;this.src='src/assets/portfolio/default.jpg';">
+                            <a href="#modal-2" class="overlay">
+                                <div class="folio-item-info">
+                                    <h3 class="folio-title">BioLink Hub</h3>
+                                    <span class="folio-types">CSS, JS, HTML</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Projeto 3 -->
+                    <div class="folio-item">
+                        <div class="item-wrap">
+                            <img src="src/assets/portfolio/modals/Abas-interativas.jpg" alt="Abas-interativas"
+                                onerror="this.onerror=null;this.src='src/assets/portfolio/default.jpg';">
+                            <a href="#modal-3" class="overlay">
+                                <div class="folio-item-info">
+                                    <h3 class="folio-title">Abas-interativas</h3>
+                                    <span class="folio-types">CSS, JS, HTML</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Projeto 4 -->
+                    <div class="folio-item">
+                        <div class="item-wrap">
+                            <img src="src/assets/portfolio/modals/EcoSocket.jpg" alt="EcoSocket"
+                                onerror="this.onerror=null;this.src='src/assets/portfolio/default.jpg';">
+                            <a href="#modal-4" class="overlay">
+                                <div class="folio-item-info">
+                                    <h3 class="folio-title">EcoSocket</h3>
+                                    <span class="folio-types">C++</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Projeto 5 -->
+                    <div class="folio-item">
+                        <div class="item-wrap">
+                            <img src="src/assets/portfolio/modals/RemotePC_Power_Control.jpg"
+                                alt="RemotePC Power Control"
+                                onerror="this.onerror=null;this.src='src/assets/portfolio/default.jpg';">
+                            <a href="#modal-5" class="overlay">
+                                <div class="folio-item-info">
+                                    <h3 class="folio-title">RemotePC Power Control</h3>
+                                    <span class="folio-types">C++</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Projeto 6 -->
+                    <div class="folio-item">
+                        <div class="item-wrap">
+                            <img src="src/assets/portfolio/modals/API_previsao_do_tempo.jpg" alt="API_previsao_do_tempo"
+                                onerror="this.onerror=null;this.src='src/assets/portfolio/default.jpg';">
+                            <a href="#modal-6" class="overlay">
+                                <div class="folio-item-info">
+                                    <h3 class="folio-title">API_previsao_do_tempo</h3>
+                                    <span class="folio-types">CSS, JS, HTML</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Projeto 7 -->
+                    <div class="folio-item">
+                        <div class="item-wrap">
+                            <img src="src/assets/portfolio/modals/Remote-Weather-Monito.jpg" alt="Remote-Weather-Monito"
+                                onerror="this.onerror=null;this.src='src/assets/portfolio/default.jpg';">
+                            <a href="#modal-7" class="overlay">
+                                <div class="folio-item-info">
+                                    <h3 class="folio-title">Remote-Weather-Monito</h3>
+                                    <span class="folio-types">C++</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Projeto 8 -->
+                    <div class="folio-item">
+                        <div class="item-wrap">
+                            <img src="src/assets/portfolio/modals/Ligacao_com_banco.jpg" alt="Ligacao_com_banco"
+                                onerror="this.onerror=null;this.src='src/assets/portfolio/default.jpg';">
+                            <a href="#modal-8" class="overlay">
+                                <div class="folio-item-info">
+                                    <h3 class="folio-title">Ligacao_com_banco</h3>
+                                    <span class="folio-types">PHP, HTML</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Projeto 9 -->
+                    <div class="folio-item">
+                        <div class="item-wrap">
+                            <img src="src/assets/portfolio/modals/SensorSync.jpg" alt="SensorSync"
+                                onerror="this.onerror=null;this.src='src/assets/portfolio/default.jpg';">
+                            <a href="#modal-9" class="overlay">
+                                <div class="folio-item-info">
+                                    <h3 class="folio-title">SensorSync</h3>
+                                    <span class="folio-types">C++, Java</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Projeto 10 -->
+                    <div class="folio-item">
+                        <div class="item-wrap">
+                            <img src="src/assets/portfolio/modals/DespesasApp.jpg" alt="Controle de Despesas Pessoais"
+                                onerror="this.onerror=null;this.src='src/assets/portfolio/default.jpg';">
+                            <a href="#modal-10" class="overlay">
+                                <div class="folio-item-info">
+                                    <h3 class="folio-title">Controle de Despesas Pessoais</h3>
+                                    <span class="folio-types">Typescript, JavaScript</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Projeto 11 -->
+                    <div class="folio-item">
+                        <div class="item-wrap">
+                            <img src="src/assets/portfolio/modals/App-de-Viagem.jpg" alt="Roteiro de Viagem Automático"
+                                onerror="this.onerror=null;this.src='src/assets/portfolio/default.jpg';">
+                            <a href="#modal-11" class="overlay">
+                                <div class="folio-item-info">
+                                    <h3 class="folio-title">Roteiro de Viagem Automático</h3>
+                                    <span class="folio-types">JavaScript</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ================= MODAIS ================= -->
+
+                <!-- Modelo de modal — copie e edite de acordo com cada projeto -->
+
+                <!-- Modal 1 -->
+                <div id="modal-1" class="popup-modal mfp-hide">
+                    <div class="media">
+                        <img src="src/assets/portfolio/modals/Sistema de Emprego.jpg" alt="Sistema de Emprego">
+                    </div>
+                    <div class="description-box">
+                        <h4>Sistema de Emprego</h4>
+                        <p>Desenvolvimento de um Sistema de Emprego como parte de um projeto acadêmico...</p>
+                        <div class="categories">PHP, HTML, JS, CSS</div>
+                    </div>
+                    <div class="link-box">
+                        <a href="https://github.com/WesleyS08/Sistema_de_Emprego" target="_blank">Repositório</a>
+                        <a href="#" class="popup-modal-dismiss">Fechar</a>
+                    </div>
+                </div>
+
+                <!-- Modal 2 -->
+                <div id="modal-2" class="popup-modal mfp-hide">
+                    <div class="media">
+                        <img src="src/assets/portfolio/modals/BioLink Hub.jpg" alt="BioLink Hub">
+                    </div>
+                    <div class="description-box">
+                        <h4>BioLink Hub</h4>
+                        <p>O BioLinkHub é uma ferramenta criada para simplificar...</p>
+                        <div class="categories">CSS, JS, HTML</div>
+                    </div>
+                    <div class="link-box">
+                        <a href="https://github.com/WesleyS08/BioLinkHub" target="_blank">Repositório</a>
+                        <a href="#" class="popup-modal-dismiss">Fechar</a>
+                    </div>
+                </div>
+
+                <!-- Modal 3 -->
+                <div id="modal-3" class="popup-modal mfp-hide">
+                    <div class="media">
+                        <img src="src/assets/portfolio/modals/Abas-interativas.jpg" alt="Abas-interativas">
+                    </div>
+                    <div class="description-box">
+                        <h4>Abas-interativas</h4>
+                        <p>Um projeto web de qualidade requer a consideração...</p>
+                        <div class="categories">CSS, JS, HTML</div>
+                    </div>
+                    <div class="link-box">
+                        <a href="https://github.com/WesleyS08/Abas-interativas" target="_blank">Repositório</a>
+                        <a href="#" class="popup-modal-dismiss">Fechar</a>
+                    </div>
+                </div>
+                <!-- Modal 4 -->
+                <div id="modal-4" class="popup-modal mfp-hide">
+                    <div class="media">
+                        <img src="src/assets/portfolio/modals/EcoSocket.jpg" alt="EcoSocket">
+                    </div>
+                    <div class="description-box">
+                        <h4>EcoSocket</h4>
+                        <p>O EcoSocket: automação para internet ininterrupta...</p>
+                        <div class="categories">C++</div>
+                    </div>
+                    <div class="link-box">
+                        <a href="https://github.com/WesleyS08/EcoSocket" target="_blank">Repositório</a>
+                        <a href="#" class="popup-modal-dismiss">Fechar</a>
+                    </div>
+                </div>
+
+                <!-- Modal 5 -->
+                <div id="modal-5" class="popup-modal mfp-hide">
+                    <div class="media">
+                        <img src="src/assets/portfolio/modals/RemotePC_Power_Control.jpg" alt="RemotePC Power Control">
+                    </div>
+                    <div class="description-box">
+                        <h4>RemotePC Power Control</h4>
+                        <p>Controle remoto de PC via Wake-on-LAN com ESP32...</p>
+                        <div class="categories">C++</div>
+                    </div>
+                    <div class="link-box">
+                        <a href="https://github.com/WesleyS08/RemotePC-Power-Control" target="_blank">Repositório</a>
+                        <a href="#" class="popup-modal-dismiss">Fechar</a>
+                    </div>
+                </div>
+
+                <!-- Modal 6 -->
+                <div id="modal-6" class="popup-modal mfp-hide">
+                    <div class="media">
+                        <img src="src/assets/portfolio/modals/API_previsao_do_tempo.jpg" alt="API_previsao_do_tempo">
+                    </div>
+                    <div class="description-box">
+                        <h4>API_previsao_do_tempo</h4>
+                        <p>Projeto web com API de previsão do tempo...</p>
+                        <div class="categories">CSS, JS, HTML</div>
+                    </div>
+                    <div class="link-box">
+                        <a href="https://github.com/WesleyS08/API_previsao_do_tempo" target="_blank">Repositório</a>
+                        <a href="#" class="popup-modal-dismiss">Fechar</a>
+                    </div>
+                </div>
+
+                <!-- Modal 7 -->
+                <div id="modal-7" class="popup-modal mfp-hide">
+                    <div class="media">
+                        <img src="src/assets/portfolio/modals/Remote-Weather-Monito.jpg" alt="Remote-Weather-Monito">
+                    </div>
+                    <div class="description-box">
+                        <h4>Remote-Weather-Monito</h4>
+                        <p>Estação meteorológica com ESP32 e sensor DHT22...</p>
+                        <div class="categories">C++</div>
+                    </div>
+                    <div class="link-box">
+                        <a href="https://github.com/WesleyS08/Remote-Weather-Monito" target="_blank">Repositório</a>
+                        <a href="#" class="popup-modal-dismiss">Fechar</a>
+                    </div>
+                </div>
+
+                <!-- Modal 8 -->
+                <div id="modal-8" class="popup-modal mfp-hide">
+                    <div class="media">
+                        <img src="src/assets/portfolio/modals/Ligacao_com_banco.jpg" alt="Ligacao_com_banco">
+                    </div>
+                    <div class="description-box">
+                        <h4>Ligacao_com_banco</h4>
+                        <p>Não definido</p>
+                        <div class="categories">PHP, HTML</div>
+                    </div>
+                    <div class="link-box">
+                        <a href="https://github.com/WesleyS08/Ligacao_com_banco" target="_blank">Repositório</a>
+                        <a href="#" class="popup-modal-dismiss">Fechar</a>
+                    </div>
+                </div>
+
+                <!-- Modal 9 -->
+                <div id="modal-9" class="popup-modal mfp-hide">
+                    <div class="media">
+                        <img src="src/assets/portfolio/modals/SensorSync.jpg" alt="SensorSync">
+                    </div>
+                    <div class="description-box">
+                        <h4>SensorSync</h4>
+                        <p>Monitoramento de presença via ESP32 e MQTT...</p>
+                        <div class="categories">C++, Java</div>
+                    </div>
+                    <div class="link-box">
+                        <a href="https://github.com/WesleyS08/SensorSync" target="_blank">Repositório</a>
+                        <a href="#" class="popup-modal-dismiss">Fechar</a>
+                    </div>
+                </div>
+
+                <!-- Modal 10 -->
+                <div id="modal-10" class="popup-modal mfp-hide">
+                    <div class="media">
+                        <img src="src/assets/portfolio/modals/DespesasApp.jpg" alt="Controle de Despesas Pessoais">
+                    </div>
+                    <div class="description-box">
+                        <h4>Controle de Despesas Pessoais</h4>
+                        <p>App móvel com integração Telegram e Supabase...</p>
+                        <div class="categories">Typescript, JavaScript</div>
+                    </div>
+                    <div class="link-box">
+                        <a href="https://github.com/WesleyS08/DespesasApp" target="_blank">Repositório</a>
+                        <a href="#" class="popup-modal-dismiss">Fechar</a>
+                    </div>
+                </div>
+
+                <!-- Modal 11 -->
+                <div id="modal-11" class="popup-modal mfp-hide">
+                    <div class="media">
+                        <img src="src/assets/portfolio/modals/App-de-Viagem.jpg" alt="Roteiro de Viagem Automático">
+                    </div>
+                    <div class="description-box">
+                        <h4>Roteiro de Viagem Automático</h4>
+                        <p>Geração automática de roteiros turísticos com IA...</p>
+                        <div class="categories">JavaScript</div>
+                    </div>
+                    <div class="link-box">
+                        <a href="https://github.com/WesleyS08/App-de-Viagem" target="_blank">Repositório</a>
+                        <a href="#" class="popup-modal-dismiss">Fechar</a>
+                    </div>
+                </div>
+
+
+
 
             </div>
         </div>
@@ -522,149 +859,6 @@
     </footer>
 
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
-<script src="path/to/jquery.waypoints.min.js"></script>
-<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
-
-    <script>
-        $(document).ready(function () {
-            var repositorios = [
-                {
-                    name: "Sistema de Emprego",
-                    image: "Sistema de Emprego.jpg",
-                    language: "PHP, HTML, JS, CSS",
-                    description: "Desenvolvimento de um Sistema de Emprego como parte de um projeto acadêmico...",
-                    html_url: "https://github.com/WesleyS08/Sistema_de_Emprego"
-                },
-                {
-                    name: "BioLink Hub",
-                    image: "BioLink Hub.jpg",
-                    language: "CSS, JS, HTML",
-                    description: "O BioLinkHub é uma ferramenta criada para simplificar...",
-                    html_url: "https://github.com/WesleyS08/BioLinkHub"
-                },
-                {
-                    name: "Abas-interativas",
-                    image: "Abas-interativas.jpg",
-                    language: "CSS, JS, HTML",
-                    description: "Um projeto web de qualidade requer a consideração...",
-                    html_url: "https://github.com/WesleyS08/Abas-interativas"
-                },
-                {
-                    name: "EcoSocket",
-                    image: "EcoSocket.jpg",
-                    language: "C++",
-                    description: "O EcoSocket: automação para internet ininterrupta...",
-                    html_url: "https://github.com/WesleyS08/EcoSocket"
-                },
-                {
-                    name: "RemotePC Power Control",
-                    image: "RemotePC_Power_Control.jpg",
-                    language: "C++",
-                    description: "Controle remoto de PC via Wake-on-LAN com ESP32...",
-                    html_url: "https://github.com/WesleyS08/RemotePC-Power-Control"
-                },
-                {
-                    name: "API_previsao_do_tempo",
-                    image: "API_previsao_do_tempo.jpg",
-                    language: "CSS, JS, HTML",
-                    description: "Projeto web com API de previsão do tempo...",
-                    html_url: "https://github.com/WesleyS08/API_previsao_do_tempo"
-                },
-                {
-                    name: "Remote-Weather-Monito",
-                    image: "Remote-Weather-Monito.jpg",
-                    language: "C++",
-                    description: "Estação meteorológica com ESP32 e sensor DHT22...",
-                    html_url: "https://github.com/WesleyS08/Remote-Weather-Monito"
-                },
-                {
-                    name: "Ligacao_com_banco",
-                    image: "Ligacao_com_banco.jpg",
-                    language: "PHP, HTML",
-                    description: "Não definido",
-                    html_url: "https://github.com/WesleyS08/Ligacao_com_banco"
-                },
-                {
-                    name: "SensorSync",
-                    image: "SensorSync.jpg",
-                    language: "C++, Java",
-                    description: "Monitoramento de presença via ESP32 e MQTT...",
-                    html_url: "https://github.com/WesleyS08/SensorSync"
-                },
-                {
-                    name: "Controle de Despesas Pessoais",
-                    image: "DespesasApp.jpg",
-                    language: "Typescript, JavaScript",
-                    description: "App móvel com integração Telegram e Supabase...",
-                    html_url: "https://github.com/WesleyS08/DespesasApp"
-                },
-                {
-                    name: "Roteiro de Viagem Automático",
-                    image: "App-de-Viagem.jpg",
-                    language: "JavaScript",
-                    description: "Geração automática de roteiros turísticos com IA...",
-                    html_url: "https://github.com/WesleyS08/App-de-Viagem"
-                }
-            ];
-            gerarPortfolio(repositorios);
-        });
-
-        function gerarPortfolio(repositorios) {
-            repositorios.forEach(function (repo, index) {
-                var portfolioItemHTML = `
-                <div class="folio-item">
-                    <div class="item-wrap">
-                        <img src="src/assets/portfolio/modals/${repo.image}" alt="${repo.name}" onerror="this.onerror=null;this.src='src/assets/portfolio/default.jpg';">
-                        <a href="#modal-${index + 1}" class="overlay">
-                            <div class="folio-item-info">
-                                <h3 class="folio-title">${repo.name}</h3>
-                                <span class="folio-types">${repo.language}</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            `;
-                $('#folio-wrapper').append(portfolioItemHTML);
-
-                var modalHTML = `
-                <div id="modal-${index + 1}" class="popup-modal mfp-hide">
-                    <div class="media">
-                        <img src="src/assets/portfolio/modals/${repo.image}" alt="${repo.name}" onerror="this.onerror=null;this.src='src/assets/portfolio/default.jpg';">
-                    </div>
-                    <div class="description-box">
-                        <h4>${repo.name}</h4>
-                        <p>${repo.description || 'Descrição não fornecida'}</p>
-                        <div class="categories">${repo.language}</div>
-                    </div>
-                    <div class="link-box">
-                        <a href="${repo.html_url}" target="_blank">Repositório</a>
-                        <a href="#" class="popup-modal-dismiss">Fechar</a>
-                    </div>
-                </div>
-            `;
-                $('body').append(modalHTML);
-            });
-
-            $('.overlay').magnificPopup({
-                type: 'inline',
-                preloader: false,
-                modal: true,
-                callbacks: {
-                    beforeOpen: function () {
-                        this.st.mainClass = 'mfp-fade';
-                    }
-                }
-            });
-
-            $(document).on('click', '.popup-modal-dismiss', function (e) {
-                e.preventDefault();
-                $.magnificPopup.close();
-            });
-        }
-    </script>
-
     <script>
         function resizeAllGridItems() {
             const grid = document.querySelector('#folio-wrapper');
@@ -816,32 +1010,52 @@
         });
     </script>
     <script>
-      function resizeMasonryItems() {
-    const grid = document.getElementById("folio-wrapper");
-    if (!grid) return;
-    
-    const rowHeight = 4; // Deve corresponder ao grid-auto-rows do CSS
-    const rowGap = 2;   // Deve corresponder ao row-gap do CSS
-    
-    const items = grid.querySelectorAll(".folio-item");
-    items.forEach(item => {
-        const img = item.querySelector("img");
-        if (img) {
-            const contentHeight = img.getBoundingClientRect().height;
-            const span = Math.ceil((contentHeight + rowGap) / (rowHeight + rowGap));
-            item.style.setProperty("--span", span);
+        function resizeMasonryItems() {
+            const grid = document.getElementById("folio-wrapper");
+            if (!grid) return;
+
+            const rowHeight = 4; // Deve corresponder ao grid-auto-rows do CSS
+            const rowGap = 2;   // Deve corresponder ao row-gap do CSS
+
+            const items = grid.querySelectorAll(".folio-item");
+            items.forEach(item => {
+                const img = item.querySelector("img");
+                if (img) {
+                    const contentHeight = img.getBoundingClientRect().height;
+                    const span = Math.ceil((contentHeight + rowGap) / (rowHeight + rowGap));
+                    item.style.setProperty("--span", span);
+                }
+            });
         }
-    });
-}
 
-// Atualiza no load e no resize
-window.addEventListener("load", resizeMasonryItems);
-window.addEventListener("resize", resizeMasonryItems);
+        // Atualiza no load e no resize
+        window.addEventListener("load", resizeMasonryItems);
+        window.addEventListener("resize", resizeMasonryItems);
 
-// Atualiza também quando todas as imagens carregarem
-document.querySelectorAll('#folio-wrapper img').forEach(img => {
-    img.addEventListener('load', resizeMasonryItems);
-});
+        // Atualiza também quando todas as imagens carregarem
+        document.querySelectorAll('#folio-wrapper img').forEach(img => {
+            img.addEventListener('load', resizeMasonryItems);
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('.overlay').magnificPopup({
+                type: 'inline',
+                preloader: false,
+                modal: true,
+                callbacks: {
+                    beforeOpen: function () {
+                        this.st.mainClass = 'mfp-fade';
+                    }
+                }
+            });
+
+            // Fecha o modal ao clicar no botão "Fechar"
+            $(document).on('click', '.popup-modal-dismiss', function (e) {
+                e.preventDefault();
+                $.magnificPopup.close();
+            });
+        });
     </script>
 
 </body>
