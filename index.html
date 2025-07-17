@@ -37,16 +37,31 @@
     <script src="https://unpkg.com/scrollreveal"></script>
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 
+
+    <!-- Open Graph (Facebook, LinkedIn, etc.) -->
+    <meta property="og:image" content="https://raw.githubusercontent.com/WesleyS08/my-portfolio2/main/src/assets/icon/share.jpg">>
+
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:title" content="Wesley Santos | Portfólio Full Stack">
+    <meta name="description"
+        content="Portfólio de Wesley Santos, Desenvolvedor Full Stack com projetos em JavaScript, React, Node.js e mais.">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/WesleyS08/my-portfolio2/main/src/assets/icon/share.jpg">>
+
+
     <!-- Scripts personalizados -->
     <script>
         $(document).ready(function () {
             // Animação de barras de habilidades
             function animateProgressBars() {
                 const languageColors = {
-                    "HTML": "#E34F26", "CSS": "#1572B6", "JavaScript": "#F7DF1E", "Python": "#3572A5",
+                    "HTML": "#CC3A20", "CSS": "#1572B6", "JavaScript": "#B7950B", "Python": "#3572A5",
                     "Java": "#007396", "C++": "#F34B7D", "Ruby": "#CC342D", "PHP": "#4F5D95",
                     "C#": "#178600", "Swift": "#FFAC45", "TypeScript": "#2B7489", "Go": "#00ADD8",
-                    "Kotlin": "#F18E33", "R": "#276DC3", "Scala": "#DC322F", "Perl": "#0298C3",
+                    "Kotlin": "#D35400", "R": "#276DC3", "Scala": "#DC322F", "Perl": "#0298C3",
                     "Haskell": "#5E5086", "Lua": "#000080", "Shell": "#89E051", "Objective-C": "#438EFF",
                     "Assembly": "#6E4C13", "Vim script": "#199F4B", "TeX": "#3D6117", "CoffeeScript": "#244776",
                     "Dart": "#00B4AB", "Matlab": "#E16737"
@@ -154,9 +169,17 @@
             </div>
         </div>
         <ul class="intro-social">
-            <li><a href="https://www.linkedin.com/in/wesley-silva-dos-santos-33624b17a/" target="_blank"><i
-                        class="fab fa-linkedin"></i></a></li>
-            <li><a href="https://github.com/WesleyS08" target="_blank"><i class="fab fa-github"></i></a></li>
+            <li>
+                <a href="https://www.linkedin.com/in/wesley-silva-dos-santos-33624b17a/" target="_blank"
+                    aria-label="Meu perfil no LinkedIn">
+                    <i class="fab fa-linkedin" aria-hidden="true"></i>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/WesleyS08" target="_blank" aria-label="Meu perfil no GitHub">
+                    <i class="fab fa-github" aria-hidden="true"></i>
+                </a>
+            </li>
         </ul>
     </section>
     <section id="about">
@@ -169,7 +192,9 @@
 
                 <div class="intro-info">
 
-                    <img src="https://github.com/WesleyS08.png" alt="Foto do perfil do GitHub">
+                    <!-- Substitua no seu HTML -->
+                    <img src="https://github.com/WesleyS08.png" alt="Foto do perfil do GitHub" loading="lazy"
+                        width="300" height="300" style="max-width:100%">
 
                     <p class="lead">
                         Olá! Sou Wesley, desenvolvedor com paixão por tecnologia e resolução de problemas. Tenho
@@ -362,7 +387,7 @@
                     <button data-filter="python">
                         <i class="fab fa-python"></i> Python
                     </button>
-                    
+
                 </div>
                 <!-- Aplicar grid container com CSS para efeito masonry -->
                 <div id="folio-wrapper">
@@ -902,7 +927,7 @@
                     <i class="icon-pin"></i>
                 </div>
 
-                <h5>Onde me encontro</h5>
+                <p>Onde me encontro</p>
 
                 <p>
                     São Paulo<br>
@@ -917,14 +942,14 @@
                     <i class="icon-mail"></i>
                 </div>
 
-                <h5>Envie-me um e-mail para</h5>
+                <p>Envie-me um e-mail para</p>
 
                 <p>ws78009@gmail.com<br>
                 </p>
 
             </div>
             <div class="col-four tab-full">
-                <h5>Conecte-se comigo</h5>
+                <p>Conecte-se comigo</p>
                 <p>WesleyS08</p>
                 <p>Wesley Silva</p>
             </div>
