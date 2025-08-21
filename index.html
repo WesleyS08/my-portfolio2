@@ -39,7 +39,8 @@
 
 
     <!-- Open Graph (Facebook, LinkedIn, etc.) -->
-    <meta property="og:image" content="https://raw.githubusercontent.com/WesleyS08/my-portfolio2/main/src/assets/icon/share.jpg">>
+    <meta property="og:image"
+        content="https://raw.githubusercontent.com/WesleyS08/my-portfolio2/main/src/assets/icon/share.jpg">>
 
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -49,7 +50,8 @@
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="https://raw.githubusercontent.com/WesleyS08/my-portfolio2/main/src/assets/icon/share.jpg">>
+    <meta name="twitter:image"
+        content="https://raw.githubusercontent.com/WesleyS08/my-portfolio2/main/src/assets/icon/share.jpg">>
 
 
     <!-- Scripts personalizados -->
@@ -770,6 +772,7 @@
         <div class="row">
             <div class="col-twelve">
                 <div class="block-1-6 block-s-1-3 block-tab-1-2 block-mob-full stats-list">
+
                     <!-- Repositórios GitHub -->
                     <div class="bgrid stat" id="repo-stat">
                         <div class="icon-part">
@@ -815,19 +818,21 @@
                         <h5 class="stat-title">Noites acordado</h5>
                     </div>
 
-                    <!-- Horas no VSCode (CodeTime API) -->
+                    <!-- Horas no VSCode (CodeTime Badge) -->
                     <div class="bgrid stat" id="avg-contribution-stat">
                         <div class="icon-part">
                             <i class="fa-solid fa-code"></i>
                         </div>
-                        <h3 class="stat-count" id="avg-contribution-count"><span class="loader"></span></h3>
+                            <img src="https://shields.jannchie.com/endpoint?style=flat-square&color=222&url=https%3A%2F%2Fapi.codetime.dev%2Fv3%2Fusers%2Fshield%3Fuid%3D25789"
+                                alt="CodeTime Badge">
                         <h5 class="stat-title">Horas no VSCode</h5>
                     </div>
+
                 </div>
             </div>
         </div>
     </section>
-
+   
     <script>
         // Configurações
         const GITHUB_USERNAME = "wesleys08";
@@ -861,21 +866,10 @@
             animateCount("hours-count", randomHours);
         }
 
-        // 3. Busca horas no VSCode (CodeTime API)
-        async function fetchCodeTimeStats() {
-            try {
-                const response = await fetch(`https://api.codetime.dev/shield?id=25789&project=&in=0`);
-                const data = await response.json();
-
-                if (data.message) {
-                    document.getElementById("avg-contribution-count").textContent = data.message;
-                } else {
-                    throw new Error("Dados inválidos");
-                }
-            } catch (error) {
-                console.error("CodeTime API Error:", error);
-                document.getElementById("avg-contribution-count").textContent = "0h";
-            }
+        // 3. Atualiza badge do CodeTime (força recarregamento)
+        function updateCodeTimeBadge() {
+            const badge = document.querySelector("#avg-contribution-count img");
+            badge.src = `https://api.codetime.dev/shield?id=25789&project=&in=0&ts=${Date.now()}`;
         }
 
         // 4. Animação de contagem
@@ -899,7 +893,7 @@
         function updateAllStats() {
             fetchGitHubStats();
             updateFakeStats();
-            fetchCodeTimeStats();
+            updateCodeTimeBadge();
         }
 
         // Inicializa e atualiza a cada 5 minutos
