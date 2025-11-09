@@ -4,300 +4,259 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wesley Santos | Portfólio de Desenvolvedor Full Stack</title>
+    <title>Wesley Silva - Desenvolvedor Full Stack Júnior</title>
 
-    <!-- Meta tags para preview -->
-    <meta property="og:title" content="Portfólio Wesley">
-    <meta property="og:description" content="portfólio desenvolvido.">
-    <meta property="og:image" content="https://wesleys08.github.io/my-portfolio2/img/previo.png">
-    <meta property="og:url" content="https://wesleys08.github.io/my-portfolio2/">
+    <!-- Fontes -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap"
+        rel="stylesheet">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="src/assets/icon/logo.png" />
+    <link rel="shortcut icon" href="src/assets/icon/logo.png" type="image/png">
 
-    <!-- Estilos personalizados -->
-    <link rel="stylesheet" href="src/styles/style.css">
-    <link rel="stylesheet" href="src/styles/theme.css">
+    <!-- Estilos -->
     <link rel="stylesheet" href="src/styles/base.css">
+    <link rel="stylesheet" href="src/styles/theme.css">
+    <link rel="stylesheet" href="src/styles/style.css">
 
-    <!-- Estilos de bibliotecas -->
+    <!-- Bibliotecas CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css"
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <!-- Bibliotecas JS -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"
-        referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js" crossorigin="anonymous"
-        referrerpolicy="no-referrer"></script>
-    <script src="https://unpkg.com/scrollreveal"></script>
-    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
-
-
-    <!-- Open Graph (Facebook, LinkedIn, etc.) -->
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+    <!-- Meta Tags -->
+    <meta name="description"
+        content="Portfólio de Wesley Silva, Desenvolvedor Full Stack com projetos em JavaScript, React, Node.js e mais.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Wesley Silva | Portfólio Full Stack">
+    <meta property="og:description"
+        content="Portfólio de Wesley Silva, Desenvolvedor Full Stack com projetos em JavaScript, React, Node.js e mais.">
     <meta property="og:image"
-        content="https://raw.githubusercontent.com/WesleyS08/my-portfolio2/main/src/assets/icon/share.jpg">>
-
+        content="https://raw.githubusercontent.com/WesleyS08/my-portfolio2/main/src/assets/icon/share.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:title" content="Wesley Santos | Portfólio Full Stack">
-    <meta name="description"
-        content="Portfólio de Wesley Santos, Desenvolvedor Full Stack com projetos em JavaScript, React, Node.js e mais.">
-
-    <!-- Twitter Card -->
+    <meta property="og:url" content="https://wesleys08.github.io/my-portfolio2/">
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Wesley Silva | Portfólio Full Stack">
+    <meta name="twitter:description"
+        content="Portfólio de Wesley Silva, Desenvolvedor Full Stack com projetos em JavaScript, React, Node.js e mais.">
     <meta name="twitter:image"
-        content="https://raw.githubusercontent.com/WesleyS08/my-portfolio2/main/src/assets/icon/share.jpg">>
-
-
-    <!-- Scripts personalizados -->
-    <script>
-        $(document).ready(function () {
-            // Animação de barras de habilidades
-            function animateProgressBars() {
-                const languageColors = {
-                    "HTML": "#CC3A20", "CSS": "#1572B6", "JavaScript": "#B7950B", "Python": "#3572A5",
-                    "Java": "#007396", "C++": "#F34B7D", "Ruby": "#CC342D", "PHP": "#4F5D95",
-                    "C#": "#178600", "Swift": "#FFAC45", "TypeScript": "#2B7489", "Go": "#00ADD8",
-                    "Kotlin": "#D35400", "R": "#276DC3", "Scala": "#DC322F", "Perl": "#0298C3",
-                    "Haskell": "#5E5086", "Lua": "#000080", "Shell": "#89E051", "Objective-C": "#438EFF",
-                    "Assembly": "#6E4C13", "Vim script": "#199F4B", "TeX": "#3D6117", "CoffeeScript": "#244776",
-                    "Dart": "#00B4AB", "Matlab": "#E16737"
-                };
-
-                $.getJSON('languages.json', function (data) {
-                    const skills = data.languages;
-
-                    $.each(skills, function (skill, percentage) {
-                        const color = languageColors[skill] || "#444";
-                        const progress = `
-              <div class="progress" data-width="${percentage}" style="background-color: ${color}; width: 0;">
-                ${skill} <span class="percentage">${percentage}%</span>
-              </div>`;
-                        $('.skill-bars').append($('<li>').html(progress));
-                    });
-
-                    $('.progress').waypoint(function () {
-                        const width = $(this.element).data('width');
-                        $(this.element).css('width', width + '%');
-                        this.destroy();
-                    }, { offset: '90%' });
-
-                    $('.progress').on('mouseenter', function () {
-                        const percentage = $(this).find('.percentage').text();
-                        $(this).attr('title', percentage);
-                    });
-                });
-            }
-
-            animateProgressBars();
-
-            // Animação da linha do tempo com ScrollReveal
-            ScrollReveal().reveal('.timeline-block', {
-                delay: 200,
-                distance: '30px',
-                duration: 1000,
-                origin: 'bottom',
-                interval: 200,
-                viewFactor: 0.15,
-                reset: false
-            });
-        });
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
-    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js" crossorigin="anonymous"
-        referrerpolicy="no-referrer"></script>
+        content="https://raw.githubusercontent.com/WesleyS08/my-portfolio2/main/src/assets/icon/share.jpg">
 </head>
 
 <body>
+    <!-- HEADER & NAVBAR -->
     <header>
-        <nav class="nav-bar">
-
-            <label class="switch">
-                <input checked="true" id="checkbox" type="checkbox" />
-                <span class="slider">
-                    <div class="star star_1"></div>
-                    <div class="star star_2"></div>
-                    <div class="star star_3"></div>
-                    <svg viewBox="0 0 16 16" class="cloud_1 cloud">
-                        <path transform="matrix(.77976 0 0 .78395-299.99-418.63)" fill="#fff"
-                            d="m391.84 540.91c-.421-.329-.949-.524-1.523-.524-1.351 0-2.451 1.084-2.485 2.435-1.395.526-2.388 1.88-2.388 3.466 0 1.874 1.385 3.423 3.182 3.667v.034h12.73v-.006c1.775-.104 3.182-1.584 3.182-3.395 0-1.747-1.309-3.186-2.994-3.379.007-.106.011-.214.011-.322 0-2.707-2.271-4.901-5.072-4.901-2.073 0-3.856 1.202-4.643 2.925">
-                        </path>
-                    </svg>
+        <nav class="cyber-navbar" id="navbar">
+            <a href="#" class="logo-terminal"><span class="ws">{WS}</span></a>
+            <ul class="nav-links">
+                <li><a href="#intro" class="nav-link active">Início</a></li>
+                <li><a href="#about" class="nav-link">Sobre</a></li>
+                <li><a href="#resume" class="nav-link">Formação</a></li>
+                <li><a href="#portfolio" class="nav-link">Projetos</a></li>
+            </ul>
+            <label for="themeToggle" class="theme">
+                <span class="theme__toggle-wrap">
+                    <input id="themeToggle" class="theme__toggle" type="checkbox" role="switch">
+                    <span class="theme__fill"></span>
+                    <span class="theme__icon">
+                        <span class="theme__icon-part"></span>
+                        <span class="theme__icon-part"></span>
+                        <span class="theme__icon-part"></span>
+                        <span class="theme__icon-part"></span>
+                        <span class="theme__icon-part"></span>
+                        <span class="theme__icon-part"></span>
+                        <span class="theme__icon-part"></span>
+                        <span class="theme__icon-part"></span>
+                        <span class="theme__icon-part"></span>
+                    </span>
                 </span>
             </label>
-            <div class="nav-list">
-                <ul>
-                    <li class="nav-item"><a href="#intro" class="nav-link"> Inicio</a></li>
-                    <li class="nav-item"><a href="#about" class="nav-link"> Sobre</a></li>
-                    <li class="nav-item"><a href="#resume" class="nav-link"> Formação</a></li>
-                    <li class="nav-item"><a href="#portfolio" class="nav-link"> Projetos</a></li>
-                </ul>
-            </div>
-            <div class="mobile-menu-icon">
-                <button onclick="menuShow()"><img class="icon" src="src/assets/icon/menu_white_36dp.svg"
-                        alt=""></button>
-            </div>
+            <button class="mobile-btn" id="mobileBtn" aria-label="Abrir menu mobile" aria-expanded="false">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
         </nav>
-        <div class="mobile-menu">
-            <ul>
-                <li class="nav-item"><a href="#intro" class="nav-link">Início</a></li>
-                <li class="nav-item"><a href="#about" class="nav-link">Sobre</a></li>
-                <li class="nav-item"><a href="#resume" class="nav-link">Formação</a></li>
-                <li class="nav-item"><a href="#portfolio" class="nav-link">Projetos</a></li>
-
-            </ul>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#intro" class="mobile-link">Início</a>
+            <a href="#about" class="mobile-link">Sobre</a>
+            <a href="#resume" class="mobile-link">Formação</a>
+            <a href="#portfolio" class="mobile-link">Projetos</a>
         </div>
     </header>
+
+    <!-- SEÇÕES -->
     <section id="intro">
         <div id="particles-js"></div>
         <div class="intro-overlay"></div>
+
         <div class="intro-content">
             <div class="row">
                 <div class="col-twelve">
-                    <h5>Olá Mundo,</h5>
-                    <h1>Eu sou Wesley Silva.</h1>
-                    <p class="intro-position">
+                    <h5 class="h5 neon">Olá Mundo,</h5>
+                    <h1 class="h1 neon">Eu sou Wesley Silva.</h1>
+
+                    <p class="intro-position text-xl">
                         <span id="typed"></span>
+                        <span class="typed-cursor">|</span>
                     </p>
 
-                    <a class="button stroke smoothscroll" href="#about" title="">Sobre mim</a>
                 </div>
             </div>
         </div>
+
         <ul class="intro-social">
             <li>
                 <a href="https://www.linkedin.com/in/wesley-silva-dos-santos-33624b17a/" target="_blank"
-                    aria-label="Meu perfil no LinkedIn">
-                    <i class="fab fa-linkedin" aria-hidden="true"></i>
+                    aria-label="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
                 </a>
             </li>
             <li>
-                <a href="https://github.com/WesleyS08" target="_blank" aria-label="Meu perfil no GitHub">
-                    <i class="fab fa-github" aria-hidden="true"></i>
+                <a href="https://github.com/WesleyS08" target="_blank" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
                 </a>
             </li>
         </ul>
     </section>
-    <section id="about">
+    <section id="about" class="about-section">
+        <div class="container">
+            <!-- INTRO -->
+            <div class="section-intro">
+                <h5 class="h5 neon text-center">Quem sou eu</h5>
+                <h1 class="h1 text-center">Wesley S.</h1>
+                <p class="lead text-center max-w-3xl mx-auto">
+                    Olá, eu sou o Wesley — <span class="neon">codifico o futuro</span> com React, Node.js e Python. Do
+                    banco de dados ao pixel, construo soluções que <strong>resolvem problemas reais</strong>.
+                </p>
 
-        <div class="row section-intro">
-            <div class="col-twelve">
+            </div>
 
-                <h5>Quem sou eu</h5>
-                <h1>Deixe-me contar um pouco sobre mim... </h1>
+            <!-- PERFIL + FOTO -->
+            <div class="profile-grid">
+                <div class="profile-photo">
+                    <img src="https://github.com/WesleyS08.png" alt="Wesley Silva" loading="lazy" class="avatar">
+                    <div class="glow-ring"></div>
+                </div>
 
-                <div class="intro-info">
+                <div class="profile-info">
+                    <h3 class="h3 neon">Perfil</h3>
 
-                    <!-- Substitua no seu HTML -->
-                    <img src="https://github.com/WesleyS08.png" alt="Foto do perfil do GitHub" loading="lazy"
-                        width="300" height="300" style="max-width:100%">
+                    <p class="text-lg">
+                        Sou o <span class="neon">Wesley Silva</span>, desenvolvedor full stack júnior. Construo
+                        aplicações web, unindo frontend e backend com foco em eficiência, escalabilidade e código limpo.
 
-                    <p class="lead">
-                        Olá! Sou Wesley, desenvolvedor com paixão por tecnologia e resolução de problemas. Tenho
-                        experiência em desenvolvimento full stack e estou em constante evolução, sempre em busca de
-                        desafios que impulsionem meu crescimento profissional e contribuam com soluções inovadoras.
                     </p>
 
+                    <p class="text-lg">
+                        Atuo no desenvolvimento web, criando interfaces eficientes e sistemas estáveis.
+                        Priorizo qualidade, clareza e boas práticas em todo o ciclo do código.
+                    </p>
+
+
+                    <ul class="info-list">
+                        <li><strong>Formação:</strong> Desenvolvimento Multiplataforma — Fatec Zona Sul <br> Técnico em
+                            Redes — Etec Embu das Artes</li>
+                        <li><strong>Experiência:</strong> Estágio em TI no TJMSP</li>
+                        <li><strong>Foco atual:</strong>
+                            <span class="tag">React</span>
+                            <span class="tag">Node.js</span>
+                            <span class="tag">Python</span>
+                            <span class="tag">PostgreSQL</span>
+                            <span class="tag">Docker</span>
+                        </li>
+                    </ul>
                 </div>
 
             </div>
-        </div> <!-- /section-intro -->
 
-        <div class="row about-content">
-
-            <div class="col-six tab-full">
-
-                <h3>Perfil</h3>
-                <p class="lead">Sou apaixonado por resolver desafios por meio da tecnologia. Da programação backend ao
-                    frontend,
-                    tenho uma grande sede por descobrir e aplicar soluções inovadoras e de alta qualidade. Atualmente,
-                    atuo como desenvolvedor full stack júnior, com foco em desenvolvimento web e banco de dados.</p>
-
-                <ul class="info-list">
-                    <li>
-                        <strong>experiência:</strong>
-                        <span>Estagiário do Tribunal de Justiça Militar do Estado de São Paulo</span>
-                    </li>
-
-                </ul>
+            <!-- SKILLS DINÂMICAS DO GITHUB -->
+            <!-- SKILLS CYBERPUNK -->
+            <div class="skills-section">
+                <h3 class="h3 neon text-center glitch-title" data-text="Habilidades">Habilidades</h3>
+                <div class="skills-grid" id="skills-grid">
+                </div>
             </div>
+            <!-- BOTÃO DOWNLOAD -->
+            <div class="text-center mt-12">
+                <a href="src/doc/Currículo - Wesley Silva dos Santos.pdf" download class="documents-link">
+                    <button class="Documents-btn">
+                        <span class="folderContainer">
+                            <!-- Pasta de fundo (azul escuro) -->
+                            <svg class="fileBack" width="146" height="113" viewBox="0 0 146 113" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M0 4C0 1.79086 1.79086 0 4 0H50.3802C51.8285 0 53.2056 0.627965 54.1553 1.72142L64.3303 13.4371C65.2799 14.5306 66.657 15.1585 68.1053 15.1585H141.509C143.718 15.1585 145.509 16.9494 145.509 19.1585V109C145.509 111.209 143.718 113 141.509 113H3.99999C1.79085 113 0 111.209 0 109V4Z"
+                                    fill="url(#paint0_linear_117_4)"></path>
+                                <defs>
+                                    <linearGradient id="paint0_linear_117_4" x1="0" y1="0" x2="72.93" y2="95.4804"
+                                        gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#8F88C2"></stop>
+                                        <stop offset="1" stop-color="#5C52A2"></stop>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
 
-            <div class="col-six tab-full">
+                            <!-- Página do documento -->
+                            <svg class="filePage" width="88" height="99" viewBox="0 0 88 99" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <rect width="88" height="99" fill="url(#paint0_linear_117_6)"></rect>
+                                <defs>
+                                    <linearGradient id="paint0_linear_117_6" x1="0" y1="0" x2="81" y2="160.5"
+                                        gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="white"></stop>
+                                        <stop offset="1" stop-color="#686868"></stop>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
 
-                <h3>Skills</h3>
-                <p class="lead">
-                    Domino diversas linguagens de programação, frameworks e ferramentas que me permitem criar soluções
-                    eficientes, escaláveis e com foco na melhor experiência do usuário. Estou em constante
-                    aprimoramento, sempre buscando novas tecnologias para agregar valor aos projetos em que atuo.
-                </p>
-
-
-                <ul class="skill-bars">
-                </ul> <!-- /skill-bars -->
-
-            </div>
-
-
-        </div>
-
-        <div class="row button-section">
-            <div class="col-twelve">
-                <a href="src/doc/Currículo - Wesley Silva  dos Santos.pdf" download class="Download-button">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="16" width="20" viewBox="0 0 640 512">
-                        <path
-                            d="M144 480C64.5 480 0 415.5 0 336c0-62.8 40.2-116.2 96.2-135.9c-.1-2.7-.2-5.4-.2-8.1c0-88.4 71.6-160 160-160c59.3 0 111 32.2 138.7 80.2C409.9 102 428.3 96 448 96c53 0 96 43 96 96c0 12.2-2.3 23.8-6.4 34.6C596 238.4 640 290.1 640 352c0 70.7-57.3 128-128 128H144zm79-167l80 80c9.4 9.4 24.6 9.4 33.9 0l80-80c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-39 39V184c0-13.3-10.7-24-24-24s-24 10.7-24 24V318.1l-39-39c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9z"
-                            fill="white"></path>
-                    </svg>
-                    <span>Download CV</span>
+                            <!-- Capa da pasta (roxo neon) -->
+                            <svg class="fileFront" width="160" height="79" viewBox="0 0 160 79" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M0.29306 12.2478C0.133905 9.38186 2.41499 6.97059 5.28537 6.97059H30.419H58.1902C59.5751 6.97059 60.9288 6.55982 62.0802 5.79025L68.977 1.18034C70.1283 0.410771 71.482 0 72.8669 0H77H155.462C157.87 0 159.733 2.1129 159.43 4.50232L150.443 75.5023C150.19 77.5013 148.489 79 146.474 79H7.78403C5.66106 79 3.9079 77.3415 3.79019 75.2218L0.29306 12.2478Z"
+                                    fill="url(#paint0_linear_117_5)"></path>
+                                <defs>
+                                    <linearGradient id="paint0_linear_117_5" x1="38.7619" y1="8.71323" x2="66.9106"
+                                        y2="82.8317" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#C3BBFF"></stop>
+                                        <stop offset="1" stop-color="#51469A"></stop>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        </span>
+                        <p class="text">Currículo</p>
+                    </button>
                 </a>
             </div>
-        </div>
     </section>
     <section id="resume" class="grey-section">
+        <div class="container">
+            <div class="section-intro">
+                <h5 class="h5 neon">Formação & Experiência</h5>
 
-        <div class="row section-intro">
-            <div class="col-twelve">
-
-                <h5>Experiências</h5>
-                <h1>Explorando o Mundo Acadêmico</h1>
-
-                <p class="lead">Na jornada da vida acadêmica, cada passo é uma descoberta, cada desafio é uma
-                    oportunidade de crescimento. Desde os primeiros dias de aprendizado até os momentos de pesquisa
-                    intensa, mergulhamos em um universo de conhecimento e reflexão. Cada aula, cada debate, cada projeto
-                    molda não apenas nossa compreensão do mundo, mas também nossa própria identidade intelectual. .</p>
-
+                <p class="lead">
+                    Do técnico em redes ao estágio no <strong>Tribunal de Justiça Militar</strong> — cada etapa me
+                    transformou em um dev <span class="neon">pronto para o futuro</span>.
+                </p>
             </div>
-        </div> <!-- /section-intro-->
 
-        <div class="row resume-timeline">
-
-            <div class="col-twelve resume-header">
-
-                <h2>Educação</h2>
-
-            </div> <!-- /resume-header -->
-
-            <div class="col-twelve">
+            <div class="resume-timeline">
+                <div class="timeline-header">
+                    <h2 class="neon">Educação</h2>
+                </div>
 
                 <div class="timeline-wrap">
-
+                    <!-- Fatec -->
                     <div class="timeline-block">
-
                         <div class="timeline-ico">
-                            <i class="fa fa-book"></i>
+                            <i class="fas fa-graduation-cap"></i>
                         </div>
-
                         <div class="timeline-header">
-                            <h3>Superior em Desenvolvimento de Software Multiplataforma</h3>
-                            <p>Agosto 2022 - Presente</p>
+                            <h3>Desenvolvimento de Software Multiplataforma</h3>
+                            <p class="date">2022 – Atual</p>
                         </div>
-
                         <div class="timeline-content">
                             <h4>Fatec Zona Sul</h4>
                             <p>O tecnólogo em Desenvolvimento de Software Multiplataforma projeta, desenvolve e testa
@@ -307,919 +266,246 @@
                                 propondo soluções tecnológicas. Realiza análise estatística de dados para apoiar a
                                 tomada de decisão. Coordena projetos e equipes de desenvolvimento de software.</p>
                         </div>
+                    </div>
 
-                    </div> <!-- /timeline-block -->
-
+                    <!-- Etec -->
                     <div class="timeline-block">
-
                         <div class="timeline-ico">
-                            <i class="fa fa-book"></i>
+                            <i class="fas fa-network-wired"></i>
                         </div>
-
                         <div class="timeline-header">
-                            <h3>Ensino Técnico em Redes de Computadores </h3>
-                            <p>Agosto 2019 - dezembro 2020</p>
+                            <h3>Técnico em Redes de Computadores</h3>
+                            <p class="date">2019 – 2020</p>
                         </div>
-
                         <div class="timeline-content">
-                            <h4>Etec de Embu das Artes </h4>
+                            <h4>Etec Embu das Artes</h4>
                             <p>O TÉCNICO EM REDES DE COMPUTADORES é o profissional que instala, configura, gerencia e
                                 analisa dispositivos de comunicação de dados. Implanta e mantem projetos lógicos,
                                 físicos, segurança e serviços de redes locais e de longa distância. Prepara, instala e
                                 mantém cabeamentos de redes. Configura acessos de usuários em redes de computadores.
                                 Configura serviços de rede, tais como firewall, servidores web, correio eletrônico,
-                                servidores de notícias. Implementa recursos de segurança em redes de computadores.
-                            </p>
+                                servidores de notícias. Implementa recursos de segurança em redes de computadores.</p>
                         </div>
+                    </div>
 
-                    </div> <!-- /timeline-block -->
-
+                    <!-- Ensino Médio -->
                     <div class="timeline-block">
-
                         <div class="timeline-ico">
-                            <i class="fa fa-book"></i>
+                            <i class="fas fa-school"></i>
                         </div>
-
                         <div class="timeline-header">
                             <h3>Ensino Médio</h3>
-                            <p>janeiro 2015 - dezembro 2018</p>
+                            <p class="date">2015 – 2018</p>
                         </div>
-
                         <div class="timeline-content">
                             <h4>E.E Jornalista David Nasser</h4>
                             <p>No Ensino Médio na E.E Jornalista David Nasser, tive a oportunidade de mergulhar em um
                                 ambiente de aprendizado dinâmico e enriquecedor. Durante esse período, adquiri
                                 conhecimentos essenciais em diversas áreas acadêmicas, desde as disciplinas fundamentais
-                                até aquelas que despertaram minha curiosidade e interesse.
+                                até aquelas que despertaram minha curiosidade e interesse.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EXPERIÊNCIA PROFISSIONAL -->
+            <div class="resume-timeline mt-16">
+                <div class="timeline-header">
+                    <h2 class="neon">Experiência</h2>
+                </div>
+
+                <div class="timeline-wrap">
+                    <div class="timeline-block">
+                        <div class="timeline-ico">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <div class="timeline-header">
+                            <h3>Estagiário em TI</h3>
+                            <p class="date">2025 – 2025</p>
+                        </div>
+                        <div class="timeline-content">
+                            <h4>Tribunal de Justiça Militar de SP</h4>
+                            <p>
+                                Estagiário em TI — <strong>crio e mantenho cursos no ambiente AVA (Moodle/PHP)</strong>.
+                                Realizo manuntenção em paginas internas, feitas em <strong> Wordpress</strong>.
+                                Produzo <strong>artes gráficas</strong> (Figma/Photoshop) e
+                                <strong>apresentações</strong> para divulgação.
+                                Automatizo controle de participação de cursos e eventos
                             </p>
-                        </div>
-                    </div> <!-- /timeline-block -->
-                </div> <!-- /timeline-wrap -->
-            </div> <!-- /col-twelve -->
-        </div> <!-- /resume-timeline -->
-    </section> <!-- /features -->
-    <section id="portfolio">
-        <div class="row section-intro">
-            <div class="col-twelve">
-                <h5>Projetos</h5>
-                <h1>Confira alguns dos meus Projetos.</h1>
-                <p class="lead" style="font-size: 15px; margin-bottom: 4%;">
-                    Durante minha jornada acadêmica, tive a oportunidade de trabalhar em diversos projetos
-                    que ampliaram meu conhecimento e
-                    desenvolveram minhas habilidades técnicas e criativas. Abaixo estão alguns dos projetos que
-                    realizei:</p>
-            </div>
-        </div>
-
-        <div class="row portfolio-content">
-            <div class="col-twelve">
-                <div class="portfolio-filters">
-                    <button class="active" data-filter="all">
-                        <i class="fas fa-layer-group"></i> Todos
-                    </button>
-                    <button data-filter="web">
-                        <i class="fab fa-html5"></i> Web
-                    </button>
-                    <button data-filter="php">
-                        <i class="fab fa-php"></i> PHP
-                    </button>
-                    <button data-filter="cpp">
-                        <i class="fas fa-microchip"></i> C++
-                    </button>
-                    <button data-filter="python">
-                        <i class="fab fa-python"></i> Python
-                    </button>
-
-                </div>
-                <!-- Aplicar grid container com CSS para efeito masonry -->
-                <div id="folio-wrapper">
-
-                    <!-- Projeto 1 -->
-                    <div class="folio-item" data-category="php web">
-                        <div class="item-wrap">
-                            <img src="src/assets/portfolio/modals/Sistema de Emprego.jpg" alt="Sistema de Emprego"
-                                onerror="this.onerror=null;this.src='src/assets/portfolio/default.jpg';">
-                            <a href="#modal-1" class="overlay">
-                                <div class="folio-item-info">
-                                    <h3 class="folio-title">Sistema de Emprego</h3>
-                                    <span class="folio-types">PHP, HTML, JS, CSS</span>
-                                </div>
-                            </a>
+                            <ul class="highlight-list">
+                                <li>Criação de +5 cursos completos no AVA</li>
+                                <li>Manutenção diária de páginas em PHP</li>
+                                <li>Design de banners e materiais promocionais</li>
+                            </ul>
                         </div>
                     </div>
-
-                    <!-- Projeto 2 -->
-                    <div class="folio-item" data-category="web">
-                        <div class="item-wrap">
-                            <img src="src/assets/portfolio/modals/BioLink Hub.jpg" alt="BioLink Hub"
-                                onerror="this.onerror=null;this.src='src/assets/portfolio/default.jpg';">
-                            <a href="#modal-2" class="overlay">
-                                <div class="folio-item-info">
-                                    <h3 class="folio-title">BioLink Hub</h3>
-                                    <span class="folio-types">CSS, JS, HTML</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Projeto 3 -->
-                    <div class="folio-item" data-category="web">
-                        <div class="item-wrap">
-                            <img src="src/assets/portfolio/modals/Abas-interativas.jpg" alt="Abas-interativas"
-                                onerror="this.onerror=null;this.src='src/assets/portfolio/default.jpg';">
-                            <a href="#modal-3" class="overlay">
-                                <div class="folio-item-info">
-                                    <h3 class="folio-title">Abas-interativas</h3>
-                                    <span class="folio-types">CSS, JS, HTML</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Projeto 4 -->
-                    <div class="folio-item" data-category="cpp">
-                        <div class="item-wrap">
-                            <img src="src/assets/portfolio/modals/EcoSocket.jpg" alt="EcoSocket"
-                                onerror="this.onerror=null;this.src='src/assets/portfolio/default.jpg';">
-                            <a href="#modal-4" class="overlay">
-                                <div class="folio-item-info">
-                                    <h3 class="folio-title">EcoSocket</h3>
-                                    <span class="folio-types">C++</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Projeto 5 -->
-                    <div class="folio-item" data-category="cpp">
-                        <div class="item-wrap">
-                            <img src="src/assets/portfolio/modals/RemotePC_Power_Control.jpg"
-                                alt="RemotePC Power Control"
-                                onerror="this.onerror=null;this.src='src/assets/portfolio/default.jpg';">
-                            <a href="#modal-5" class="overlay">
-                                <div class="folio-item-info">
-                                    <h3 class="folio-title">RemotePC Power Control</h3>
-                                    <span class="folio-types">C++</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Projeto 6 -->
-                    <div class="folio-item" data-category="web">
-                        <div class="item-wrap">
-                            <img src="src/assets/portfolio/modals/API_previsao_do_tempo.jpg" alt="API_previsao_do_tempo"
-                                onerror="this.onerror=null;this.src='src/assets/portfolio/default.jpg';">
-                            <a href="#modal-6" class="overlay">
-                                <div class="folio-item-info">
-                                    <h3 class="folio-title">API_previsao_do_tempo</h3>
-                                    <span class="folio-types">CSS, JS, HTML</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Projeto 7 -->
-                    <div class="folio-item" data-category="cpp">
-                        <div class="item-wrap">
-                            <img src="src/assets/portfolio/modals/Remote-Weather-Monito.jpg" alt="Remote-Weather-Monito"
-                                onerror="this.onerror=null;this.src='src/assets/portfolio/default.jpg';">
-                            <a href="#modal-7" class="overlay">
-                                <div class="folio-item-info">
-                                    <h3 class="folio-title">Remote-Weather-Monito</h3>
-                                    <span class="folio-types">C++</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Projeto 8 -->
-                    <div class="folio-item" data-category="php">
-
-                        <div class="item-wrap">
-                            <img src="src/assets/portfolio/modals/Ligacao_com_banco.jpg" alt="Ligacao_com_banco"
-                                onerror="this.onerror=null;this.src='src/assets/portfolio/default.jpg';">
-                            <a href="#modal-8" class="overlay">
-                                <div class="folio-item-info">
-                                    <h3 class="folio-title">Ligacao_com_banco</h3>
-                                    <span class="folio-types">PHP, HTML</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Projeto 9 -->
-                    <div class="folio-item" data-category="cpp java">
-                        <div class="item-wrap">
-                            <img src="src/assets/portfolio/modals/SensorSync.jpg" alt="SensorSync"
-                                onerror="this.onerror=null;this.src='src/assets/portfolio/default.jpg';">
-                            <a href="#modal-9" class="overlay">
-                                <div class="folio-item-info">
-                                    <h3 class="folio-title">SensorSync</h3>
-                                    <span class="folio-types">C++, Java</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Projeto 10 -->
-                    <div class="folio-item" data-category="typescript javascript">
-                        <div class="item-wrap">
-                            <img src="src/assets/portfolio/modals/DespesasApp.jpg" alt="Controle de Despesas Pessoais"
-                                onerror="this.onerror=null;this.src='src/assets/portfolio/default.jpg';">
-                            <a href="#modal-10" class="overlay">
-                                <div class="folio-item-info">
-                                    <h3 class="folio-title">Controle de Despesas Pessoais</h3>
-                                    <span class="folio-types">Typescript, JavaScript</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Projeto 11 -->
-                    <div class="folio-item" data-category="javascript">
-                        <div class="item-wrap">
-                            <img src="src/assets/portfolio/modals/App-de-Viagem.jpg" alt="Roteiro de Viagem Automático"
-                                onerror="this.onerror=null;this.src='src/assets/portfolio/default.jpg';">
-                            <a href="#modal-11" class="overlay">
-                                <div class="folio-item-info">
-                                    <h3 class="folio-title">Roteiro de Viagem Automático</h3>
-                                    <span class="folio-types">JavaScript</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <!-- Projeto 12 -->
-                    <div class="folio-item" data-category="python">
-                        <div class="item-wrap">
-                            <img src="src/assets/portfolio/modals/SALV.jpg"
-                                alt="Sistema de Alerta Laboratorial com Visão"
-                                onerror="this.onerror=null;this.src='src/assets/portfolio/default.jpg';">
-                            <a href="#modal-12" class="overlay">
-                                <div class="folio-item-info">
-                                    <h3 class="folio-title">SALV</h3>
-                                    <span class="folio-types">Python</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
-
-                <!-- ================= MODAIS ================= -->
-
-                <!-- Modelo de modal — copie e edite de acordo com cada projeto -->
-
-                <!-- Modal 1 -->
-                <div id="modal-1" class="popup-modal mfp-hide">
-                    <div class="media">
-                        <img src="src/assets/portfolio/modals/Sistema de Emprego.jpg" alt="Sistema de Emprego">
-                    </div>
-                    <div class="description-box">
-                        <h4>Sistema de Emprego</h4>
-                        <p>Desenvolvimento de um Sistema de Emprego como parte de um projeto acadêmico...</p>
-                        <div class="categories">PHP, HTML, JS, CSS</div>
-                    </div>
-                    <div class="link-box">
-                        <a href="https://github.com/WesleyS08/Sistema_de_Emprego" target="_blank">Repositório</a>
-                        <a href="#" class="popup-modal-dismiss">Fechar</a>
-                    </div>
-                </div>
-
-                <!-- Modal 2 -->
-                <div id="modal-2" class="popup-modal mfp-hide">
-                    <div class="media">
-                        <img src="src/assets/portfolio/modals/BioLink Hub.jpg" alt="BioLink Hub">
-                    </div>
-                    <div class="description-box">
-                        <h4>BioLink Hub</h4>
-                        <p>O BioLinkHub é uma ferramenta criada para simplificar...</p>
-                        <div class="categories">CSS, JS, HTML</div>
-                    </div>
-                    <div class="link-box">
-                        <a href="https://github.com/WesleyS08/BioLinkHub" target="_blank">Repositório</a>
-                        <a href="#" class="popup-modal-dismiss">Fechar</a>
-                    </div>
-                </div>
-
-                <!-- Modal 3 -->
-                <div id="modal-3" class="popup-modal mfp-hide">
-                    <div class="media">
-                        <img src="src/assets/portfolio/modals/Abas-interativas.jpg" alt="Abas-interativas">
-                    </div>
-                    <div class="description-box">
-                        <h4>Abas-interativas</h4>
-                        <p>Um projeto web de qualidade requer a consideração...</p>
-                        <div class="categories">CSS, JS, HTML</div>
-                    </div>
-                    <div class="link-box">
-                        <a href="https://github.com/WesleyS08/Abas-interativas" target="_blank">Repositório</a>
-                        <a href="#" class="popup-modal-dismiss">Fechar</a>
-                    </div>
-                </div>
-                <!-- Modal 4 -->
-                <div id="modal-4" class="popup-modal mfp-hide">
-                    <div class="media">
-                        <img src="src/assets/portfolio/modals/EcoSocket.jpg" alt="EcoSocket">
-                    </div>
-                    <div class="description-box">
-                        <h4>EcoSocket</h4>
-                        <p>O EcoSocket: automação para internet ininterrupta...</p>
-                        <div class="categories">C++</div>
-                    </div>
-                    <div class="link-box">
-                        <a href="https://github.com/WesleyS08/EcoSocket" target="_blank">Repositório</a>
-                        <a href="#" class="popup-modal-dismiss">Fechar</a>
-                    </div>
-                </div>
-
-                <!-- Modal 5 -->
-                <div id="modal-5" class="popup-modal mfp-hide">
-                    <div class="media">
-                        <img src="src/assets/portfolio/modals/RemotePC_Power_Control.jpg" alt="RemotePC Power Control">
-                    </div>
-                    <div class="description-box">
-                        <h4>RemotePC Power Control</h4>
-                        <p>Controle remoto de PC via Wake-on-LAN com ESP32...</p>
-                        <div class="categories">C++</div>
-                    </div>
-                    <div class="link-box">
-                        <a href="https://github.com/WesleyS08/RemotePC-Power-Control" target="_blank">Repositório</a>
-                        <a href="#" class="popup-modal-dismiss">Fechar</a>
-                    </div>
-                </div>
-
-                <!-- Modal 6 -->
-                <div id="modal-6" class="popup-modal mfp-hide">
-                    <div class="media">
-                        <img src="src/assets/portfolio/modals/API_previsao_do_tempo.jpg" alt="API_previsao_do_tempo">
-                    </div>
-                    <div class="description-box">
-                        <h4>API_previsao_do_tempo</h4>
-                        <p>Projeto web com API de previsão do tempo...</p>
-                        <div class="categories">CSS, JS, HTML</div>
-                    </div>
-                    <div class="link-box">
-                        <a href="https://github.com/WesleyS08/API_previsao_do_tempo" target="_blank">Repositório</a>
-                        <a href="#" class="popup-modal-dismiss">Fechar</a>
-                    </div>
-                </div>
-
-                <!-- Modal 7 -->
-                <div id="modal-7" class="popup-modal mfp-hide">
-                    <div class="media">
-                        <img src="src/assets/portfolio/modals/Remote-Weather-Monito.jpg" alt="Remote-Weather-Monito">
-                    </div>
-                    <div class="description-box">
-                        <h4>Remote-Weather-Monito</h4>
-                        <p>Estação meteorológica com ESP32 e sensor DHT22...</p>
-                        <div class="categories">C++</div>
-                    </div>
-                    <div class="link-box">
-                        <a href="https://github.com/WesleyS08/Remote-Weather-Monito" target="_blank">Repositório</a>
-                        <a href="#" class="popup-modal-dismiss">Fechar</a>
-                    </div>
-                </div>
-
-                <!-- Modal 8 -->
-                <div id="modal-8" class="popup-modal mfp-hide">
-                    <div class="media">
-                        <img src="src/assets/portfolio/modals/Ligacao_com_banco.jpg" alt="Ligacao_com_banco">
-                    </div>
-                    <div class="description-box">
-                        <h4>Ligacao_com_banco</h4>
-                        <p>Não definido</p>
-                        <div class="categories">PHP, HTML</div>
-                    </div>
-                    <div class="link-box">
-                        <a href="https://github.com/WesleyS08/Ligacao_com_banco" target="_blank">Repositório</a>
-                        <a href="#" class="popup-modal-dismiss">Fechar</a>
-                    </div>
-                </div>
-
-                <!-- Modal 9 -->
-                <div id="modal-9" class="popup-modal mfp-hide">
-                    <div class="media">
-                        <img src="src/assets/portfolio/modals/SensorSync.jpg" alt="SensorSync">
-                    </div>
-                    <div class="description-box">
-                        <h4>SensorSync</h4>
-                        <p>Monitoramento de presença via ESP32 e MQTT...</p>
-                        <div class="categories">C++, Java</div>
-                    </div>
-                    <div class="link-box">
-                        <a href="https://github.com/WesleyS08/SensorSync" target="_blank">Repositório</a>
-                        <a href="#" class="popup-modal-dismiss">Fechar</a>
-                    </div>
-                </div>
-
-                <!-- Modal 10 -->
-                <div id="modal-10" class="popup-modal mfp-hide">
-                    <div class="media">
-                        <img src="src/assets/portfolio/modals/DespesasApp.jpg" alt="Controle de Despesas Pessoais">
-                    </div>
-                    <div class="description-box">
-                        <h4>Controle de Despesas Pessoais</h4>
-                        <p>App móvel com integração Telegram e Supabase...</p>
-                        <div class="categories">Typescript, JavaScript</div>
-                    </div>
-                    <div class="link-box">
-                        <a href="https://github.com/WesleyS08/DespesasApp" target="_blank">Repositório</a>
-                        <a href="#" class="popup-modal-dismiss">Fechar</a>
-                    </div>
-                </div>
-
-                <!-- Modal 11 -->
-                <div id="modal-11" class="popup-modal mfp-hide">
-                    <div class="media">
-                        <img src="src/assets/portfolio/modals/App-de-Viagem.jpg" alt="Roteiro de Viagem Automático">
-                    </div>
-                    <div class="description-box">
-                        <h4>Roteiro de Viagem Automático</h4>
-                        <p>Geração automática de roteiros turísticos com IA...</p>
-                        <div class="categories">JavaScript</div>
-                    </div>
-                    <div class="link-box">
-                        <a href="https://github.com/WesleyS08/App-de-Viagem" target="_blank">Repositório</a>
-                        <a href="#" class="popup-modal-dismiss">Fechar</a>
-                    </div>
-                </div>
-
-
-                <!-- Modal 12 -->
-                <div id="modal-12" class="popup-modal mfp-hide">
-                    <div class="media">
-                        <img src="src/assets/portfolio/modals/SALV.jpg" alt="Sistema de Alerta Laboratorial com Visão">
-                    </div>
-                    <div class="description-box">
-                        <h4>SALV Sistema de Alerta Laboratorial com Visão </h4>
-                        <p>Solução inteligente para segurança laboratorial Combina visão computacional, IoT e
-                            notificações em tempo real para proteção de ambientes críticos</p>
-                        <div class="categories">Python</div>
-                    </div>
-                    <div class="link-box">
-                        <a href="https://github.com/WesleyS08/SALV" target="_blank">Repositório</a>
-                        <a href="#" class="popup-modal-dismiss">Fechar</a>
-                    </div>
-                </div>
-
-
-
-            </div>
-        </div>
-    </section>
-    <section id="stats" class="count-up">
-        <div class="row">
-            <div class="col-twelve">
-                <div class="block-1-6 block-s-1-3 block-tab-1-2 block-mob-full stats-list">
-
-                    <!-- Repositórios GitHub -->
-                    <div class="bgrid stat" id="repo-stat">
-                        <div class="icon-part">
-                            <i class="fa-solid fa-folder-open"></i>
-                        </div>
-                        <h3 class="stat-count" id="repo-count"><span class="loader"></span></h3>
-                        <h5 class="stat-title">Projetos no GitHub</h5>
-                    </div>
-
-                    <!-- Seguidores GitHub -->
-                    <div class="bgrid stat" id="followers-stat">
-                        <div class="icon-part">
-                            <i class="fa-solid fa-user"></i>
-                        </div>
-                        <h3 class="stat-count" id="followers-count"><span class="loader"></span></h3>
-                        <h5 class="stat-title">Seguidores</h5>
-                    </div>
-
-                    <!-- Seguindo GitHub -->
-                    <div class="bgrid stat" id="following-stat">
-                        <div class="icon-part">
-                            <i class="fa-solid fa-user"></i>
-                        </div>
-                        <h3 class="stat-count" id="following-count"><span class="loader"></span></h3>
-                        <h5 class="stat-title">Seguindo</h5>
-                    </div>
-
-                    <!-- Cafés (Aleatório) -->
-                    <div class="bgrid stat" id="cups-stat">
-                        <div class="icon-part">
-                            <i class="fa-solid fa-mug-hot"></i>
-                        </div>
-                        <h3 class="stat-count" id="cups-count"><span class="loader"></span></h3>
-                        <h5 class="stat-title">Cafés tomados</h5>
-                    </div>
-
-                    <!-- Noites acordado (Aleatório) -->
-                    <div class="bgrid stat" id="hours-stat">
-                        <div class="icon-part">
-                            <i class="fa-solid fa-moon"></i>
-                        </div>
-                        <h3 class="stat-count" id="hours-count"><span class="loader"></span></h3>
-                        <h5 class="stat-title">Noites acordado</h5>
-                    </div>
-
-                    <!-- Horas no VSCode (CodeTime Badge) -->
-                    <div class="bgrid stat" id="avg-contribution-stat">
-                        <div class="icon-part">
-                            <i class="fa-solid fa-code"></i>
-                        </div>
-                            <img src="https://shields.jannchie.com/endpoint?style=flat-square&color=222&url=https%3A%2F%2Fapi.codetime.dev%2Fv3%2Fusers%2Fshield%3Fuid%3D25789"
-                                alt="CodeTime Badge">
-                        <h5 class="stat-title">Horas no VSCode</h5>
-                    </div>
-
                 </div>
             </div>
         </div>
     </section>
-   
-    <script>
-        // Configurações
-        const GITHUB_USERNAME = "wesleys08";
+    <section id="portfolio" class="section">
+        <div class="container">
+            <div class="section-intro text-center">
+                <h5 class="h5 neon">Projetos</h5>
+                <p class="lead">
+                    De sistemas embarcados com <strong>C++</strong> a aplicações web com <strong>PHP e React</strong> —
+                    cada projeto é uma prova do que posso construir. Explore abaixo:
+                </p>
+            </div>
 
-        // 1. Busca dados do GitHub
-        async function fetchGitHubStats() {
-            try {
-                const response = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}`);
-                if (!response.ok) throw new Error("Erro na API do GitHub");
-                const data = await response.json();
+            <!-- FILTROS COM CHIPS COLORIDOS -->
+            <div class="portfolio-filters">
+                <button class="chip-btn active" data-filter="all">Todos</button>
+                <button class="chip-btn" data-filter="web">Web</button>
+                <button class="chip-btn" data-filter="php">PHP</button>
+                <button class="chip-btn" data-filter="cpp">C++</button>
+                <button class="chip-btn" data-filter="python">Python</button>
+            </div>
+            <div id="projects-grid" class="projects-grid"></div>
+        </div>
+    </section>
+    <section id="stats" class="neon-datacore">
+        <div class="container">
+            <div class="section-intro">
+                <h5 class="h5 neon glitch-title" data-text="DATA CORE">DATA CORE</h5>
+                <p class="lead">Sistema operacional: WesleyOS v8.0.8<br>
+                    <span class="scanline">Scanlines ativadas • 99.9% uptime</span>
+                </p>
+            </div>
 
-                // Anima os números
-                animateCount("repo-count", data.public_repos);
-                animateCount("followers-count", data.followers);
-                animateCount("following-count", data.following);
+            <div class="datacore-grid">
+                <!-- Stat 1: Repositórios -->
+                <div class="core-module" data-value="0" data-target="47">
+                    <div class="module-ring">
+                        <svg viewBox="0 0 120 120">
+                            <circle class="bg" cx="60" cy="60" r="54" />
+                            <circle class="progress repo" cx="60" cy="60" r="54" />
+                        </svg>
+                        <div class="module-icon"><i class="fa-solid fa-folder-open"></i></div>
+                    </div>
+                    <div class="module-label">REPOS</div>
+                    <div class="module-value"><span class="counter">0</span></div>
+                </div>
 
-            } catch (error) {
-                console.error("GitHub API Error:", error);
-                document.getElementById("repo-count").textContent = "?";
-                document.getElementById("followers-count").textContent = "?";
-                document.getElementById("following-count").textContent = "?";
-            }
-        }
 
-        // 2. Gera dados aleatórios (cafés, noites)
-        function updateFakeStats() {
-            const randomCups = Math.floor(Math.random() * 100) + 50; // 50-150 cafés
-            const randomHours = Math.floor(Math.random() * 30) + 10; // 10-40 noites
 
-            animateCount("cups-count", randomCups);
-            animateCount("hours-count", randomHours);
-        }
+                <!-- Stat 4: Cafés -->
+                <div class="core-module" data-value="0" data-target="1337">
+                    <div class="module-ring">
+                        <svg viewBox="0 0 120 120">
+                            <circle class="bg" cx="60" cy="60" r="54" />
+                            <circle class="progress coffee" cx="60" cy="60" r="54" />
+                        </svg>
+                        <div class="module-icon"><i class="fa-solid fa-mug-hot"></i></div>
+                    </div>
+                    <div class="module-label">CAFÉS</div>
+                    <div class="module-value"><span class="counter">0</span></div>
+                </div>
 
-        // 3. Atualiza badge do CodeTime (força recarregamento)
-        function updateCodeTimeBadge() {
-            const badge = document.querySelector("#avg-contribution-count img");
-            badge.src = `https://api.codetime.dev/shield?id=25789&project=&in=0&ts=${Date.now()}`;
-        }
+                <!-- Stat 5: HORAS ACORDADO (sem imagem!) -->
+                <div class="core-module" data-value="0" data-target="5840">
+                    <div class="module-ring">
+                        <svg viewBox="0 0 120 120">
+                            <circle class="bg" cx="60" cy="60" r="54" />
+                            <circle class="progress awake" cx="60" cy="60" r="54" />
+                        </svg>
+                        <div class="module-icon"><i class="fa-solid fa-moon"></i></div>
+                    </div>
+                    <div class="module-label">programando </div>
+                    <div class="module-value"><span class="counter">0</span>h</div>
+                </div>
 
-        // 4. Animação de contagem
-        function animateCount(elementId, target) {
-            const element = document.getElementById(elementId);
-            let current = 0;
-            const duration = 2000; // 2 segundos
-            const increment = target / (duration / 16);
+            </div>
 
-            const timer = setInterval(() => {
-                current += increment;
-                if (current >= target) {
-                    clearInterval(timer);
-                    current = target;
-                }
-                element.textContent = Math.floor(current);
-            }, 16);
-        }
-
-        // 5. Atualiza todos os stats
-        function updateAllStats() {
-            fetchGitHubStats();
-            updateFakeStats();
-            updateCodeTimeBadge();
-        }
-
-        // Inicializa e atualiza a cada 5 minutos
-        updateAllStats();
-        setInterval(updateAllStats, 5 * 60 * 1000);
-    </script>
-
-    <section id="contact">
-        <div class="row section-intro">
-            <div class="col-twelve">
-
-                <h5>Entre em Contato</h5>
+            <!-- Scanlines animadas -->
+            <div class="scanlines"></div>
+        </div>
+    </section>
+    <!-- ========================================
+     CONTACT + FOOTER CYBERPUNK FINAL
+     ======================================== -->
+    <section id="contact" class="neon-contact">
+        <div class="container">
+            <div class="section-intro">
+                <h5 class="h5 neon glitch-title" data-text="CONEXÃO ESTABELECIDA">CONEXÃO ESTABELECIDA</h5>
                 <h1>Estou aqui para ouvir você!</h1>
+                <p class="scanline">Transmissão criptografada •</p>
+            </div>
+
+            <div class="contact-grid">
+                <!-- Localização -->
+                <div class="contact-card glitch-card" data-glitch="SÃO PAULO">
+                    <div class="card-icon"><i class="fa-solid fa-location-dot"></i></div>
+                    <h3>Onde me encontro</h3>
+                    <p>São Paulo<br><span class="neon-text">SP • BRASIL</span></p>
+                </div>
+
+                <!-- E-mail -->
+                <div class="contact-card glitch-card" data-glitch="E-MAIL">
+                    <div class="card-icon"><i class="fa-solid fa-envelope"></i></div>
+                    <h3>Envie-me um e-mail para</h3>
+                    <p><a href="mailto:ws78009@gmail.com" class="neon-link">ws78009@gmail.com</a></p>
+                </div>
+
+                <!-- Redes -->
+                <div class="contact-card glitch-card" data-glitch="CONEXÃO">
+                    <div class="card-icon"><i class="fa-solid fa-share-nodes"></i></div>
+                    <h3>Conecte-se comigo</h3>
+                    <div class="social-links">
+                        <a href="https://github.com/WesleyS08" target="_blank" class="neon-btn"><i
+                                class="fa-brands fa-github"></i> WesleyS08</a>
+                        <a href="https://linkedin.com/in/wesleysilva" target="_blank" class="neon-btn"><i
+                                class="fa-brands fa-linkedin"></i> Wesley Silva</a>
+                    </div>
+                </div>
             </div>
         </div>
+    </section>
 
-        </div> <!-- /section-intro -->
-
-
-        <div class="row contact-info">
-
-            <div class="col-four tab-full">
-
-                <div class="icon">
-                    <i class="icon-pin"></i>
+    <footer class="neon-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="social">
+                    <ul class="footer-social">
+                        <li><a href="https://github.com/WesleyS08" target="_blank"><i
+                                    class="fa-brands fa-github"></i></a></li>
+                        <li><a href="https://linkedin.com/in/wesleysilva" target="_blank"><i
+                                    class="fa-brands fa-linkedin"></i></a></li>
+                    </ul>
                 </div>
-
-                <p>Onde me encontro</p>
-
-                <p>
-                    São Paulo<br>
-                    Sp<br>
-                </p>
-
-            </div>
-
-            <div class="col-four tab-full collapse">
-
-                <div class="icon">
-                    <i class="icon-mail"></i>
-                </div>
-
-                <p>Envie-me um e-mail para</p>
-
-                <p>ws78009@gmail.com<br>
-                </p>
-
-            </div>
-            <div class="col-four tab-full">
-                <p>Conecte-se comigo</p>
-                <p>WesleyS08</p>
-                <p>Wesley Silva</p>
-            </div>
-
-        </div> <!-- /contact-info -->
-    </section> <!-- /contact -->
-
-
-    <!-- footer
-================================================== -->
-
-    <footer>
-        <div class="row">
-
-            <div class="col-six tab-full pull-right social">
-            </div>
-
-            <div class="col-six tab-full">
                 <div class="copyright">
-                    <span>© Copyright Wesley 2025.</span>
+                    <span>© WesleyOS 2025</span>
+                    <span>Sistema operacional: v8.0.8</span>
+                    <span class="glitch-text" data-text="ONLINE">ONLINE</span>
                 </div>
             </div>
+            <div class="scanlines"></div>
         </div>
     </footer>
+    <!-- SCRIPTS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"
+        referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js" crossorigin="anonymous"
+        referrerpolicy="no-referrer"></script>
+    <script src="https://unpkg.com/scrollreveal@4.0.9/dist/scrollreveal.min.js"></script>
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 
-
-    <script>
-        function resizeAllGridItems() {
-            const grid = document.querySelector('#folio-wrapper');
-            const rowHeight = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-auto-rows'));
-            const rowGap = parseInt(window.getComputedStyle(grid).getPropertyValue('gap'));
-            grid.querySelectorAll('.folio-item').forEach(item => {
-                const contentHeight = item.querySelector('img').getBoundingClientRect().height;
-                const rowSpan = Math.ceil((contentHeight + rowGap) / (rowHeight + rowGap));
-                item.style.setProperty('--span', rowSpan);
-            });
-        }
-        window.addEventListener('load', resizeAllGridItems);
-        window.addEventListener('resize', resizeAllGridItems);
-    </script>
-    <script>
-        function menuShow() {
-            let menuMobile = document.querySelector('.mobile-menu');
-            if (menuMobile.classList.contains('open')) {
-                menuMobile.classList.remove('open');
-                document.querySelector('.icon').src = "src/assets/icon/menu_white_36dp.svg";
-            } else {
-                menuMobile.classList.add('open');
-                document.querySelector('.icon').src = "src/assets/icon/close_white_36dp.svg";
-            }
-        }
-    </script>
-    <script src="src/js/MudancadeTema.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-    <script src="src/js/EfeitodeDigitacao.js"></script>
-    <script>
-        particlesJS("particles-js", {
-            "particles": {
-                "number": {
-                    "value": 218,
-                    "density": {
-                        "enable": true,
-                        "value_area": 1103.7179527608712
-                    }
-                },
-                "color": {
-                    "value": "#6a00ff"
-                },
-                "shape": {
-                    "type": "circle",
-                    "stroke": {
-                        "width": 0,
-                        "color": "#000000"
-                    },
-                    "polygon": {
-                        "nb_sides": 5
-                    },
-                    "image": {
-                        "src": "img/github.svg",
-                        "width": 100,
-                        "height": 100
-                    }
-                },
-                "opacity": {
-                    "value": 0.5,
-                    "random": false,
-                    "anim": {
-                        "enable": false,
-                        "speed": 1,
-                        "opacity_min": 0.1,
-                        "sync": false
-                    }
-                },
-                "size": {
-                    "value": 3,
-                    "random": true,
-                    "anim": {
-                        "enable": false,
-                        "speed": 40,
-                        "size_min": 0.1,
-                        "sync": false
-                    }
-                },
-                "line_linked": {
-                    "enable": true,
-                    "distance": 150,
-                    "color": "#a64aff",
-                    "opacity": 0.4,
-                    "width": 1
-                },
-                "move": {
-                    "enable": true,
-                    "speed": 6,
-                    "direction": "none",
-                    "random": false,
-                    "straight": false,
-                    "out_mode": "out",
-                    "bounce": false,
-                    "attract": {
-                        "enable": false,
-                        "rotateX": 600,
-                        "rotateY": 1200
-                    }
-                }
-            },
-            "interactivity": {
-                "detect_on": "window",
-                "events": {
-                    "onhover": {
-                        "enable": false,
-                        "mode": "repulse"
-                    },
-                    "onclick": {
-                        "enable": true,
-                        "mode": "repulse"
-                    },
-                    "resize": true
-                },
-                "modes": {
-                    "grab": {
-                        "distance": 400,
-                        "line_linked": {
-                            "opacity": 1
-                        }
-                    },
-                    "bubble": {
-                        "distance": 400,
-                        "size": 40,
-                        "duration": 2,
-                        "opacity": 8,
-                        "speed": 3
-                    },
-                    "repulse": {
-                        "distance": 200,
-                        "duration": 0.4
-                    },
-                    "push": {
-                        "particles_nb": 4
-                    },
-                    "remove": {
-                        "particles_nb": 2
-                    }
-                }
-            },
-            "retina_detect": false
-        });
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Adicione data-category dinamicamente se não existir
-            document.querySelectorAll('.folio-item').forEach(item => {
-                const types = item.querySelector('.folio-types').textContent.toLowerCase();
-
-                if (types.includes('php')) {
-                    item.setAttribute('data-category', 'php');
-                }
-                else if (types.includes('c++')) {
-                    item.setAttribute('data-category', 'cpp');
-                }
-                else if (types.includes('python')) {
-                    item.setAttribute('data-category', 'python');
-                }
-                else if (types.includes('java')) {
-                    item.setAttribute('data-category', 'java');
-                }
-                else if (types.includes('typescript')) {
-                    item.setAttribute('data-category', 'typescript');
-                }
-                else if (types.includes('html') || types.includes('css') || types.includes('js') || types.includes('javascript')) {
-                    item.setAttribute('data-category', 'web');
-                }
-            });
-
-            // Filtragem
-            const filterButtons = document.querySelectorAll('.portfolio-filters button');
-
-            filterButtons.forEach(button => {
-                button.addEventListener('click', function () {
-                    // Ativa o botão clicado
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    this.classList.add('active');
-
-                    const filterValue = this.getAttribute('data-filter');
-                    const portfolioItems = document.querySelectorAll('.folio-item');
-
-                    portfolioItems.forEach(item => {
-                        item.classList.remove('show', 'hide');
-
-                        if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
-                            item.classList.add('show');
-                        } else {
-                            item.classList.add('hide');
-                        }
-                    });
-                });
-            });
-        });
-    </script>
-    <script>
-        $(document).ready(function () {
-            $.getJSON('languages.json', function (data) {
-                if (data.total_repositories !== undefined) {
-                    $('#repo-count').text(data.total_repositories);
-                }
-            });
-        });
-    </script>
-    <script>
-        function resizeMasonryItems() {
-            const grid = document.getElementById("folio-wrapper");
-            if (!grid) return;
-
-            const rowHeight = 4; // Deve corresponder ao grid-auto-rows do CSS
-            const rowGap = 2;   // Deve corresponder ao row-gap do CSS
-
-            const items = grid.querySelectorAll(".folio-item");
-            items.forEach(item => {
-                const img = item.querySelector("img");
-                if (img) {
-                    const contentHeight = img.getBoundingClientRect().height;
-                    const span = Math.ceil((contentHeight + rowGap) / (rowHeight + rowGap));
-                    item.style.setProperty("--span", span);
-                }
-            });
-        }
-
-        // Atualiza no load e no resize
-        window.addEventListener("load", resizeMasonryItems);
-        window.addEventListener("resize", resizeMasonryItems);
-
-        // Atualiza também quando todas as imagens carregarem
-        document.querySelectorAll('#folio-wrapper img').forEach(img => {
-            img.addEventListener('load', resizeMasonryItems);
-        });
-    </script>
-    <script>
-        $(document).ready(function () {
-            $('.overlay').magnificPopup({
-                type: 'inline',
-                preloader: false,
-                modal: true,
-                callbacks: {
-                    beforeOpen: function () {
-                        this.st.mainClass = 'mfp-fade';
-                    }
-                }
-            });
-
-            // Fecha o modal ao clicar no botão "Fechar"
-            $(document).on('click', '.popup-modal-dismiss', function (e) {
-                e.preventDefault();
-                $.magnificPopup.close();
-            });
-        });
-    </script>
-
+    <!-- SCRIPTS PERSONALIZADOS -->
+    <script src="js/particles-config.js"></script>
+    <script src="js/active-nav.js"></script>
+    <script src="js/typed-effect.js"></script>
+    <script src="js/theme-toggle.js"></script>
+    <script src="js/mobile-menu.js"></script>
+    <script src="js/skills-animation.js"></script>
+    <script src="js/jquery-plugins.js"></script>
+    <script src="js/github-skills.js"></script>
+    <script src="js/resume-animation.js"></script>
+    <script src="js/portfolio.js"></script>
+    <script src="js/stats.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
 </body>
 
 </html>
