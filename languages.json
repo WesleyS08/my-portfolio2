@@ -1,17 +1,18 @@
 {
-  "total_repositories": 42,
-  "processed_repositories": 41,
+  "total_repositories": 44,
+  "processed_repositories": 43,
   "errors": 0,
   "languages": {
-    "Python": 25.18,
-    "TypeScript": 13.84,
-    "JavaScript": 3.32,
-    "Java": 27.53,
-    "CSS": 2.70,
-    "C++": 0.97,
-    "PHP": 22.52,
+    "Python": 34.45,
+    "TypeScript": 11.93,
+    "JavaScript": 3.24,
+    "Java": 23.74,
+    "CSS": 2.42,
+    "C++": 0.84,
+    "PHP": 19.41,
     "PLpgSQL": 0.00,
-    "Kotlin": 0.07,
-    "HTML": 3.81
+    "Jupyter Notebook": 1.01,
+    "Kotlin": 0.06,
+    "HTML": 2.83
   }
 }
