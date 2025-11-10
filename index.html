@@ -52,6 +52,43 @@
             }
         });
     </script>
+    <script>
+        document.getElementById('contact-form').addEventListener('submit', function (e) {
+            e.preventDefault(); // ← NÃO deixa recarregar
+
+            const form = this;
+            const data = new FormData(form);
+            const btn = form.querySelector('#submit-btn');
+            const feedback = document.getElementById('form-feedback');
+
+            // Reset
+            feedback.className = 'form-feedback';
+            feedback.textContent = '';
+            btn.classList.add('sending');
+            btn.disabled = true;
+
+            // Envia pro Netlify
+            fetch('/', {
+                method: 'POST',
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams(data).toString()
+            })
+                .then(response => {
+                    if (!response.ok) throw new Error('Erro no servidor');
+                    feedback.className = 'form-feedback success';
+                    feedback.innerHTML = 'Mensagem enviada com sucesso!<br>Entrarei em contato em breve.';
+                    form.reset();
+                })
+                .catch(() => {
+                    feedback.className = 'form-feedback error';
+                    feedback.innerHTML = 'Erro ao enviar.<br>Tente novamente ou me contate por e-mail.';
+                })
+                .finally(() => {
+                    btn.classList.remove('sending');
+                    btn.disabled = false;
+                });
+        });
+    </script>
 </head>
 
 <body>
@@ -458,8 +495,9 @@
                 </div>
 
                 <!-- FORMULÁRIO -->
-                <form name="contact" method="POST" data-netlify="true" class="contact-form" id="contact-form">
+                <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="contact-form">
                     <input type="hidden" name="form-name" value="contact">
+                    <p style="display:none;"><label>Não preencha: <input name="bot-field"></label></p>
 
                     <div class="form-group">
                         <input type="text" name="name" placeholder="Seu Nome" required minlength="2">
@@ -478,11 +516,10 @@
 
                     <button type="submit" class="submit-btn" id="submit-btn">
                         <span class="btn-text">Enviar Mensagem</span>
-                        <span class="btn-loading" style="display: none;">Enviando...</span>
+                        <span class="btn-loading" style="display:none;">Enviando...</span>
                         <i class="fas fa-paper-plane"></i>
                     </button>
 
-                    <!-- FEEDBACK -->
                     <div class="form-feedback" id="form-feedback"></div>
                 </form>
             </div>
