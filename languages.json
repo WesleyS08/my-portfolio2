@@ -3,16 +3,16 @@
   "processed_repositories": 43,
   "errors": 0,
   "languages": {
-    "Python": 34.43,
-    "TypeScript": 11.92,
-    "JavaScript": 3.24,
-    "Java": 23.72,
-    "CSS": 2.49,
+    "Python": 34.37,
+    "TypeScript": 11.90,
+    "JavaScript": 3.30,
+    "Java": 23.68,
+    "CSS": 2.56,
     "C++": 0.84,
-    "PHP": 19.40,
+    "PHP": 19.37,
     "PLpgSQL": 0.00,
     "Jupyter Notebook": 1.01,
     "Kotlin": 0.06,
-    "HTML": 2.82
+    "HTML": 2.84
   }
 }
