@@ -1590,7 +1590,7 @@ p {
 
 .timeline-ico {
     position: absolute;
-    left: 26px;
+    left: 3%;
     top: 0;
     width: 60px;
     height: 60px;
@@ -1962,6 +1962,90 @@ p {
 .back-links {
     display: flex;
     gap: 0.8rem;
+}
+
+.back-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: auto;
+}
+
+.back-links button,
+.back-links a {
+    flex: 1;
+    padding: 0.9rem 1rem;
+    border-radius: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+/* BOTÃO VOLTAR */
+.back-btn {
+    background: linear-gradient(135deg, #222 0%, #333 100%);
+    color: #ccc;
+    border: 1px solid #444;
+}
+
+.back-btn:hover {
+    background: #444;
+    color: #fff;
+    border-color: var(--neon);
+    transform: translateY(-3px);
+    box-shadow: 
+        0 0 15px rgba(57, 255, 20, 0.3),
+        0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.back-btn i {
+    transition: transform 0.3s ease;
+}
+
+.back-btn:hover i {
+    transform: translateX(-4px);
+}
+
+.details-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: var(--neon);
+    color: #000;
+    border: none;
+    padding: 0.7rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.details-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(57, 255, 20, 0.4);
+}
+
+.flip-icon {
+    font-size: 1rem;
+    transition: transform 0.4s ease;
+}
+
+.details-btn:hover .flip-icon {
+    transform: rotate(180deg);
 }
 
 .back-links a {
@@ -2547,4 +2631,129 @@ p {
     .neon-contact h1 {
         font-size: 2.5rem;
     }
+}
+/* ========================================
+   STATS - CYBERPUNK TEMÁTICO
+   ======================================== */
+.stats-section {
+    padding: 8rem 0;
+    background: var(--color-bg);
+    position: relative;
+    overflow: hidden;
+}
+
+.stats-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+
+    pointer-events: none;
+    z-index: 0;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    max-width: 1100px;
+    margin: 3rem auto 0;
+    position: relative;
+    z-index: 1;
+}
+
+.stat-card {
+    background: rgba(10, 10, 10, 0.8);
+    border: 1px solid rgba(57, 255, 20, 0.3);
+    border-radius: 16px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    backdrop-filter: blur(8px);
+    transition: all 0.4s ease;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.stat-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.stat-card:hover {
+    border-color: var(--neon);
+    box-shadow: 0 0 30px rgba(57, 255, 20, 0.3);
+    transform: translateY(-8px);
+}
+
+/* ÍCONES TEMÁTICOS */
+.stat-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: inline-block;
+}
+
+/* PULSE ANIMATION (REPO CORE) */
+.pulse {
+    color: #39ff14;
+    animation: pulse-glow 2s infinite;
+}
+
+@keyframes pulse-glow {
+    0%, 100% { text-shadow: 0 0 10px #39ff14; }
+    50% { text-shadow: 0 0 25px #39ff14, 0 0 40px #39ff14; }
+}
+
+/* GLITCH ANIMATION (COMMIT MATRIX) */
+.glitch {
+    color: #00ffff;
+    animation: glitch 3s infinite;
+}
+
+@keyframes glitch {
+    0%, 100% { text-shadow: 0 0 10px #00ffff; }
+    2% { text-shadow: 2px 0 #ff00ff, -2px 0 #00ff00; }
+    4% { text-shadow: -1px 0 #ffff00, 1px 0 #00ffff; }
+    6% { text-shadow: 0 0 15px #00ffff; }
+}
+
+/* NÚMERO */
+.stat-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 3rem;
+    font-weight: 800;
+    color: #fff;
+    margin: 0.5rem 0;
+    text-shadow: 0 0 20px currentColor;
+}
+
+#repo-core .stat-number { color: #39ff14; }
+#commit-matrix .stat-number { color: #00ffff; }
+
+/* LABEL */
+.stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: #aaa;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+/* ENERGIA */
+#energy-value {
+    animation: energy-flicker 2.5s infinite;
+}
+
+@keyframes energy-flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+}
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+    .stat-number { font-size: 2.2rem; }
+}
+@media (max-width: 480px) {
+    .stats-grid { grid-template-columns: 1fr; }
 }

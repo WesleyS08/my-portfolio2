@@ -364,61 +364,50 @@
             <div id="projects-grid" class="projects-grid"></div>
         </div>
     </section>
-    <section id="stats" class="neon-datacore">
+    <section id="stats" class="stats-section">
         <div class="container">
-            <div class="section-intro">
-                <h5 class="h5 neon glitch-title" data-text="DATA CORE">DATA CORE</h5>
-                <p class="lead">Sistema operacional: WesleyOS v8.0.8<br>
-                    <span class="scanline">Scanlines ativadas • 99.9% uptime</span>
-                </p>
+            <div class="section-intro text-center">
+                <h5 class="h5 neon">Sistema Operacional</h5>
+                <p class="lead">WesleyOS v8.0.8 • Scanlines: ON • Uptime: 99.9%</p>
             </div>
 
-            <div class="datacore-grid">
-                <!-- Stat 1: Repositórios -->
-                <div class="core-module" data-value="0" data-target="47">
-                    <div class="module-ring">
-                        <svg viewBox="0 0 120 120">
-                            <circle class="bg" cx="60" cy="60" r="54" />
-                            <circle class="progress repo" cx="60" cy="60" r="54" />
-                        </svg>
-                        <div class="module-icon"><i class="fa-solid fa-folder-open"></i></div>
+            <div class="stats-grid">
+                <!-- REPO CORE -->
+                <div class="stat-card" id="repo-core">
+                    <div class="stat-icon pulse"><i class="fas fa-project-diagram"></i></div>
+                    <div class="stat-number">
+                        <span class="counter">0</span>
                     </div>
-                    <div class="module-label">REPOS</div>
-                    <div class="module-value"><span class="counter">0</span></div>
+                    <div class="stat-label">NÓS ATIVOS NA REDE</div>
                 </div>
 
-
-
-                <!-- Stat 4: Cafés -->
-                <div class="core-module" data-value="0" data-target="1337">
-                    <div class="module-ring">
-                        <svg viewBox="0 0 120 120">
-                            <circle class="bg" cx="60" cy="60" r="54" />
-                            <circle class="progress coffee" cx="60" cy="60" r="54" />
-                        </svg>
-                        <div class="module-icon"><i class="fa-solid fa-mug-hot"></i></div>
+                <!-- COMMIT MATRIX -->
+                <div class="stat-card" id="commit-matrix">
+                    <div class="stat-icon glitch"><i class="fas fa-code"></i></div>
+                    <div class="stat-number">
+                        <span class="counter">0</span>
                     </div>
-                    <div class="module-label">CAFÉS</div>
-                    <div class="module-value"><span class="counter">0</span></div>
+                    <div class="stat-label">PULSOS NA MATRIX</div>
                 </div>
 
-                <!-- Stat 5: HORAS ACORDADO (sem imagem!) -->
-                <div class="core-module" data-value="0" data-target="5840">
-                    <div class="module-ring">
-                        <svg viewBox="0 0 120 120">
-                            <circle class="bg" cx="60" cy="60" r="54" />
-                            <circle class="progress awake" cx="60" cy="60" r="54" />
-                        </svg>
-                        <div class="module-icon"><i class="fa-solid fa-moon"></i></div>
+                <!-- HORAS CODANDO -->
+                <div class="stat-card" id="coding-hours">
+                    <div class="stat-icon"><i class="fas fa-clock"></i></div>
+                    <div class="stat-number">
+                        <span class="counter">0</span>h
                     </div>
-                    <div class="module-label">programando </div>
-                    <div class="module-value"><span class="counter">0</span>h</div>
+                    <div class="stat-label">Horas Codando</div>
                 </div>
 
+                <!-- ENERGIA -->
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-bolt"></i></div>
+                    <div class="stat-number">
+                        <span id="energy-value">0</span>%
+                    </div>
+                    <div class="stat-label">Energia do Sistema</div>
+                </div>
             </div>
-
-            <!-- Scanlines animadas -->
-            <div class="scanlines"></div>
         </div>
     </section>
     <!-- ========================================

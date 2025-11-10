@@ -153,7 +153,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         <p class="card-tech">${p.tech}</p>
                         <div class="card-links">
                             <a href="${p.repo}" target="_blank" class="repo">Repositório</a>
-                            <button class="details-btn demo">Ver Detalhes</button>
+                            <button class="details-btn demo">
+                                Ver Detalhes <i class="fas fa-sync-alt flip-icon"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
