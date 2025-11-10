@@ -42,6 +42,16 @@
         content="Portfólio de Wesley Silva, Desenvolvedor Full Stack com projetos em JavaScript, React, Node.js e mais.">
     <meta name="twitter:image"
         content="https://raw.githubusercontent.com/WesleyS08/my-portfolio2/main/src/assets/icon/share.jpg">
+    <script>
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+    </script>
 </head>
 
 <body>
@@ -54,6 +64,7 @@
                 <li><a href="#about" class="nav-link">Sobre</a></li>
                 <li><a href="#resume" class="nav-link">Formação</a></li>
                 <li><a href="#portfolio" class="nav-link">Projetos</a></li>
+                <li><a href="#contact" class="nav-link">Contato</a></li>
             </ul>
             <label for="themeToggle" class="theme">
                 <span class="theme__toggle-wrap">
@@ -83,6 +94,7 @@
             <a href="#about" class="mobile-link">Sobre</a>
             <a href="#resume" class="mobile-link">Formação</a>
             <a href="#portfolio" class="mobile-link">Projetos</a>
+            <a href="#contact" class="mobile-link">Contato</a>
         </div>
     </header>
 
@@ -355,11 +367,23 @@
 
             <!-- FILTROS COM CHIPS COLORIDOS -->
             <div class="portfolio-filters">
-                <button class="chip-btn active" data-filter="all">Todos</button>
-                <button class="chip-btn" data-filter="web">Web</button>
-                <button class="chip-btn" data-filter="php">PHP</button>
-                <button class="chip-btn" data-filter="cpp">C++</button>
-                <button class="chip-btn" data-filter="python">Python</button>
+                <div class="filter-desktop">
+                    <button class="chip-btn active" data-filter="all">Todos</button>
+                    <button class="chip-btn" data-filter="web">Web</button>
+                    <button class="chip-btn" data-filter="php">PHP</button>
+                    <button class="chip-btn" data-filter="cpp">C++</button>
+                    <button class="chip-btn" data-filter="python">Python</button>
+                </div>
+
+                <div class="filter-mobile">
+                    <select id="mobile-filter">
+                        <option value="all">Todos os Projetos</option>
+                        <option value="web">Web</option>
+                        <option value="php">PHP</option>
+                        <option value="cpp">C++</option>
+                        <option value="python">Python</option>
+                    </select>
+                </div>
             </div>
             <div id="projects-grid" class="projects-grid"></div>
         </div>
@@ -413,40 +437,54 @@
     <!-- ========================================
      CONTACT + FOOTER CYBERPUNK FINAL
      ======================================== -->
-    <section id="contact" class="neon-contact">
+    <section id="contact" class="contact-section">
         <div class="container">
-            <div class="section-intro">
-                <h5 class="h5 neon glitch-title" data-text="CONEXÃO ESTABELECIDA">CONEXÃO ESTABELECIDA</h5>
-                <h1>Estou aqui para ouvir você!</h1>
-                <p class="scanline">Transmissão criptografada •</p>
+            <div class="section-intro text-center">
+                <h5 class="h5 neon">Me Contrate</h5>
+                <p class="lead">Disponível para <strong>freelance</strong>, <strong>CLT</strong> ou <strong>projetos
+                        open-source</strong>.</p>
             </div>
 
             <div class="contact-grid">
-                <!-- Localização -->
-                <div class="contact-card glitch-card" data-glitch="SÃO PAULO">
-                    <div class="card-icon"><i class="fa-solid fa-location-dot"></i></div>
-                    <h3>Onde me encontro</h3>
-                    <p>São Paulo<br><span class="neon-text">SP • BRASIL</span></p>
+                <!-- INFORMAÇÕES -->
+                <div class="contact-info">
+                    <h3>Vamos trabalhar juntos</h3>
+                    <p>Estou em <strong>SP</strong> • Aberto a <strong>remoto</strong> ou <strong>presencial</strong>.
+                    </p>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> ws78009@gmail.com</li>
+                    </ul>
+
                 </div>
 
-                <!-- E-mail -->
-                <div class="contact-card glitch-card" data-glitch="E-MAIL">
-                    <div class="card-icon"><i class="fa-solid fa-envelope"></i></div>
-                    <h3>Envie-me um e-mail para</h3>
-                    <p><a href="mailto:ws78009@gmail.com" class="neon-link">ws78009@gmail.com</a></p>
-                </div>
+                <!-- FORMULÁRIO -->
+                <form name="contact" method="POST" data-netlify="true" class="contact-form" id="contact-form">
+                    <input type="hidden" name="form-name" value="contact">
 
-                <!-- Redes -->
-                <div class="contact-card glitch-card" data-glitch="CONEXÃO">
-                    <div class="card-icon"><i class="fa-solid fa-share-nodes"></i></div>
-                    <h3>Conecte-se comigo</h3>
-                    <div class="social-links">
-                        <a href="https://github.com/WesleyS08" target="_blank" class="neon-btn"><i
-                                class="fa-brands fa-github"></i> WesleyS08</a>
-                        <a href="https://linkedin.com/in/wesleysilva" target="_blank" class="neon-btn"><i
-                                class="fa-brands fa-linkedin"></i> Wesley Silva</a>
+                    <div class="form-group">
+                        <input type="text" name="name" placeholder="Seu Nome" required minlength="2">
+                        <span class="error-msg"></span>
                     </div>
-                </div>
+
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Seu E-mail" required>
+                        <span class="error-msg"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <textarea name="message" rows="5" placeholder="Sua Mensagem" required minlength="10"></textarea>
+                        <span class="error-msg"></span>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="submit-btn">
+                        <span class="btn-text">Enviar Mensagem</span>
+                        <span class="btn-loading" style="display: none;">Enviando...</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+
+                    <!-- FEEDBACK -->
+                    <div class="form-feedback" id="form-feedback"></div>
+                </form>
             </div>
         </div>
     </section>
@@ -494,6 +532,8 @@
     <script src="js/resume-animation.js"></script>
     <script src="js/portfolio.js"></script>
     <script src="js/stats.js"></script>
+    <script src="js/filtros.js"></script>
+    <script src="js/validacao.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
 </body>
 
