@@ -1,104 +1,36 @@
-// === VALIDAÇÃO + ENVIO ===
-document.getElementById('contact-form').addEventListener('submit', async function (e) {
-    e.preventDefault();
-    const form = this;
-    const submitBtn = document.getElementById('submit-btn');
-    const feedback = document.getElementById('form-feedback');
+// === COPIAR E-MAIL COM COMANDO ===
+document.querySelectorAll('.copy-email').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const email = btn.dataset.email;
+        navigator.clipboard.writeText(email);
 
-    // Reset
-    document.querySelectorAll('.form-group').forEach(g => g.classList.remove('error'));
-    document.querySelectorAll('.error-msg').forEach(m => m.textContent = '');
-    feedback.className = 'form-feedback';
-    feedback.textContent = '';
+        const output = document.getElementById('terminal-output');
+        output.textContent = `$ copy email\n→ ${email} copiado para área de transferência!`;
+        output.className = 'terminal-output show';
 
-    let valid = true;
-
-    // Validação Nome
-    const name = form.name.value.trim();
-    if (name.length < 2) {
-        showError(form.name, 'Nome deve ter pelo menos 2 caracteres');
-        valid = false;
-    }
-
-    // Validação E-mail
-    const email = form.email.value.trim();
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-        showError(form.email, 'E-mail inválido');
-        valid = false;
-    }
-
-    // Validação Mensagem
-    const message = form.message.value.trim();
-    if (message.length < 10) {
-        showError(form.message, 'Mensagem deve ter pelo menos 10 caracteres');
-        valid = false;
-    }
-
-    if (!valid) return;
-
-    // Enviar
-    submitBtn.classList.add('sending');
-    submitBtn.disabled = true;
-
-    try {
-        const formData = new FormData(form);
-        const response = await fetch('/', {
-            method: 'POST',
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: new URLSearchParams(formData).toString()
-        });
-
-        if (response.ok) {
-            feedback.className = 'form-feedback success';
-            feedback.textContent = 'Mensagem enviada com sucesso! Entrarei em contato em breve.';
-            form.reset();
-        } else {
-            throw new Error('Erro no servidor');
-        }
-    } catch (error) {
-        feedback.className = 'form-feedback error';
-        feedback.textContent = 'Erro ao enviar. Tente novamente ou me contate por e-mail.';
-    } finally {
-        submitBtn.classList.remove('sending');
-        submitBtn.disabled = false;
-    }
+        setTimeout(() => {
+            output.classList.remove('show');
+        }, 4000);
+    });
 });
 
-function showError(input, message) {
-    const group = input.parentElement;
-    group.classList.add('error');
-    group.querySelector('.error-msg').textContent = message;
-}
+// === COMANDOS COM EFEITO DE DIGITAÇÃO (opcional) ===
+document.querySelectorAll('.command-btn').forEach(btn => {
+    btn.addEventListener('click', function (e) {
+        if (this.tagName === 'A') return; // deixa links abrirem normalmente
 
-// === MAPA INTERATIVO (Leaflet) ===
-function initMap() {
-    const map = L.map('map').setView([-14.2350, -51.9253], 4); // Centro do Brasil
+        e.preventDefault();
+        const cmd = this.dataset.cmd;
+        const output = document.getElementById('terminal-output');
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap'
-    }).addTo(map);
+        let text = '';
+        if (cmd === 'copy') text = `$ copy email\n→ E-mail copiado!`;
 
-    const marker = L.marker([-23.5505, -46.6333]).addTo(map) // São Paulo (ajuste pro seu estado)
-        .bindPopup('<b>Wesley S.</b><br>Desenvolvedor Full-Stack<br>Disponível para projetos')
-        .openPopup();
+        output.textContent = text;
+        output.className = 'terminal-output show';
 
-    // Estilo cyberpunk no mapa
-    setTimeout(() => {
-        document.querySelector('.leaflet-popup-content-wrapper').style.background = '#11112b';
-        document.querySelector('.leaflet-popup-content-wrapper').style.color = '#e0e0ff';
-        document.querySelector('.leaflet-popup-content').style.textAlign = 'center';
-        document.querySelector('.leaflet-popup-tip').style.background = '#11112b';
-    }, 500);
-}
-
-// Carregar Leaflet
-const leafletCSS = document.createElement('link');
-leafletCSS.rel = 'stylesheet';
-leafletCSS.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
-document.head.appendChild(leafletCSS);
-
-const leafletJS = document.createElement('script');
-leafletJS.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
-leafletJS.onload = initMap;
-document.head.appendChild(leafletJS);
+        setTimeout(() => {
+            output.classList.remove('show');
+        }, 3000);
+    });
+});

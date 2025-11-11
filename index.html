@@ -52,43 +52,6 @@
             }
         });
     </script>
-    <script>
-        document.getElementById('contact-form').addEventListener('submit', function (e) {
-            e.preventDefault(); // ← NÃO deixa recarregar
-
-            const form = this;
-            const data = new FormData(form);
-            const btn = form.querySelector('#submit-btn');
-            const feedback = document.getElementById('form-feedback');
-
-            // Reset
-            feedback.className = 'form-feedback';
-            feedback.textContent = '';
-            btn.classList.add('sending');
-            btn.disabled = true;
-
-            // Envia pro Netlify
-            fetch('/', {
-                method: 'POST',
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: new URLSearchParams(data).toString()
-            })
-                .then(response => {
-                    if (!response.ok) throw new Error('Erro no servidor');
-                    feedback.className = 'form-feedback success';
-                    feedback.innerHTML = 'Mensagem enviada com sucesso!<br>Entrarei em contato em breve.';
-                    form.reset();
-                })
-                .catch(() => {
-                    feedback.className = 'form-feedback error';
-                    feedback.innerHTML = 'Erro ao enviar.<br>Tente novamente ou me contate por e-mail.';
-                })
-                .finally(() => {
-                    btn.classList.remove('sending');
-                    btn.disabled = false;
-                });
-        });
-    </script>
 </head>
 
 <body>
@@ -103,7 +66,7 @@
                 <li><a href="#portfolio" class="nav-link">Projetos</a></li>
                 <li><a href="#contact" class="nav-link">Contato</a></li>
             </ul>
-            <label for="themeToggle" class="theme">
+            <div class="theme">
                 <span class="theme__toggle-wrap">
                     <input id="themeToggle" class="theme__toggle" type="checkbox" role="switch">
                     <span class="theme__fill"></span>
@@ -119,7 +82,7 @@
                         <span class="theme__icon-part"></span>
                     </span>
                 </span>
-            </label>
+            </div>
             <button class="mobile-btn" id="mobileBtn" aria-label="Abrir menu mobile" aria-expanded="false">
                 <span class="bar"></span>
                 <span class="bar"></span>
@@ -477,52 +440,44 @@
     <section id="contact" class="contact-section">
         <div class="container">
             <div class="section-intro text-center">
-                <h5 class="h5 neon">Me Contrate</h5>
-                <p class="lead">Disponível para <strong>freelance</strong>, <strong>CLT</strong> ou <strong>projetos
-                        open-source</strong>.</p>
+                <h5 class="h5 neon glitch-title" data-text="TERMINAL">TERMINAL</h5>
+                <p class="lead">Digite seu comando: <strong>hire wesley</strong></p>
             </div>
 
-            <div class="contact-grid">
-                <!-- INFORMAÇÕES -->
-                <div class="contact-info">
-                    <h3>Vamos trabalhar juntos</h3>
-                    <p>Estou em <strong>SP</strong> • Aberto a <strong>remoto</strong> ou <strong>presencial</strong>.
-                    </p>
-                    <ul>
-                        <li><i class="fas fa-envelope"></i> ws78009@gmail.com</li>
-                    </ul>
-
+            <div class="terminal-container">
+                <div class="terminal-header">
+                    <div class="terminal-dots">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                    </div>
+                    <div class="terminal-title">wesley@portfolio: ~</div>
                 </div>
 
-                <!-- FORMULÁRIO -->
-                <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="contact-form">
-                    <input type="hidden" name="form-name" value="contact">
-                    <p style="display:none;"><label>Não preencha: <input name="bot-field"></label></p>
-
-                    <div class="form-group">
-                        <input type="text" name="name" placeholder="Seu Nome" required minlength="2">
-                        <span class="error-msg"></span>
+                <div class="terminal-body">
+                    <div class="terminal-line">
+                        <span class="prompt">> _</span>
+                        <span class="cursor"></span>
                     </div>
 
-                    <div class="form-group">
-                        <input type="email" name="email" placeholder="Seu E-mail" required>
-                        <span class="error-msg"></span>
+                    <div class="contact-commands">
+                        <a href="mailto:ws78009@gmail.com" class="command-btn" data-cmd="mail">
+                            <i class="fas fa-envelope"></i> mail wesley
+                        </a>
+                        <a href="https://www.linkedin.com/in/wesley-silva-dos-santos-33624b17a/" target="_blank"
+                            class="command-btn" data-cmd="linkedin">
+                            <i class="fab fa-linkedin"></i> connect
+                        </a>
+                        <button class="command-btn copy-email" data-email="ws78009@gmail.com" data-cmd="copy">
+                            <i class="fas fa-copy"></i> copy email
+                        </button>
                     </div>
 
-                    <div class="form-group">
-                        <textarea name="message" rows="5" placeholder="Sua Mensagem" required minlength="10"></textarea>
-                        <span class="error-msg"></span>
-                    </div>
-
-                    <button type="submit" class="submit-btn" id="submit-btn">
-                        <span class="btn-text">Enviar Mensagem</span>
-                        <span class="btn-loading" style="display:none;">Enviando...</span>
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-
-                    <div class="form-feedback" id="form-feedback"></div>
-                </form>
+                    <div class="terminal-output" id="terminal-output"></div>
+                </div>
             </div>
+
+            <p class="terminal-hint">Dica: clique em um comando ou copie o e-mail</p>
         </div>
     </section>
 
@@ -533,7 +488,7 @@
                     <ul class="footer-social">
                         <li><a href="https://github.com/WesleyS08" target="_blank"><i
                                     class="fa-brands fa-github"></i></a></li>
-                        <li><a href="https://linkedin.com/in/wesleysilva" target="_blank"><i
+                        <li><a href="https://www.linkedin.com/in/wesley-silva-dos-santos-33624b17a/" target="_blank"><i
                                     class="fa-brands fa-linkedin"></i></a></li>
                     </ul>
                 </div>
