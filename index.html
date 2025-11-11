@@ -26,20 +26,24 @@
         crossorigin="anonymous" referrerpolicy="no-referrer">
     <!-- Meta Tags -->
     <meta name="description"
-        content="Portfólio de Wesley Silva, Desenvolvedor Full Stack com projetos em JavaScript, React, Node.js e mais.">
+        content="Desenvolvedor Full-Stack com experiência em C++, PHP, JavaScript, IoT e automação. Disponível para freelance e CLT..">
     <meta property="og:type" content="website">
     <meta property="og:title" content="Wesley Silva | Portfólio Full Stack">
     <meta property="og:description"
-        content="Portfólio de Wesley Silva, Desenvolvedor Full Stack com projetos em JavaScript, React, Node.js e mais.">
+        content="Desenvolvedor Full-Stack com experiência em C++, PHP, JavaScript, IoT e automação. Disponível para freelance e CLT..">
     <meta property="og:image"
-        content="https://raw.githubusercontent.com/WesleyS08/my-portfolio2/main/src/assets/icon/share.jpg">
+        content="https://raw.githubusercontent.com/WesleyS08/my-portfolio2/main/src/assets/icon/share.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+    <meta property="og:url" content="https://wesleys08.github.io/my-portfolio2/">
+    <meta property="og:title" content="Wesley S. - Desenvolvedor Full-Stack">
+    <meta property="og:description" content="C++, PHP, IoT, Automação. Disponível para projetos.">
+    <meta property="og:image" content="https://wesleys08.github.io/my-portfolio2/assets/img/preview.jpg">
     <meta property="og:url" content="https://wesleys08.github.io/my-portfolio2/">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Wesley Silva | Portfólio Full Stack">
     <meta name="twitter:description"
-        content="Portfólio de Wesley Silva, Desenvolvedor Full Stack com projetos em JavaScript, React, Node.js e mais.">
+        content="Desenvolvedor Full-Stack com experiência em C++, PHP, JavaScript, IoT e automação. Disponível para freelance e CLT..">
     <meta name="twitter:image"
         content="https://raw.githubusercontent.com/WesleyS08/my-portfolio2/main/src/assets/icon/share.jpg">
     <script>
@@ -455,12 +459,17 @@
                 </div>
 
                 <div class="terminal-body">
+                    <p class="footer-text">
+                        • Última atualização:
+                        <span id="last-update">carregando...</span>
+                    </p>
                     <div class="terminal-line">
                         <span class="prompt">> _</span>
                         <span class="cursor"></span>
                     </div>
 
                     <div class="contact-commands">
+
                         <a href="mailto:ws78009@gmail.com" class="command-btn" data-cmd="mail">
                             <i class="fas fa-envelope"></i> mail wesley
                         </a>
@@ -471,6 +480,9 @@
                         <button class="command-btn copy-email" data-email="ws78009@gmail.com" data-cmd="copy">
                             <i class="fas fa-copy"></i> copy email
                         </button>
+                        <a href="src/doc/Currículo - Wesley Silva dos Santos.pdf" download class="command-btn">
+                            <i class="fas fa-file-pdf"></i> download cv
+                        </a>
                     </div>
 
                     <div class="terminal-output" id="terminal-output"></div>
@@ -526,6 +538,31 @@
     <script src="js/stats.js"></script>
     <script src="js/filtros.js"></script>
     <script src="js/validacao.js"></script>
+    <script>
+        const typing = "> Olá Visitante";
+        let i = 0;
+        const prompt = document.querySelector('.prompt');
+        const interval = setInterval(() => {
+            prompt.textContent = typing.slice(0, i) + "_";
+            if (++i > typing.length) clearInterval(interval);
+        }, 100);
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const updateEl = document.getElementById('last-update');
+
+            try {
+                const lastMod = new Date(document.lastModified);
+                const day = String(lastMod.getDate()).padStart(2, '0');
+                const month = String(lastMod.getMonth() + 1).padStart(2, '0');
+                const year = lastMod.getFullYear();
+
+                updateEl.textContent = `${day}/${month}/${year}`;
+            } catch (e) {
+                updateEl.textContent = '11/11/2025'; // fallback
+            }
+        });
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
 </body>
 
