@@ -3088,3 +3088,12 @@ p {
         justify-content: center;
     }
 }
+.stat-sublabel {
+    font-size: 0.65rem;
+    color: var(--color-primary);
+    margin-top: 4px;
+    font-family: 'Courier New', monospace;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.8;
+}
