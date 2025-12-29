@@ -3139,3 +3139,568 @@ p {
     letter-spacing: 1px;
     opacity: 0.8;
 }
+/* ========================================
+   CERTIFICATES GALLERY - CYBERPUNK
+   ======================================== */
+.certificate-filters {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 3rem 0 4rem;
+    padding: 1.5rem;
+    background: rgba(20, 20, 30, 0.6);
+    border-radius: 12px;
+    border: 1px solid rgba(57, 255, 20, 0.2);
+}
+
+.cyber-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.8rem 1.5rem;
+    background: rgba(40, 40, 60, 0.8);
+    border: 1px solid rgba(57, 255, 20, 0.3);
+    border-radius: 50px;
+    color: #ccc;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.cyber-chip i {
+    font-size: 1rem;
+}
+
+.cyber-chip .badge {
+    background: var(--neon);
+    color: #000;
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 10px;
+    margin-left: 0.3rem;
+}
+
+.cyber-chip.active,
+.cyber-chip:hover {
+    background: var(--neon);
+    color: #000;
+    border-color: var(--neon);
+    box-shadow: 0 0 20px rgba(57, 255, 20, 0.4);
+    transform: translateY(-2px);
+}
+
+/* Grid de Certificados */
+.certificates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+}
+
+.cert-card {
+    height: 420px;
+    perspective: 1500px;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.cert-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-style: preserve-3d;
+}
+
+.cert-card.flipped .cert-card-inner {
+    transform: rotateY(180deg);
+}
+
+.cert-card-front,
+.cert-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 16px;
+    overflow: hidden;
+    background: rgba(25, 25, 40, 0.9);
+    border: 1px solid rgba(57, 255, 20, 0.2);
+    box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(57, 255, 20, 0.1);
+}
+
+.cert-card-back {
+    transform: rotateY(180deg);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+/* FRONT CARD STYLES */
+.cert-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(57, 255, 20, 0.2);
+    border: 1px solid var(--neon);
+    border-radius: 6px;
+    padding: 0.4rem 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    z-index: 2;
+}
+
+.badge-star {
+    color: var(--neon);
+    animation: pulse 2s infinite;
+}
+
+.badge-text {
+    color: var(--neon);
+    font-weight: 600;
+}
+
+.cert-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem 1.5rem 0;
+    margin-bottom: 1rem;
+}
+
+.cert-icon {
+    width: 50px;
+    height: 50px;
+    background: rgba(57, 255, 20, 0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: var(--neon);
+    border: 1px solid rgba(57, 255, 20, 0.3);
+}
+
+.cert-meta {
+    flex: 1;
+}
+
+.cert-category {
+    display: block;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 0.3rem;
+}
+
+.cert-date {
+    display: block;
+    color: var(--neon);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.cert-title {
+    padding: 0 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.cert-title h3 {
+    color: #fff;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin: 0 0 0.8rem;
+    font-family: 'JetBrains Mono', monospace;
+    line-height: 1.3;
+}
+
+.cert-underline {
+    width: 60px;
+    height: 3px;
+    background: var(--neon);
+    box-shadow: 0 0 10px var(--neon);
+}
+
+.cert-content {
+    padding: 0 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.cert-org {
+    color: #ccc;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.cert-highlights {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.highlight {
+    background: rgba(57, 255, 20, 0.1);
+    border: 1px solid rgba(57, 255, 20, 0.3);
+    color: var(--text-muted);
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.cert-period {
+    color: #aaa;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.cert-hours-big {
+    text-align: center;
+    margin: 1.5rem 0;
+    padding: 0.8rem;
+    background: rgba(57, 255, 20, 0.1);
+    border-radius: 8px;
+    border: 1px dashed var(--neon);
+}
+
+.cert-hours-big i {
+    font-size: 1.2rem;
+    color: var(--neon);
+    margin-right: 0.5rem;
+}
+
+.cert-hours-big span {
+    color: #fff;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.cert-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(20, 20, 30, 0.8);
+}
+
+.cert-verified,
+.cert-palestrante,
+.cert-hours {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.flip-btn {
+    background: transparent;
+    border: 1px solid var(--neon);
+    color: var(--neon);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.flip-btn:hover {
+    background: var(--neon);
+    color: #000;
+    transform: translateY(-2px);
+}
+
+/* BACK CARD STYLES */
+.cert-back-header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(57, 255, 20, 0.3);
+}
+
+.cert-back-header h4 {
+    color: var(--neon);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.cert-back-content {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+
+.cert-detail {
+    margin-bottom: 1.2rem;
+}
+
+.cert-detail label {
+    display: block;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 0.3rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.cert-detail span {
+    display: block;
+    color: #fff;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.content-list,
+.teachers-list,
+.skills-list {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0;
+}
+
+.content-list li,
+.teachers-list span,
+.skills-list span {
+    color: #ccc;
+    font-size: 0.9rem;
+    padding: 0.3rem 0;
+    position: relative;
+    padding-left: 1rem;
+}
+
+.content-list li::before {
+    content: "▸";
+    color: var(--neon);
+    position: absolute;
+    left: 0;
+}
+
+.skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.skills-list span {
+    background: rgba(57, 255, 20, 0.1);
+    border: 1px solid rgba(57, 255, 20, 0.3);
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+}
+
+.verification {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.cert-objective {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: rgba(57, 255, 20, 0.05);
+    border-radius: 8px;
+    border-left: 3px solid var(--neon);
+}
+
+.cert-objective h5 {
+    color: var(--neon);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.cert-objective p {
+    color: #ccc;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.cert-back-actions {
+    display: flex;
+    gap: 0.8rem;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.action-btn {
+    flex: 1;
+    padding: 0.7rem;
+    border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.action-btn.view {
+    background: rgba(0, 123, 255, 0.1);
+    color: #007bff;
+    border: 1px solid #007bff;
+}
+
+.action-btn.download {
+    background: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+    border: 1px solid #28a745;
+}
+
+.action-btn.flip-back {
+    background: rgba(108, 117, 125, 0.1);
+    color: #6c757d;
+    border: 1px solid #6c757d;
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.action-btn.view:hover {
+    background: #007bff;
+    color: #000;
+}
+
+.action-btn.download:hover {
+    background: #28a745;
+    color: #000;
+}
+
+.action-btn.flip-back:hover {
+    background: #6c757d;
+    color: #000;
+}
+
+/* Stats Section */
+.certificates-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+    margin-top: 4rem;
+    padding: 2rem;
+    background: rgba(20, 20, 30, 0.6);
+    border-radius: 16px;
+    border: 1px solid rgba(57, 255, 20, 0.2);
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 20px currentColor;
+}
+
+.stat-value.neon {
+    color: var(--neon);
+}
+
+.stat-label {
+    color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Responsivo */
+@media (max-width: 992px) {
+    .certificates-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .certificates-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .certificate-filters {
+        justify-content: center;
+    }
+    
+    .cyber-chip {
+        padding: 0.6rem 1rem;
+        font-size: 0.75rem;
+    }
+    
+    .cert-card {
+        height: 400px;
+    }
+    
+    .certificates-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .cert-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+    }
+    
+    .cert-icon {
+        margin: 0 auto;
+    }
+    
+    .cert-back-actions {
+        flex-direction: column;
+    }
+    
+    .certificates-stats {
+        grid-template-columns: 1fr;
+    }
+}
