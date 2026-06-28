@@ -402,6 +402,7 @@ footer strong{color:var(--red);}
 @media(max-width:600px){
   .p-half,.p-40,.p-60,.p-35,.p-65{width:100%;}
   .panel-row{flex-direction:column;}
+  .panel-row>.panel,.panel-row>a.panel{width:100% !important;}
   .manga-title{font-size:38px;}
   .chapter-title{font-size:48px;}
   nav{padding:0 16px;}
@@ -412,6 +413,8 @@ footer strong{color:var(--red);}
   .project-grid{grid-template-columns:1fr !important;}
   .manga-page{padding:64px 0 0;}
   .project-modal-title{font-size:32px;}
+  #contactForm{grid-template-columns:1fr !important;}
+  .contact-text{font-size:12px !important;word-break:break-all;}
 }
 @media(min-width:1400px){
   .manga-page{max-width:100%;}
